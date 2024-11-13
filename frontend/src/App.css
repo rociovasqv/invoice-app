@@ -1,42 +1,89 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+
+
+html{
+  box-sizing: border-box;
+}
+* {
+  margin: 0;
+  padding: 0;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.pad{
+  padding-top: 10%;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* * Diseño del navbar */
+
+#navbar {
+  padding: 15px 0;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 9999;
+  background: #fff;
+  box-shadow: 0 0 8px 0px rgba(0, 0, 0, 0.1);
+  transition: all 0.5s linear;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+#navbar .navbar {
+  padding: 0;
+  justify-content: space-between;
+  background: none;
 }
 
-.card {
-  padding: 2em;
+/* #navbar .navbar-brand {
+  color: #f64b4b;
+  text-transform: uppercase;
+  font-weight: 600;
+  height: auto;
+  padding: 0;
+  font-size: 22px;
+  line-height: 1.6;
+} */
+
+#navbar .navbar-collapse {
+  flex-grow: 0;
 }
 
-.read-the-docs {
-  color: #888;
+#navbar .navbar-collapse .navbar-nav {
+  font-size: 14px;
+  line-height: 20px;
 }
+
+#navbar .navbar-collapse a:last-child {
+  padding-right: 0;
+}
+
+#navbar .navbar-collapse a {
+  color: #4d4d4d;
+  position: relative;
+}
+
+#navbar .navbar-collapse a:hover,
+#navbar .navbar-collapse a.active {
+  background: none;
+  color: #2636ea;
+}
+
+#navbar .navbar-collapse a:hover:before,
+#navbar .navbar-collapse a.active:before {
+  right: 7px;
+  left: 8px;
+  opacity: 1;
+}
+
+#navbar .navbar-collapse a:before {
+  content: '';
+  background: #2636ea;
+  height: 1px;
+  position: absolute;
+  bottom: 7px;
+  left: -20px;
+  right: 100%;
+  transition: all 0.3s linear;
+  -webkit-transition: all 0.3s linear;
+  opacity: 0;
+}
+
+/* Diseño de Footer */
