@@ -1,8 +1,10 @@
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
+
 import MicaelaImg from '../imgs/MicaelaAmpuero.jpg';
 import NelsonImg from '../imgs/NelsonJulioCesarAmp.jpg';
 import AylenImg from '../imgs/AylenAmp.jpg';
 import SalomonImg from '../imgs/Salomon.jpg';
+// import '../styles/somos.css'
 
 const QuienesSomos = () => {
     return (

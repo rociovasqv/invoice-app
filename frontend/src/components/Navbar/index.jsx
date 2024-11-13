@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Navbar, Nav, Container, Button } from "react-bootstrap";
+import '../../styles/navbar.css'
 
 const NavbarComp = () => {
 
