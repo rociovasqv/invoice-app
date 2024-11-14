@@ -14,27 +14,28 @@
 }
 
 #navbar .navbar {
+   font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   padding: 0;
   justify-content: space-between;
   background: none;
 }
 
-/* #navbar .navbar-brand {
-  color: #f64b4b;
-  text-transform: uppercase;
-  font-weight: 600;
+#navbar .navbar-brand {
+  color:#2636ea;
   height: auto;
   padding: 0;
   font-size: 22px;
   line-height: 1.6;
-} */
+  font-family: 'Times New Roman', Times, serif;
+  letter-spacing: 1px;
+}
 
 #navbar .navbar-collapse {
   flex-grow: 0;
 }
 
 #navbar .navbar-collapse .navbar-nav {
-  font-size: 14px;
+  font-size: 15px;
   line-height: 20px;
 }
 
@@ -43,7 +44,7 @@
 }
 
 #navbar .navbar-collapse a {
-  color: #4d4d4d;
+  color:#4d4d4d ;
   position: relative;
 }
 
@@ -72,3 +73,10 @@
   -webkit-transition: all 0.3s linear;
   opacity: 0;
 }
+
+.logonav{
+  width: 60px;
+  height: 60px;
+  margin-right: 10px;
+}
+

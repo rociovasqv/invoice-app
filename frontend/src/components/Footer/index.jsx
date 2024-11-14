@@ -1,47 +1,90 @@
-import { Container, Row, Col, Image, Stack} from 'react-bootstrap';
-import instagramLogo from '../../logos/instagram.png';
-import whatsappLogo from '../../logos/whatsapp.png';
-import facebookLogo from '../../logos/facebook.png';
-import logo from '../../logos/logoAmpuero.png'
+import { useState, useEffect } from "react";
+import { Container, Row, Col, Image, Stack } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faInstagram, faWhatsapp, faFacebookF } from '@fortawesome/free-brands-svg-icons';
+import logo from '../../logos/logoAmpuero.png';
+
+import '../../styles/footer.css'
 
 const Footer = () => {
+    const [showTopBtn, setShowTopBtn] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.scrollY > 400) {
+                setShowTopBtn(true);
+            } else {
+                setShowTopBtn(false);
+            }
+        };
+
+        window.addEventListener("scroll", handleScroll);
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, []);
+
+    const goTop = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+        });
+    };
+
     return (
         <footer className="bg-dark text-white text-center py-3">
             <Container fluid>
                 <Row>
-                    <Col className='mx-5'>
-                    <Stack direction='horizontal'>
-                    <Image src={logo} width={100} roundedCircle></Image>
-                    
-
-                    </Stack>
-                    
+                    <Col className='logoFooter mx-5'>
+                        <Stack direction='horizontal'>
+                            <Image src={logo} width={100} roundedCircle alt="Logo Estudio Contable Ampuero" />
+                            <h2>Estudio Contable Ampuero & Asoc.</h2>
+                        </Stack>
                     </Col>
-                    <Col className='mx-5'>
-                    
+                    <Col className='flex-column fs-5'>
+                        <div className='linksFooter'>
+                            <li>
+                            <h5>Nuestros enlaces</h5>
+                                <ul> <a href="#quienes-somos">¿Quiénes somos?</a></ul>
+                                <ul><a href="#servicios">Servicios</a></ul>
+                            </li>
+                            <li>
+                            <h5>Enlaces Externos</h5>
+                                <ul><a href="https://www.afip.gob.ar" target="_blank" rel="noopener noreferrer">ARCA</a></ul>
+                            </li>
+                        </div>
                     </Col>
-                    <Col md-5 m-4>
-                    <h3 id="tituloredes" className="d-lg-inline">Síguenos en:</h3>
-                        <img src={instagramLogo} alt="Instagram" className="mx-2" style={{ width: '30px' }} />
-                        <img src={whatsappLogo} alt="WhatsApp" className="mx-2" style={{ width: '30px' }} />
-                        <img src={facebookLogo} alt="WhatsApp" className="mx-2" style={{ width: '30px' }} />
+                    <Col id="tituloredes" className='m-4'>
+                    <ul>
+                    <h5 className="d-lg pb-3">Síguenos en:</h5>
+                    <li> 
+                        <a href='https://www.instagram.com/estudiocontable_ampuero/' target="_blank" rel="noopener noreferrer" className="mx-2">
+                            <FontAwesomeIcon icon={faInstagram} size="lg" />
+                        </a>
+                    </li>
+                    <li>
+                    <a href='https://wa.me/yourwhatsapplink' target="_blank" rel="noopener noreferrer" className="mx-2">
+                            <FontAwesomeIcon icon={faWhatsapp} size="lg" />
+                        </a>
+                    </li>
+                    <li>
+                    <a href='https://www.facebook.com/yourfacebookpage' target="_blank" rel="noopener noreferrer" className="mx-2">
+                            <FontAwesomeIcon icon={faFacebookF} size="lg" />
+                        </a>
+                    </li>
+                    </ul>
                     </Col>
-
-
                 </Row>
-            <div className="row justify-content-center">
-                    <div className="col-12 col-md-5 m-4">
-                      
-                    </div>
-                </div>
-                <div id='textFooter'>
-                    <small>
-                        <p className="mb-0">Copyright 2024 © <strong>Estudio Contable Ampuero</strong> - Todos los derechos reservados.</p>
-                        <p>Diseñado por grupo 3 - Comisión 4</p>
-                        </small>
-                    
+                <hr/>
+                <div id='textFooter' className="fs-6">
+                    <p className="mb-0">Copyright 2024 © <span style={{ fontWeight: 'bolder' }}>Estudio Contable Ampuero</span> - Todos los derechos reservados.</p>
+                    <p>Diseñado por grupo 3 - Comisión 4</p>
                 </div>
             </Container>
+            {showTopBtn && (<div className="go-top" onClick={goTop}>
+                    ↑
+                </div>
+            )}
         </footer>
     );
 };
