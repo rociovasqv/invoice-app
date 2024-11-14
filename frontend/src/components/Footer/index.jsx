@@ -12,6 +12,7 @@ const Footer = () => {
                     <Col className='mx-5'>
                     <Stack direction='horizontal'>
                     <Image src={logo} width={100} roundedCircle></Image>
+                    
 
                     </Stack>
                     
@@ -24,7 +25,6 @@ const Footer = () => {
                         <img src={instagramLogo} alt="Instagram" className="mx-2" style={{ width: '30px' }} />
                         <img src={whatsappLogo} alt="WhatsApp" className="mx-2" style={{ width: '30px' }} />
                         <img src={facebookLogo} alt="WhatsApp" className="mx-2" style={{ width: '30px' }} />
-                    
                     </Col>
 
 

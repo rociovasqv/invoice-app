@@ -1,0 +1,45 @@
+.teams-block div[class*="col"] {
+    margin: 0 0 50px;
+  }
+  
+  .teams-block .row:last-child {
+    margin: 0 -15px;
+  }
+  
+  .teams-block .image {
+    margin: 0 0 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .teams-block .image img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover; 
+  }
+  
+  .teams-block h3 {
+    margin: 0 0 5px;
+    font-size: 1.25rem;
+  }
+  
+  .teams-block .designation {
+    display: block;
+    font-style: italic;
+    margin: 0 0 20px;
+    font-size: 1rem;
+  }
+  .teaminfo{
+    text-align: justify;
+    margin: 20px;
+  }
+
+  @media (max-width: 576px) {
+    .teams-block .image img {
+      object-fit: cover;
+      height:auto;
+    }
+    .teams-block {
+        padding: 10%;
+    }
+  }
