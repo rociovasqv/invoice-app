@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Navbar, Nav, Container, Button, Image} from "react-bootstrap";
+import { Navbar, Nav, Container, Button, Image } from "react-bootstrap";
 
 import logoAmp from '../../logos/logoAmpNav.png';
 import '../../styles/navbar.css';
@@ -17,14 +17,14 @@ const NavbarComp = () => {
 
     return (
         <Navbar
-        bg="light" data-bs-theme="light"
-        expand="md p-3"
-        fixed="top"
+            bg="light" data-bs-theme="light"
+            expand="md p-3"
+            fixed="top"
         >
             <Container fluid>
                 {/* Logo */}
                 <Navbar.Brand as={Link} to="/">
-                <Image className='logonav' src={logoAmp}></Image>
+                    <Image className='logonav' src={logoAmp}></Image>
                     <span id="logotitle">Estudio Contable Ampuero & Asoc.</span>
                 </Navbar.Brand>
 
@@ -34,11 +34,10 @@ const NavbarComp = () => {
                 {/* Menú colapsable */}
                 <Navbar.Collapse id="menu">
                     <Nav className="ms-auto">
-                        <NavList/>
-                        <Nav to="/login" className="ms-3">
-                        <br/>
-                        <Button variant="outline-primary">Iniciar Sesión</Button>
-                        </Nav>
+                        <NavList />
+                        <Nav.Link as={Link} to="/inicio-sesion" className="ms-3">
+                            <Button variant="outline-primary">Iniciar Sesión</Button>
+                        </Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
             </Container>
