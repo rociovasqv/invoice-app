@@ -28,7 +28,8 @@ const InicioSesion = () => {
       }
     };
     return (
-        <Container className="pad my-5 login-bg">
+        <main className='login-bg'>
+            <Container className="pad my-5 login-card">
             <Card className='shadow-lg p-2 mb-1 bg-white rounded' >
                 <Card.Body>
                     <Row className="justify-content-center">
@@ -75,6 +76,10 @@ const InicioSesion = () => {
                 </Card.Body>
             </Card>  
         </Container>
+
+
+        </main>
+        
     );
 };
 

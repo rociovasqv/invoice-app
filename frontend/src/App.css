@@ -1,16 +1,23 @@
-html{
+*{
   box-sizing: border-box;
 }
-* {
-  margin: 0;
-  padding: 0;
-}
 
+html, body {
+  margin: 0px;
+  padding: 0px;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+}
 .pad{
   padding-top: 10%;
 }
 
 body{
   background-color: #f6f6f6;
-  background-image: none
+}
+
+.container-fluid{
+padding-right: 0;
+padding-left: 0;
 }
