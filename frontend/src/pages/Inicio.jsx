@@ -16,13 +16,7 @@ const Inicio = () => {
     <h1>Bienvenido a la página de inicio</h1>
     <p>Este es el contenido centrado dentro de un contenedor.</p>
 </Container>
-
-
-       </main>
-             
-
-
-      
+       </main>  
     );
 };
 
