@@ -1,6 +1,5 @@
-// src/pages/Inicio.jsx
 import portadaAmp from "../assets/portadaAmp.png";
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import '../styles/inicio.css'
 
 const Inicio = () => {
