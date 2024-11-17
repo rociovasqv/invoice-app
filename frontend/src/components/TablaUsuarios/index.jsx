@@ -1,7 +1,7 @@
-import  {useState } from "react";
+import  {useState, useEffect } from "react";
 import { Table, Button, Container, Spinner, Alert } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-// import "../styles/userList.css";
+import "../styles/userTabla.css";
 
 const UserTable = () => {
     const [usuarios, setUsuarios] = useState([]);
@@ -9,22 +9,22 @@ const UserTable = () => {
     const [error, setError] = useState(null);
     const navigate = useNavigate();
 
-    // useEffect(() => {
-    //     const fetchUsuarios = async () => {
-    //         setLoading(true);
-    //         setError(null);
-    //         try {
-    //             const res = await api.getUsers(); // Llama a tu API para obtener la lista de usuarios
-    //             setUsuarios(res.data);
-    //         } catch (err) {
-    //             setError(err.response?.data?.message || "Error al cargar los usuarios.");
-    //         } finally {
-    //             setLoading(false);
-    //         }
-    //     };
+    useEffect(() => {
+        const fetchUsuarios = async () => {
+            setLoading(true);
+            setError(null);
+            try {
+                const res = await api.getUsers(); // Llama a tu API para obtener la lista de usuarios
+                setUsuarios(res.data);
+            } catch (err) {
+                setError(err.response?.data?.message || "Error al cargar los usuarios.");
+            } finally {
+                setLoading(false);
+            }
+        };
 
-    //     fetchUsuarios();
-    // }, []);
+        fetchUsuarios();
+    }, []);
 
     const handleEdit = (id) => {
         navigate(`/usuarios/editar/${id}`);
@@ -34,7 +34,7 @@ const UserTable = () => {
         if (window.confirm("¿Estás seguro de que quieres eliminar este usuario?")) {
             setLoading(true);
             try {
-                // await api.deleteUser(id); // Llama a tu API para eliminar un usuario
+                await api.deleteUser(id); // Llama a tu API para eliminar un usuario
                 setUsuarios((prev) => prev.filter((user) => user.id !== id));
             } catch (err) {
                 setError(err.response?.data?.message || "Error al eliminar el usuario.");
