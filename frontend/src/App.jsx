@@ -6,9 +6,10 @@ import NavbarComp from "./components/Navbar";
 import Footer from './components/Footer';
 
 import Inicio from "./pages/Inicio";
-import QuienesSomos from "./pages/somos";
-import InicioSesion from "./pages/login";
-
+import QuienesSomos from "./pages/Somos";
+import InicioSesion from "./pages/Login";
+import ServicePage from "./pages/ServicePage";
+import UserForm from "./pages/UserForm";
 // import { AuthProvider } from "./contexts/authContext";
 
 const App = () => {
@@ -21,11 +22,12 @@ const App = () => {
               <Route path="/" element={<Inicio />} />
               <Route path="/quienes-somos" element={<QuienesSomos/>}/>
               <Route path="/inicio-sesion" element={<InicioSesion/>}/>
-              {/* <Route path="/servicios" element={<Servicios/>}/> */}
+              <Route path="/servicios" element={<ServicePage/>}/>
+              <Route path="/user-form" element={<UserForm/>}/>
               {/* <Route path="/Contacto" element={<Contacto/>}/> */}
               {/* Agrega más rutas aquí según sea necesario */}
           </Routes>
-          <Footer />
+          <Footer/>
     </Router>
   );
 };

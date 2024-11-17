@@ -63,12 +63,12 @@ const Footer = () => {
                         </a>
                     </li>
                     <li>
-                    <a href='https://wa.me/yourwhatsapplink' target="_blank" rel="noopener noreferrer" className="mx-2">
+                    <a href='https://api.whatsapp.com/send?phone=%2B543815280077&context=ARCWGN6FECvwAALwH_e1iGsv_H-U03wDq7RZdcTeu7Df_LewZthZiitf9fi_G4yCYO0YIs8FIWaLB9tNewsMSMOGincsL_vpxeILdMhtES6rbGBaVVCjhRZeVJwr1Y8pvCrrNCCjxpRKu6iDo9wCuSmYJA&source=FB_Page&app=facebook&entry_point=page_cta&fbclid=IwZXh0bgNhZW0CMTAAAR2HH1ytHTTpmfYM6TaACkfgZKl0PH0bpGM2o3SyMNAs0psiJMMw1xHncJE_aem_njRRJtdx6dveaIaIZrGYtw' target="_blank" rel="noopener noreferrer" className="mx-2">
                             <FontAwesomeIcon icon={faWhatsapp} size="lg" />
                         </a>
                     </li>
                     <li>
-                    <a href='https://www.facebook.com/yourfacebookpage' target="_blank" rel="noopener noreferrer" className="mx-2">
+                    <a href='https://www.facebook.com/profile.php?id=100092485160037' target="_blank" rel="noopener noreferrer" className="mx-2">
                             <FontAwesomeIcon icon={faFacebookF} size="lg" />
                         </a>
                     </li>

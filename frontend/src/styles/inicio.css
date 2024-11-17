@@ -1,6 +1,127 @@
-.imagenAmp{
-    display: block;
-    padding: 0%;
-    margin: 0%;
-    width: 100%;
+/* Estilo para la imagen de fondo */
+.titleBox {
+    position: relative; /* Necesario para posicionar el texto encima */
+    /* background: #345;
+    height: 6px; */
+    display: flex; /* Para centrar el texto */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #e9e9ee; /* Texto blanco para contraste */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    size: 0px 30px;
+    background-color: rgba(74, 89, 84, 0.668);
+    max-width: 1000px;
+    padding: 2%;
+  }
+  /* Título */
+  .title {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6); /* Sombra para legibilidad */
+    display: flex;
+  }
+  
+  /* Subtítulo */
+  .subtitleInicio {
+    font-size: 1.5rem;
+    font-weight: 300;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6); /* Sombra para legibilidad */
+    display: flex;
+  }
+  
+/* Sobre nosotros ------------------------------------------------------------------------------------------------------- */
+  .sobreNosotros {
+    display: flex;
+    align-items: stretch;
+    min-height: 400px;
+    padding-bottom: 3%;
+  }
+  .logoAmpShow{
+    width: 10rem;
+  }
+  .parrafoInicio>h2{
+    padding: 3%;
+  }
+
+.parrafoInicio {
+    background-color: rgba(255, 255, 255, 0.9); 
+    padding: 2% 5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: justify;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+  }
+
+
+  /* Media Queries---------------------------------------------------------------------------------------------------- */
+@media (max-width: 1200px) {
+    .imagenAmp{
+        padding-top: 10%;
+    }
+    .titleBox {
+        width: 80%; /* Ajustar el ancho en pantallas medianas */
+        padding: 4%; /* Ajustar el padding en pantallas medianas */
+    }
+
+    .title {
+        font-size: 2rem; /* Reducir tamaño de fuente para pantallas medianas */
+    }
+
+    .subtitleInicio {
+        font-size: 1.2rem; /* Reducir tamaño de subtítulo para pantallas medianas */
+    }
 }
+
+@media (max-width: 768px) {
+    .imagenAmp{
+        padding-top: 14%;
+    }
+
+    .titleBox {
+        width: 85%; /* Aumentar el ancho para pantallas pequeñas */
+        padding: 4%; /* Aumentar el padding en pantallas pequeñas */
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%,-20%);
+    }
+
+    .title {
+        font-size: 1.8rem; /* Ajustar tamaño de fuente para pantallas pequeñas */
+    }
+
+    .subtitleInicio {
+        font-size: 1rem; /* Ajustar tamaño de subtítulo para pantallas pequeñas */
+    }
+}
+
+@media (max-width: 480px) {
+    .imagenAmp{
+        padding-top: 25%;
+    }
+  .titleBox {
+    width: 70%; /* Asegura que el contenido tenga margen en pantallas extra pequeñas */
+    padding: 8%; /* Aumenta el padding en pantallas muy pequeñas */
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%,-10%);
+  }
+
+  .title {
+  font-size: 1.5rem; /* Ajusta el tamaño para pantallas muy pequeñas */
+  }
+
+  .subtitleInicio {
+
+    font-size: 1.0rem; /* Ajusta el subtítulo en pantallas pequeñas */
+  }
+}
+
+
+  
