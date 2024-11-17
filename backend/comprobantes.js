@@ -1,10 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const app = express();
 const connection = require('./database/connection');
 
 // Endpoint para cargar un comprobante
-app.post('/facturas', (req, res) => {
+router.post('/facturas', (req, res) => {
   const {
     id_cliente,
     id_subcliente,
@@ -51,20 +50,20 @@ app.post('/facturas', (req, res) => {
 });
 
 // Endpoint para obtener la lista de facturas
-app.get('/facturas', (req, res) => {
-    const query = 'SELECT * FROM facturas';
-  
-    connection.query(query, (err, results) => {
-      if (err) {
-        console.error('Error al obtener las facturas:', err);
-        return res.status(500).json({ error: 'Error al obtener las facturas' });
-      }
-      res.json(results);
-    });
-  });
+router.get('/facturas', (req, res) => {
+  const query = 'SELECT * FROM facturas';
 
-  // Endpoint para eliminar una factura por id
-app.delete('/facturas/:id', (req, res) => {
+  connection.query(query, (err, results) => {
+    if (err) {
+      console.error('Error al obtener las facturas:', err);
+      return res.status(500).json({ error: 'Error al obtener las facturas' });
+    }
+    res.json(results);
+  });
+});
+
+// Endpoint para eliminar una factura por id
+router.delete('/facturas/:id', (req, res) => {
   const { id } = req.params;
 
   const query = 'DELETE FROM facturas WHERE id_factura = ?';
