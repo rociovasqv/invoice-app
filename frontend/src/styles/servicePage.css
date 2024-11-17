@@ -1,0 +1,19 @@
+/* Estilo general de la página de servicios */
+.service-page {
+    display: flex;
+    flex-direction: column;
+    min-height: 90vh;
+    position: relative;
+}
+
+
+/* Fondo lateral en el lado izquierdo */
+.service-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 20%;
+    height: 500px;
+}
+
+

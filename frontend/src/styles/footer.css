@@ -1,0 +1,110 @@
+footer {
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    background-color: #343a40;
+    color: white;
+    text-align: center;
+    padding: 50px 0;
+}
+
+/* Primera columna */
+.logoFooter{
+    font-family: 'Times New Roman', Times, serif;
+    display: flex;
+    align-content: space-between;
+}
+/* Segunda Columna */
+.linksFooter{
+    list-style-type: none;
+    text-align: start;
+    padding-left: 20%;
+    font-size: medium;
+}
+.linksFooter h5 {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-top: 1rem;
+    text-transform: uppercase;
+    text-shadow: #87d8ec 2px 2px 2px 2px;
+    font-size: medium;
+}
+
+footer .linksFooter li {
+    color: #f6f6f6; 
+    border-radius: 100%;
+}
+
+footer .linksFooter a:hover {
+    color:#2636ea;
+}
+.linksFooter a{
+    text-decoration: none;
+    color: #8C8C8C;
+}
+
+/* Flecha para volver al inicio */
+.go-top {
+    cursor: pointer;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background:#2636ea;
+    color:#f6f6f6;
+    padding: 1em;
+    border-radius: 100%;
+    display: flex;
+    align-items:center ;
+    justify-content: center;
+}
+
+/* Tercera columna - Redes sociales */
+#tituloredes h5{
+    font-size: medium;
+}
+#tituloredes li{
+    display: inline-block;
+    vertical-align: top;
+    padding: 0 2px;
+}
+
+#tituloredes ul{
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
+#tituloredes a {
+    width: 35px;
+    height: 35px;
+    background:#f6f6f6;
+    color: #2636ea;
+    border-radius: 50%;
+    display: block;
+    text-align: center;
+    padding: 5px;
+    transition: background 0.3s linear, color 0.3s linear;
+    -webkit-transition: background 0.3s linear, color 0.3s linear;
+}
+#tituloredes a:hover{
+    background: #2636ea;
+    color: #fff;
+}
+.fab{
+    line-height: 2px;
+}
+
+#textFooter p {
+    font-size: smaller;
+    color: #beb0b0;
+}
+
+hr{
+    width: 70%;
+    border: 1px solid #e9eaf2dd;
+    color: black;
+    padding: 0;
+    justify-self: center;
+    /* Con efecto de luz/neon */
+    /* 
+    border: 1px solid #2636ea;
+    box-shadow: 0 0 5px #0062ff;
+    animation: glow 1.5s ease-in-out infinite;
+    -webkit-animation: glow 1.5s ease-in-out infinite;*/
+}
