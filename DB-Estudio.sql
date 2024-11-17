@@ -60,11 +60,18 @@ CREATE TABLE facturas (
     tipo_factura ENUM('Venta', 'Compra') NOT NULL,
     FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente) ON DELETE CASCADE,
     FOREIGN KEY (id_subcliente) REFERENCES subclientes(id_subcliente) ON DELETE SET NULL,
-    FOREIGN KEY (id_proveedor) REFERENCES proveedores(id_proveedor) ON DELETE SET NULL,+
+    FOREIGN KEY (id_proveedor) REFERENCES proveedores(id_proveedor) ON DELETE SET NULL,
     disponibleP bool default 1
 );
 
-INSERT INTO Usuarios ()
+INSERT INTO roles(nombre)
+values('contador'),
+('empleado');
+
+INSERT INTO Usuarios (nombre,password,rol_id) 
+values ('contador','1234',1),
+('empleado','1234',2);
+
 
 -- Insertar un cliente Monotributista
 INSERT INTO clientes (razon_social, cuit, condicion_iva, domicilio_fiscal) 
