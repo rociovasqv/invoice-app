@@ -12,8 +12,8 @@ const login = async (req,res) => {
     const nombre = req.body.nombre;
     const password = req.body.password;
 
-    const query = `SELECT * FROM Usuarios WHERE nombre = ?`;
-    conection.query (query [nombre] , (err, results)=>{
+    const query = `SELECT * FROM Usuarios WHERE nombre = ?`
+    conection.query (query , [nombre] , (err, results)=>{
         if (err) {
             return res.status(500).json({ error: err });
         }
