@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { Navbar, Nav, Container, Button, Image } from "react-bootstrap";
 
 import logoAmp from '../../logos/logoAmpNav.png';
-import '../../styles/navbar.css';
+import 'D:/Documents/UTN/Tecnicatura/Metologia/Proyecto Final/frontend/src/styles/navbar.css';
 
 const NavbarComp = () => {
 

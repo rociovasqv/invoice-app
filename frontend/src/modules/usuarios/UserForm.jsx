@@ -1,6 +1,6 @@
 import { Container, Form, Button, Row, Col, Card, Alert } from 'react-bootstrap';
 import useUsuario from '../../hooks/useUsuario';
-import '../styles/userForm.css';
+import 'D:/Documents/UTN/Tecnicatura/Metologia/Proyecto Final/frontend/src/styles/userForm.css';
 
 const UserForm = () => {
     const {
