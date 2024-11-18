@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Table, Button, Container, Spinner, Alert, Form, Row, Col } from "react-bootstrap";
-import api from "../api"; // Archivo para manejar las peticiones al backend
-import "../styles/facturaTabla.css";
+// import api from "../api"; // Archivo para manejar las peticiones al backend
+import "D:/Documents/UTN/Tecnicatura/Metologia/Proyecto Final/frontend/src/styles/facturaTabla.css";
 
 const TablaFactura = () => {
     const [facturas, setFacturas] = useState([]);
