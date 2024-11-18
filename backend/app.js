@@ -1,15 +1,17 @@
 const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const rutas = require('./routes');
+
+require('dotenv').config();
+
 const app = express();
-const connection = require('./database/connection');
+app.use(bodyParser.json());
+app.use(cors());
+app.use('/api', rutas);
 
-// Importar los routers de comprobantes
-const comprobantesRoutes = require('./comprobantes');
+const PORT = process.env.PORT || 3000;
 
-app.use(express.json());
-
-app.use('/api/comprobantes', comprobantesRoutes);
-
-const PORT = 3000;
 app.listen(PORT, () => {
-  console.log(`Servidor corriendo en el puerto ${PORT}`);
+    console.log(`Servidor corriendo en el puerto ${PORT}`);
 });
