@@ -1,9 +1,11 @@
-const express = require ("express")
+const express = require("express");
 const {conection} = require("./config/DB")
 const cors = require("cors")
 const bodyParser = require('body-parser')
 
 const Usuarios = require ("./routes/UsuariosRoutes")
+const Clientes = require("./routes/ClienteRoutes")
+const Facturas = require ("./routes/FacturaRoutes")
 
 const app = express();
 
@@ -16,6 +18,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true })); 
 
 app.use("/",Usuarios)
+app.use("/",Clientes)
+app.use("/",Facturas)
 
 app.get("/",(req,res)=>{
     console.log("Bienvenido");
