@@ -1,4 +1,4 @@
-const express = require ("express")
+const express = require("express");
 const {conection} = require("./config/DB")
 const cors = require("cors")
 const bodyParser = require('body-parser')
