@@ -1,5 +1,5 @@
 const {conection} = require("../config/DB")
-const bcrypt = require ('bcrypt')
+// const bcrypt = require ('bcrypt')
 
 const AllUsers = async (req,res) => {
     const query = `Select * from Usuarios where disponibleU = 1`
@@ -8,30 +8,30 @@ const AllUsers = async (req,res) => {
         res.json(results)
     })
 }
-const register = async (req,res)=>{
-    const {nombre,password} = req.body;
+// const register = async (req,res)=>{
+//     const {nombre,password} = req.body;
 
-    try {
-        const hashedPassword = await bcrypt.hash(password,10);
+//     try {
+//         const hashedPassword = await bcrypt.hash(password, 10);
 
-        const query = `insert into Usuarios(nombre,password) values ('${nombre}','${password}')`;
-        conection.query(query, [nombre,hashedPassword] , ()=> {
-            if (err) {
-                return res.status(500).json ({error: err})
-            }
-            res.status(201).json({message: 'Usuario registrado'})
-        })
-    } catch (error) {
-        res.status(500).json({error:'Error al registrar usuario'})
-    }
-}
+//         const query = `insert into Usuarios(nombre,password) values ('${nombre}','${hashedPassword}')`;
+//         conection.query(query,(err,result)=> {
+//             if (err) {
+//                 return res.status(500).json ({error: err})
+//             }
+//             res.status(201).json({message: 'Usuario registrado'})
+//         })
+//     } catch (err) {
+//         res.status(500).json({error:'Error al registrar usuario'})
+//     }
+// }
 
 const login = async (req,res) => {
     const nombre = req.body.nombre;
     const password = req.body.password;
 
-    const query = `SELECT * FROM Usuarios WHERE nombre = ?`
-    conection.query (query , [nombre] , async (err, results)=>{
+    const query = `SELECT * FROM Usuarios WHERE nombre = '${nombre}'`
+    conection.query (query , async (err, results)=>{
         if (err) {
             return res.status(500).json({ error: err });
         }
@@ -57,4 +57,4 @@ const login = async (req,res) => {
     })
 }
 
-module.exports = {AllUsers,login,register}
+module.exports = {AllUsers,login}
