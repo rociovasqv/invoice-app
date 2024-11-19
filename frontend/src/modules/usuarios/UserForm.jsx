@@ -1,6 +1,6 @@
 import { Container, Form, Button, Row, Col, Card, Alert } from 'react-bootstrap';
 import useUsuario from '../../hooks/useUsuario';
-import 'D:/Documents/UTN/Tecnicatura/Metologia/Proyecto Final/frontend/src/styles/userForm.css';
+import '../../styles/userForm.css'
 
 const UserForm = () => {
     const {
@@ -72,7 +72,7 @@ const UserForm = () => {
                                         <Form.Control
                                             placeholder="Ingresa el rol"
                                             value={usuario.rol}
-                                            onChange={actualizarUsuario} //Aquí modificar de acuerdo a los roles diseñados para los usuarios según la lógica del backend
+                                            onChange={actualizarUsuario}
                                             required/>
                                             <br/>
                                     </Form.Group>

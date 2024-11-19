@@ -1,7 +1,7 @@
 import { Container } from "react-bootstrap";
 import TablaFactura from "../components/TablaFacturas";
 
-const Informes = ()=>
+const FacturasPage = ()=>
 {
     return(
         <Container fluid>
@@ -9,4 +9,4 @@ const Informes = ()=>
         </Container>
     )
 }
-export default Informes;
+export default FacturasPage;

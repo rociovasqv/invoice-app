@@ -1,7 +1,8 @@
 import  {useState, useEffect } from "react";
 import { Table, Button, Container, Spinner, Alert } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import "D:/Documents/UTN/Tecnicatura/Metologia/Proyecto Final/frontend/src/styles/userTabla.css";
+import UsuarioService from "../../api/users";
+import "../../styles/userTabla.css";
 
 const UserTable = () => {
     const [usuarios, setUsuarios] = useState([]);
@@ -14,7 +15,7 @@ const UserTable = () => {
             setLoading(true);
             setError(null);
             try {
-                const res = await api.getUsers(); // Llama a tu API para obtener la lista de usuarios
+                const res = await UsuarioService.getAllUsers();
                 setUsuarios(res.data);
             } catch (err) {
                 setError(err.response?.data?.message || "Error al cargar los usuarios.");
@@ -34,7 +35,7 @@ const UserTable = () => {
         if (window.confirm("¿Estás seguro de que quieres eliminar este usuario?")) {
             setLoading(true);
             try {
-                await api.deleteUser(id); // Llama a tu API para eliminar un usuario
+                await UsuarioService.deleteUser(id);
                 setUsuarios((prev) => prev.filter((user) => user.id !== id));
             } catch (err) {
                 setError(err.response?.data?.message || "Error al eliminar el usuario.");

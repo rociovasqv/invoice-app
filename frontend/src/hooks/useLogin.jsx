@@ -1,5 +1,9 @@
 import { useState } from "react";
+// import UsuarioService from "../api/users";
 // import { Navigate } from "react-router-dom";
+// o useNavigate
+
+// const navigate = Navigate()
 
 const useLogin = () => {
     const [email, setEmail] = useState("");
@@ -25,11 +29,11 @@ const useLogin = () => {
         if (!password.trim())
           throw new Error("Es obligatorio rellenar el campo de contraseña");
   
-        // const response = await UserService.login({ email, password });
+        // const response = await UsuarioService.login({ email, password });
         // setUser(response.data);
-        // setIsAuthenticated(true);
+        // // setIsAuthenticated(true);
         // localStorage.setItem("user", JSON.stringify(response.data));
-        // navigate("/");
+        // navigate("/dashboard");
         
       } catch (err) {
         console.log(err);

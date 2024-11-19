@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Table, Button, Container, Spinner, Alert, Form, Row, Col } from "react-bootstrap";
-// import api from "../api"; // Archivo para manejar las peticiones al backend
-import "D:/Documents/UTN/Tecnicatura/Metologia/Proyecto Final/frontend/src/styles/facturaTabla.css";
+import FacturaService from "../../api/facturas";
+import "../../styles/facturaTabla.css";
 
 const TablaFactura = () => {
     const [facturas, setFacturas] = useState([]);
@@ -15,7 +15,7 @@ const TablaFactura = () => {
             setLoading(true);
             setError(null);
             try {
-                const res = await api.getInvoices(); // Petición para obtener las facturas
+                const res = await FacturaService.getAllInvoices(); // Petición para obtener las facturas
                 setFacturas(res.data);
                 setFilteredFacturas(res.data);
             } catch (err) {
