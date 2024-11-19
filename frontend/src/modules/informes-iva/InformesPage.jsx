@@ -1,12 +1,12 @@
 import { Container } from "react-bootstrap";
-import InformeIvaComp from '../components/GenerarInformeIVA';
+import InformeIvaComp from "../../components/GenerarInformeIVA";
 
 
 const InformesPage = ()=>
 {
     return(
         <Container fluid>
-         <InformeIvaComp/>
+         <InformeIvaComp />
         </Container>
     )
 }
