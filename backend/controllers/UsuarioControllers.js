@@ -8,6 +8,23 @@ const AllUsers = async (req,res) => {
         res.json(results)
     })
 }
+const register = async (req,res)=>{
+    const {nombre,password} = req.body;
+
+    try {
+        const hashedPassword = await bcrypt.hash(password,10);
+
+        const query = `insert into Usuarios(nombre,password) values ('${nombre}','${password}')`;
+        conection.query(query, [nombre,hashedPassword] , ()=> {
+            if (err) {
+                return res.status(500).json ({error: err})
+            }
+            res.status(201).json({message: 'Usuario registrado'})
+        })
+    } catch (error) {
+        res.status(500).json({error:'Error al registrar usuario'})
+    }
+}
 
 const login = async (req,res) => {
     const nombre = req.body.nombre;
@@ -40,4 +57,4 @@ const login = async (req,res) => {
     })
 }
 
-module.exports = {AllUsers,login}
+module.exports = {AllUsers,login,register}

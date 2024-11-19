@@ -69,8 +69,8 @@ values('contador'),
 ('empleado');
 
 INSERT INTO Usuarios (nombre,password,rol_id) 
-values ('contador','1234',1),
-('empleado','1234',2);
+values ('contador@email.com','1234',1),
+('empleado@email.com','1234',2);
 
 
 -- Insertar un cliente Monotributista
