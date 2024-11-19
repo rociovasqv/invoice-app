@@ -12,16 +12,16 @@ const register = async (req,res)=>{
     const {nombre,password} = req.body;
 
     try {
-        const hashedPassword = await bcrypt.hash(password,10);
+        const hashedPassword = await bcrypt.hash(password, 10);
 
-        const query = `insert into Usuarios(nombre,password) values ('${nombre}','${password}')`;
-        conection.query(query, [nombre,hashedPassword] , ()=> {
+        const query = `insert into Usuarios(nombre,password) values ('${nombre}','${hashedPassword}')`;
+        conection.query(query,(err,result)=> {
             if (err) {
                 return res.status(500).json ({error: err})
             }
             res.status(201).json({message: 'Usuario registrado'})
         })
-    } catch (error) {
+    } catch (err) {
         res.status(500).json({error:'Error al registrar usuario'})
     }
 }
@@ -30,8 +30,8 @@ const login = async (req,res) => {
     const nombre = req.body.nombre;
     const password = req.body.password;
 
-    const query = `SELECT * FROM Usuarios WHERE nombre = ?`
-    conection.query (query , [nombre] , async (err, results)=>{
+    const query = `SELECT * FROM Usuarios WHERE nombre = '${nombre}'`
+    conection.query (query , async (err, results)=>{
         if (err) {
             return res.status(500).json({ error: err });
         }
@@ -43,9 +43,9 @@ const login = async (req,res) => {
         const usuario = results[0];
         try{
 
-            // const coincide = await bcrypt.compare(password, usuario.password)
+            const coincide = await bcrypt.compare(password, usuario.password)
 
-            if (password == usuario.password) {
+            if (coincide) {
                 res.status(200).json({ message: 'Inicio de sesión exitoso' });
             } else {
                 res.status(401).json({ message: 'Usuario o contraseña erroneo' });
