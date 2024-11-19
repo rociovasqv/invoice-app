@@ -9,7 +9,7 @@ const listarClientes = async (req,res) => {
 }
 const buscarClientes = (req,res)=>{
     const id = req.params.id
-    const query = `select * from clientes where idCliente='${id}'`
+    const query = `select * from clientes where id_cliente='${id}'`
     conection.query(query,(err,results)=>{
         if (err) throw err;
         res.json(results)

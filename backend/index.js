@@ -6,6 +6,8 @@ const bodyParser = require('body-parser')
 const Usuarios = require ("./routes/UsuariosRoutes")
 const Clientes = require("./routes/ClienteRoutes")
 const Facturas = require ("./routes/FacturaRoutes")
+const SubClientes = require("./routes/SubClienteRoutes")
+const Proveedores = require("./routes/ProveedoresRoutes")
 
 const app = express();
 
@@ -20,6 +22,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/",Usuarios)
 app.use("/",Clientes)
 app.use("/",Facturas)
+app.use("/",Proveedores)
+app.use("/",SubClientes)
 
 app.get("/",(req,res)=>{
     console.log("Bienvenido");
