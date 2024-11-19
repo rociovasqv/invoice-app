@@ -1,7 +1,7 @@
 import { Container, Row, Col, Card } from "react-bootstrap";
 import { FaUserTie, FaCalculator, FaFileInvoice, FaChartLine } from "react-icons/fa";
 
-import 'D:/Documents/UTN/Tecnicatura/Metologia/Proyecto Final/frontend/src/styles/serviciosSection.css';
+import '../../styles/serviciosSection.css';
 
 // Array de datos para las cartas
 const valores = [

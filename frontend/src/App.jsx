@@ -7,11 +7,12 @@ import Footer from './components/Footer';
 
 import Inicio from "./pages/Inicio";
 import QuienesSomos from "./pages/Somos";
-import InicioSesion from "./pages/Login";
+import InicioSesion from "./pages/login";
 import ServicePage from "./pages/ServicePage";
 import UserForm from "./modules/usuarios/UserForm";
 import Usuarios from "./modules/usuarios/Usuarios";
-import Informes from "./pages/Informes";
+import InformesPage from "./pages/InformesPage";
+import FacturasPage from "./pages/FacturasPage";
 import Dashboard from "./pages/Dashboard";
 // import { AuthProvider } from "./contexts/authContext";
 
@@ -28,8 +29,9 @@ const App = () => {
               <Route path="/servicios" element={<ServicePage/>}/>
               <Route path="/usuarios" element={<Usuarios/>}/>
               <Route path="/usuarios/crear" element={<UserForm/>}/>
-              <Route path="/informes" element={<Informes/>}/>
-              <Route path="/inicio-user" element={<Dashboard/>}/>
+              <Route path="/dashboard" element={<Dashboard/>}/>
+              <Route path="/informes" element={<InformesPage/>}/>
+              <Route path="/facturas" element={<FacturasPage/>}/>
               {/* <Route path="/usuarios/crear" element={<UserForm isEdit={false} />} /> */}
               {/* <Route path="/usuarios/editar/:id" element={<UserForm isEdit={true} />} /> */}
               {/* <Route path="/Contacto" element={<Contacto/>}/> */}

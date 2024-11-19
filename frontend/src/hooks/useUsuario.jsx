@@ -1,8 +1,7 @@
 
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-
-const api = 0 //Es para evitar errores y pueda visualizar el frontend, pero en ese caso de la api tiene que vincular con el backend con una api real
+import UsuarioService from "../api/users";
 
 const useUsuario = ({isEdit = true}) =>
 {
@@ -25,7 +24,7 @@ useEffect( () => {
         {
             setLoading(true);
             try{
-                const res = api.getUserById(id);
+                const res = UsuarioService.getUserById(id);
                 setUsuario(res.data);
                 setLoading(false);
             }
@@ -49,7 +48,7 @@ const handleSubmitUser = async (e) => {
     try{
         if (isEdit){
             const {...restUsuario} = usuario;
-            await api.updateUser(id, restUsuario);
+            await UsuarioService.updateUser(id, restUsuario);
         }else{
             const formData = new formData();
             const data = {
@@ -60,7 +59,7 @@ const handleSubmitUser = async (e) => {
                 rol: usuario.rol,
             };
             formData.append("data", JSON.stringify(data))
-            await api.createUser(formData);
+            await UsuarioService.createUser(formData);
         }
         navigate("/usuarios");
     }

@@ -1,19 +1,28 @@
-import axios from "axios";
+import { jsonInstance } from "./http";
 
-const api = axios.create({
-    baseURL: "http://localhost:5000/api", // Reemplaza con la URL de tu backend
-});
+const baseUrl = "/usuarios";
+const http = jsonInstance;
 
-export const getUsers = () => api.get("/usuarios");
-export const getUserById = (id) => api.get(`/usuarios/${id}`);
-export const createUser = (data) => api.post("/usuarios", data);
-export const updateUser = (id, data) => api.put(`/usuarios/${id}`, data);
-export const deleteUser = (id) => api.delete(`/usuarios/${id}`);
+class UsuarioService {
+  async createUser(data) {
+    return await http.post(`${baseUrl}`, data);
+  }
 
-export default {
-    getUsers,
-    getUserById,
-    createUser,
-    updateUser,
-    deleteUser,
-};
+  async getUserById(id) {
+    return await http.get(`${baseUrl}/${id}`);
+  }
+
+  async getAllUsers() {
+    return await http.get(`${baseUrl}`);
+  }
+
+  async updateUser(id, data) {
+    return await http.put(`${baseUrl}/${id}`, data);
+  }
+
+  async deleteUser(id) {
+    return await http.delete(`${baseUrl}/${id}`);
+  }
+}
+
+export default new UsuarioService();
