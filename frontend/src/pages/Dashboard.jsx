@@ -9,6 +9,7 @@ const Dashboard = () => {
     { title: "Carga de Comprobantes", icon: "📄", description: "Simplifica la carga de comprobantes.", path: "/comprobantes" },
     { title: "Informes Impositivos", icon: "📊", description: "Genera informes de impuestos automáticamente.", path: "/informes" },
     { title: "Usuarios y Seguridad", icon: "🔒", description: "Administra roles y permisos.", path: "/usuarios" },
+    { title: "Clientes", icon: "👤", description: "Administra clientes.", path: "/clientes" },
   ];
   return (
     <Container fluid className="pad dashboard-container">

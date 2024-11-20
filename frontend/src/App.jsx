@@ -50,7 +50,7 @@ const App = () => {
               <Route path="/informes" element={<InformesPage/>}/>
               <Route path="/clientes" element={<ClientesPage/>}/>
               <Route path="/registrar-cliente" element={<ClienteForm />} />
-              <Route path="/editar-cliente/:id" element={<ClienteForm clienteInicial={cliente}/>}/>
+              {/* <Route path="/editar-cliente/:id" element={<ClienteForm clienteInicial={cliente}/>}/> */}
               <Route path="/usuarios/crear" element={<UserForm isEdit={false} />} />
               <Route path="/usuarios/editar/:id" element={<UserForm isEdit={true} />} />
               {/* Agrega más rutas aquí según sea necesario */}
