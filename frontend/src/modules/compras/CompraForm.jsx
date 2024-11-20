@@ -1,7 +1,7 @@
 import { Form, Button, Container, Row, Col, Alert, Spinner } from "react-bootstrap";
-import useFacturaForm from "../../hooks/useFacturaForm";
+import useCompraForm from '../../hooks/useCompraForm';
 
-const FacturaForm = () => {
+const CompraForm = () => {
 
     const {
         formData,
@@ -11,26 +11,26 @@ const FacturaForm = () => {
         handleChange,
         calcularTotal,
         handleSubmit,
-      } = useFacturaForm();
+      } = useCompraForm()
   
 
   return (
-    <Container className="my-5">
-      <h2 className="text-center mb-4">Registrar Factura</h2>
+    <Container className="pad my-5 mt-1">
+      <h2 className="text-center mb-4">Registrar factura de compra</h2>
       {successMessage && <Alert variant="success">{successMessage}</Alert>}
       {error && <Alert variant="danger">{error}</Alert>}
 
       <Form onSubmit={handleSubmit}>
-        <Row className="mb-3">
+        {/* <Row className="mb-3">
           <Col md={6}>
             <Form.Group>
-              <Form.Label>Cliente</Form.Label>
+              <Form.Label>ID</Form.Label>
               <Form.Control
-                type="text"
-                name="id_cliente"
-                value={formData.id_cliente}
+                type="number"
+                name="id_proveedor"
+                value={formData.id_proveedor}
                 onChange={handleChange}
-                placeholder="ID del cliente"
+                placeholder="ID del proveedor"
                 required
               />
             </Form.Group>
@@ -47,34 +47,9 @@ const FacturaForm = () => {
               />
             </Form.Group>
           </Col>
-        </Row>
-
+        </Row> */}
         <Row className="mb-3">
-          <Col md={6}>
-            <Form.Group>
-              <Form.Label>Proveedor</Form.Label>
-              <Form.Control
-                type="text"
-                name="id_proveedor"
-                value={formData.id_proveedor}
-                onChange={handleChange}
-                placeholder="ID del proveedor"
-              />
-            </Form.Group>
-          </Col>
-          <Col md={6}>
-            <Form.Group>
-              <Form.Label>Tipo de Factura</Form.Label>
-              <Form.Select name="tipo" value={formData.tipo} onChange={handleChange}>
-                <option value="compra">Compra</option>
-                <option value="venta">Venta</option>
-              </Form.Select>
-            </Form.Group>
-          </Col>
-        </Row>
-
-        <Row className="mb-3">
-          <Col md={6}>
+          <Col md={4}>
             <Form.Group>
               <Form.Label>Número de Factura</Form.Label>
               <Form.Control
@@ -87,8 +62,8 @@ const FacturaForm = () => {
               />
             </Form.Group>
           </Col>
-          <Col md={6}>
-            <Form.Group>
+          <Col md={4}>
+          <Form.Group>
               <Form.Label>Fecha de Factura</Form.Label>
               <Form.Control
                 type="date"
@@ -96,6 +71,43 @@ const FacturaForm = () => {
                 value={formData.fecha_factura}
                 onChange={handleChange}
                 required
+              />
+            </Form.Group>
+          </Col>
+          <Col md={4}>
+          <Form.Group>
+              <Form.Label>Tipo de Factura</Form.Label>
+              <Form.Select name="tipo" value={formData.tipo} onChange={handleChange}>
+                <option value="compra">A</option>
+                <option value="venta">B</option>
+                <option value="venta">C</option>
+                <option value="venta">E</option>
+              </Form.Select>
+            </Form.Group>
+          </Col>
+        </Row>
+        <Row className="mb-3">
+          <Col md={6}>
+            <Form.Group>
+              <Form.Label>Proveedor</Form.Label>
+              <Form.Control
+                type="text"
+                name="proveedor"
+                value={formData.nombre_proveedor}
+                onChange={handleChange}
+                placeholder="Nombre del proveedor"
+              />
+            </Form.Group>
+          </Col>
+          <Col md={6}>
+            <Form.Group>
+              <Form.Label>CUIT del proveedor</Form.Label>
+              <Form.Control
+                type="number"
+                name="cuit"
+                value={formData.cuit}
+                onChange={handleChange}
+                placeholder="CUIT del proveedor"
               />
             </Form.Group>
           </Col>
@@ -142,16 +154,19 @@ const FacturaForm = () => {
             </Form.Group>
           </Col>
         </Row>
+        <Row className="mb-3">
+      
+        </Row>
 
         <Button type="submit" variant="primary" disabled={isSubmit}>
-          {isSubmit ? <Spinner animation="border" size="sm" /> : "Registrar Factura"}
+          {isSubmit ? <Spinner animation="border" size="sm" /> : "Registrar"}
         </Button>
       </Form>
     </Container>
   );
 };
 
-export default FacturaForm;
+export default CompraForm;
 
 // Estilo de formulario con los items incluidos
 

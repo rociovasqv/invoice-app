@@ -11,7 +11,7 @@ const NavbarComp = () => {
             <Nav.Link as={Link} to="/" className='' aria-current="page">Inicio</Nav.Link>
             <Nav.Link as={Link} to="/quienes-somos" className="">¿Quiénes somos?</Nav.Link>
             <Nav.Link as={Link} to="/servicios" className="">Servicios</Nav.Link>
-            <Nav.Link as={Link} to="/contact" className="">Contacto</Nav.Link>
+            <Nav.Link as={Link} to="/contacto" className="">Contacto</Nav.Link>
         </>
     );
 

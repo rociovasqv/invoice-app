@@ -1,6 +1,7 @@
 CREATE DATABASE Ampuero;
 USE Ampuero;
 
+
 -- Tabla de Roles
 CREATE TABLE roles (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -173,3 +174,4 @@ SELECT f.id_factura, f.nro_factura, f.fecha_factura, f.importe_neto, f.importe_i
 FROM facturas f
 JOIN subclientes s ON f.id_subcliente = s.id_subcliente
 WHERE f.id_cliente = 2 AND f.tipo_factura = 'Venta';
+

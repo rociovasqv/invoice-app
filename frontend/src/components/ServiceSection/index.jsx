@@ -30,6 +30,6 @@ const ServiceSection = () => (
       ))}
     </Row>
   </Container>
-);
+)
 
 export default ServiceSection;
