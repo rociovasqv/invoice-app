@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import axios from "axios"; // Importa axios
 
 import NavbarComp from "./components/Navbar";
 import Footer from './components/Footer';
@@ -26,7 +27,10 @@ import ClienteForm from "./modules/clientes/ClienteForm";
 import InformesPage from "./modules/informes-iva/InformesPage";
 
 import Dashboard from "./pages/Dashboard";
-// import { AuthProvider } from "./contexts/authContext";
+
+// Configuración global de axios
+axios.defaults.withCredentials = true; // Habilita las cookies en todas las solicitudes
+axios.defaults.baseURL = "http://localhost:8000";
 
 const App = () => {
   return (
