@@ -26,12 +26,12 @@ useEffect(()=>{
 },[])
 
   const handleEliminar = async (id) => {
-    if (window.confirm("¿Estás seguro de que deseas eliminar esta facturasCompra?")) {
+    if (window.confirm("¿Estás seguro de que deseas eliminar esta factura de compra?")) {
       try {
         await eliminarFactura(id);
         alert("Factura eliminada exitosamente");
       } catch (error) {
-        alert("Error al eliminar la facturasCompra");
+        alert("Error al eliminar la factura de compra");
       }
     }
   };
