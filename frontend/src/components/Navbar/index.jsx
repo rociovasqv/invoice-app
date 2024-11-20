@@ -4,6 +4,8 @@ import { Navbar, Nav, Container, Button, Image } from "react-bootstrap";
 import logoAmp from '../../logos/logoAmpNav.png';
 import '../../styles/navbar.css'
 
+// const { user, logout } = useAuth();
+
 const NavbarComp = () => {
 
     const NavList = () => (

@@ -20,6 +20,9 @@ import CompraForm from "./modules/compras/CompraForm";
 import VentaPage from "./modules/ventas/VentasPage";
 import VentaForm from "./modules/ventas/VentaForm";
 
+import ClientesPage from "./modules/clientes/CLientes";
+import ClienteForm from "./modules/clientes/ClienteForm";
+
 import InformesPage from "./modules/informes-iva/InformesPage";
 
 import Dashboard from "./pages/Dashboard";
@@ -45,9 +48,11 @@ const App = () => {
               <Route path="/ventas" element={<VentaPage/>}/>
               <Route path="/registrar-venta" element={<VentaForm/>} />
               <Route path="/informes" element={<InformesPage/>}/>
-           
-              {/* <Route path="/usuarios/crear" element={<UserForm isEdit={false} />} /> */}
-              {/* <Route path="/usuarios/editar/:id" element={<UserForm isEdit={true} />} /> */}
+              <Route path="/clientes" element={<ClientesPage/>}/>
+              <Route path="/registrar-cliente" element={<ClienteForm />} />
+              {/* <Route path="/editar-cliente/:id" element={<ClienteForm clienteInicial={cliente}/>}/> */}
+              <Route path="/usuarios/crear" element={<UserForm isEdit={false} />} />
+              <Route path="/usuarios/editar/:id" element={<UserForm isEdit={true} />} />
               {/* Agrega más rutas aquí según sea necesario */}
           </Routes>
           <Footer/>
