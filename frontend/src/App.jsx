@@ -23,7 +23,15 @@ import VentaForm from "./modules/ventas/VentaForm";
 import ClientesPage from "./modules/clientes/CLientes";
 import ClienteForm from "./modules/clientes/ClienteForm";
 
+import SubclientesPage from "./modules/subclientes/subclientesPage";
+import SubclienteForm from "./modules/subclientes/subclienteForm";
+
+import ProveedoresPage from "./modules/proveedores/proveedoresPage";
+import ProveedorForm from "./modules/proveedores/proveedorForm";
+
 import InformesPage from "./modules/informes-iva/InformesPage";
+
+// import Comprobantes from 
 
 import Dashboard from "./pages/Dashboard";
 // import { AuthProvider } from "./contexts/authContext";
@@ -37,23 +45,36 @@ const App = () => {
           <Routes>
               <Route path="/" element={<Inicio />} />
               <Route path="/quienes-somos" element={<QuienesSomos/>}/>
+              <Route path="/servicios" element={<ServicePage/>}/>
               <Route path="/Contacto" element={<ContactoPage/>}/>
               <Route path="/inicio-sesion" element={<InicioSesion/>}/>
-              <Route path="/servicios" element={<ServicePage/>}/>
+
+              <Route path="/dashboard" element={<Dashboard/>}/>
+
               <Route path="/usuarios" element={<Usuarios/>}/>
               <Route path="/usuarios/crear" element={<UserForm/>}/>
-              <Route path="/dashboard" element={<Dashboard/>}/>
+              {/* <Route path="/usuarios/crear" element={<UserForm isEdit={false} />} />
+              <Route path="/usuarios/editar/:id" element={<UserForm isEdit={true} />}/> */}
+
+            
               <Route path="/compras" element={<ComprasPage/>}/>
               <Route path="/registrar-compra" element={<CompraForm />} />
+
               <Route path="/ventas" element={<VentaPage/>}/>
               <Route path="/registrar-venta" element={<VentaForm/>} />
+
               <Route path="/informes" element={<InformesPage/>}/>
+
               <Route path="/clientes" element={<ClientesPage/>}/>
-              <Route path="/registrar-cliente" element={<ClienteForm />} />
-              {/* <Route path="/editar-cliente/:id" element={<ClienteForm clienteInicial={cliente}/>}/> */}
-              <Route path="/usuarios/crear" element={<UserForm isEdit={false} />} />
-              <Route path="/usuarios/editar/:id" element={<UserForm isEdit={true} />} />
-              {/* Agrega más rutas aquí según sea necesario */}
+              <Route path="/registrar-cliente" element={<ClienteForm />}/>
+               {/* <Route path="/editar-cliente/:id" element={<ClienteForm clienteInicial={cliente}/>}/> */}
+
+              <Route path="/subclientes" element={<SubclientesPage/>}/>
+              <Route path="/registrar-subcliente" element={<SubclienteForm/>}/>
+
+              <Route path="/proveedores" element={<ProveedoresPage/>}/>
+              <Route path="/registrar-proveedor" element={<ProveedorForm/>}/>
+
           </Routes>
           <Footer/>
     </Router>
