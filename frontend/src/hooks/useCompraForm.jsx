@@ -1,3 +1,80 @@
+import { useState } from "react";
+import FacturaService from "../api/facturas";
+
+const useCompraForm = () => {
+  const [formData, setFormData] = useState({
+    // id_cliente: "",
+    // id_subcliente: "",
+    id_proveedor: "",
+    tipo: "compra",
+    nro_factura: "",
+    fecha_factura: "",
+    nombre_proveedor: "",
+    cuit: "",
+    tipo_factura: "",
+    importe_neto: "",
+    importe_iva: "",
+    importe_total: "",
+  });
+
+  const [isSubmit, setIsSubmit] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
+  const [error, setError] = useState("");
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const calcularTotal = () => {
+    const neto = parseFloat(formData.importe_neto) || 0;
+    const iva = parseFloat(formData.importe_iva) || 0;
+    setFormData({ ...formData, importe_total: (neto + iva).toFixed(2) });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmit(true);
+    setSuccessMessage("");
+    setError("");
+
+    try {
+      await FacturaService.createInvoice(formData);
+      setSuccessMessage("Factura registrada con éxito");
+      setFormData({
+        // id_subcliente: "",
+        id_proveedor: "",
+        tipo: "compra",
+        nombre_proveedor: "",
+        nro_factura: "",
+        fecha_factura: "",
+        cuit: "",
+        tipo_factura: "",
+        importe_neto: "",
+        importe_iva: "",
+        importe_total: "",
+      });
+    } catch (error) {
+      setError(error.response?.data?.error || "Error al registrar la factura.");
+    } finally {
+      setIsSubmit(false);
+    }
+  };
+  return {
+    formData,
+    isSubmit,
+    successMessage,
+    error,
+    handleChange,
+    calcularTotal,
+    handleSubmit,
+  };
+};
+
+export default useCompraForm
+
+
+
 // import { useState } from "react";
 // import FacturaService from "../api/facturas";
 
@@ -104,76 +181,3 @@
 // };
 
 // export default useFacturaForm;
-
-import { useState } from "react";
-import FacturaService from "../api/facturas";
-
-const useFacturaForm = () => {
-  const [formData, setFormData] = useState({
-    id_cliente: "",
-    id_subcliente: "",
-    id_proveedor: "",
-    tipo: "compra",
-    nro_factura: "",
-    fecha_factura: "",
-    importe_neto: "",
-    importe_iva: "",
-    importe_total: "",
-    tipo_factura: "",
-  });
-
-  const [isSubmit, setIsSubmit] = useState(false);
-  const [successMessage, setSuccessMessage] = useState("");
-  const [error, setError] = useState("");
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const calcularTotal = () => {
-    const neto = parseFloat(formData.importe_neto) || 0;
-    const iva = parseFloat(formData.importe_iva) || 0;
-    setFormData({ ...formData, importe_total: (neto + iva).toFixed(2) });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsSubmit(true);
-    setSuccessMessage("");
-    setError("");
-
-    try {
-      await FacturaService.createInvoice(formData);
-      setSuccessMessage("Factura registrada con éxito");
-      setFormData({
-        id_cliente: "",
-        id_subcliente: "",
-        id_proveedor: "",
-        tipo: "compra",
-        nro_factura: "",
-        fecha_factura: "",
-        importe_neto: "",
-        importe_iva: "",
-        importe_total: "",
-        tipo_factura: "",
-      });
-    } catch (error) {
-      setError(error.response?.data?.error || "Error al registrar la factura.");
-    } finally {
-      setIsSubmit(false);
-    }
-  };
-
-  return {
-    formData,
-    isSubmit,
-    successMessage,
-    error,
-    handleChange,
-    calcularTotal,
-    handleSubmit,
-  };
-};
-
-export default useFacturaForm
