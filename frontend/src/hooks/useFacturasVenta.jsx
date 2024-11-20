@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import FacturaService from "../api/facturas";
 
 const useFacturasVenta = () => {
   const [facturasVenta, setFacturasVenta] = useState([]);

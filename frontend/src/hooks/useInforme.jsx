@@ -1,5 +1,4 @@
 import { useState } from "react";
-import FacturaService from "../api/facturas";
 
 const useInforme = () => {
   const [startDate, setStartDate] = useState("");

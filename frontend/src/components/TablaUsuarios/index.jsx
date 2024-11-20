@@ -1,7 +1,6 @@
 import  {useState, useEffect } from "react";
 import { Table, Button, Container, Spinner, Alert } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import UsuarioService from "../../api/users";
 import "../../styles/userTabla.css";
 
 const UserTable = () => {
