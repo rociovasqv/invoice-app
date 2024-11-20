@@ -1,18 +1,18 @@
 import { Form, Button, Container, Row, Col, Alert, Spinner } from "react-bootstrap";
 import useCompraForm from '../../hooks/useCompraForm';
+import { useState } from "react";
+// import axios from "axios"
+// import {URL_FACTURA_COMPRA_AGREGAR} from "D:/Documents/Proyectos/Proyecto Metodologia/invoice-app/frontend/src/constants/constantes"
 
 const CompraForm = () => {
 
     const {
-        formData,
         isSubmit,
         successMessage,
         error,
-        handleChange,
         calcularTotal,
-        handleSubmit,
       } = useCompraForm()
-  
+      const [formData,setformData] = useState()
 
   return (
     <Container className="pad my-5 mt-1">
