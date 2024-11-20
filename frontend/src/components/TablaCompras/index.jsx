@@ -3,16 +3,27 @@ import { FaEdit, FaTrash } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import useFacturasCompra from "../../hooks/useFacturasCompra";
 import "../../styles/facturaTabla.css";
+import axios from "axios"
+import { URL_FACTURAS_COMPRA } from "../../constants/constantes";
+import { useEffect, useState } from "react";
 
 const TablaCompraComp = () => {
   const {
     loading,
-    error,
-    facturasCompra,
-    eliminarFactura
+    error
   } = useFacturasCompra();
+  const [facturasCompra,setFacturasCompra]= useState([])
 
   const navigate = useNavigate();
+
+  const getFacturasCompra = async()=>{
+    let response = await axios.get(URL_FACTURAS_COMPRA);
+    console.log(response.data)
+    setFacturasCompra(response.data)
+  }
+useEffect(()=>{
+  getFacturasCompra()
+},[])
 
   const handleEliminar = async (id) => {
     if (window.confirm("¿Estás seguro de que deseas eliminar esta facturasCompra?")) {
@@ -66,17 +77,17 @@ const TablaCompraComp = () => {
             </thead>
             <tbody>
               {facturasCompra && facturasCompra.length > 0 ? (
-                facturasCompra.map((facturasCompra, index) => (
-                  <tr key={facturasCompra.id}>
+                facturasCompra.map((facturasCompra,index) => (
+                  <tr key={facturasCompra.idFactura}>
                     <td>{index + 1}</td>
                     <td>{facturasCompra.nro_factura}</td>
                     <td>{facturasCompra.fecha}</td>
-                    <td>{facturasCompra.cliente}</td>
+                    <td>{facturasCompra.idProveedor}</td>
                     <td>{facturasCompra.cuit}</td>
                     <td>{facturasCompra.tipo}</td>
-                    <td>${facturasCompra.neto.toLocaleString()}</td>
-                    <td>${facturasCompra.iva.toLocaleString()}</td>
-                    <td>${facturasCompra.importe_total.toLocaleString()}</td>
+                    <td>{facturasCompra.importe_neto}</td>
+                    <td>{facturasCompra.importe_iva}</td>
+                    <td>{facturasCompra.importe_total}</td>
                     <td>
                       <Button
                         variant="warning"
