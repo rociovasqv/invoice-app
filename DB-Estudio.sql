@@ -1,6 +1,15 @@
 CREATE DATABASE Ampuero;
 USE Ampuero;
-
+            SELECT f.id_factura, f.nro_factura, f.fecha_factura, f.importe_neto, f.importe_iva, f.importe_total,f.tipo, 
+                   c.razon_social_cliente, 
+                   s.razon_social_subcliente, 
+                   p.razon_social_proveedor,
+                   p.cuit_proveedor
+            FROM facturas f
+            LEFT JOIN clientes c ON f.id_cliente = c.id_cliente
+            LEFT JOIN subclientes s ON f.id_subcliente = s.id_subcliente
+            LEFT JOIN proveedores p ON f.id_proveedor = p.id_proveedor
+            WHERE f.tipo_factura = 'venta';
 
 -- Tabla de Roles
 CREATE TABLE roles (
@@ -21,8 +30,8 @@ CREATE TABLE usuarios (
 
 CREATE TABLE clientes (
     id_cliente INT PRIMARY KEY AUTO_INCREMENT,
-    razon_social VARCHAR(255) NOT NULL,
-    cuit VARCHAR(20) NOT NULL UNIQUE,
+    razon_social_cliente VARCHAR(255) NOT NULL,
+    cuit_cliente VARCHAR(20) NOT NULL UNIQUE,
     condicion_iva ENUM('Responsable Inscripto', 'Monotributista', 'Exento', 'Consumidor Final') NOT NULL,
     domicilio_fiscal VARCHAR(255),
     disponibleC bool default 1
@@ -31,8 +40,8 @@ CREATE TABLE clientes (
 CREATE TABLE subclientes (
     id_subcliente INT PRIMARY KEY AUTO_INCREMENT,
     id_cliente INT,
-    razon_social VARCHAR(255) NOT NULL,
-    cuit VARCHAR(20) NOT NULL UNIQUE,
+    razon_social_subcliente VARCHAR(255) NOT NULL,
+    cuit_subcliente VARCHAR(20) NOT NULL UNIQUE,
     FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente) ON DELETE CASCADE,
     disponibleS bool default 1
 );
@@ -40,8 +49,8 @@ CREATE TABLE subclientes (
 CREATE TABLE proveedores (
     id_proveedor INT PRIMARY KEY AUTO_INCREMENT,
     id_cliente INT,
-    razon_social VARCHAR(255) NOT NULL,
-    cuit VARCHAR(20) NOT NULL UNIQUE,
+    razon_social_proveedor VARCHAR(255) NOT NULL,
+    cuit_proveedor VARCHAR(20) NOT NULL UNIQUE,
     FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente) ON DELETE CASCADE,
     disponibleP bool default 1
 );
@@ -75,46 +84,46 @@ values ('contador@email.com','1234',1),
 
 
 -- Insertar un cliente Monotributista
-INSERT INTO clientes (razon_social, cuit, condicion_iva, domicilio_fiscal) 
+INSERT INTO clientes (razon_social_cliente, cuit_cliente, condicion_iva, domicilio_fiscal) 
 VALUES ('Almacén La Esquina', '20-12345678-9', 'Monotributista', 'Calle Falsa 123, Ciudad A');
 
 -- Insertar dos clientes Responsables Inscriptos
-INSERT INTO clientes (razon_social, cuit, condicion_iva, domicilio_fiscal) 
+INSERT INTO clientes (razon_social_cliente, cuit_cliente, condicion_iva, domicilio_fiscal) 
 
 VALUES ('Ferretería López', '30-87654321-0', 'Responsable Inscripto', 'Av. Principal 456, Ciudad B');
 
-INSERT INTO clientes (razon_social, cuit, condicion_iva, domicilio_fiscal) 
+INSERT INTO clientes (razon_social_cliente, cuit_cliente, condicion_iva, domicilio_fiscal) 
 VALUES ('Tienda El Sol', '30-11223344-5', 'Responsable Inscripto', 'Ruta Nacional 12, Ciudad C');
 
 -- Agregar subclientes y proveedores para el cliente 'Almacén La Esquina'
-INSERT INTO subclientes (id_cliente, razon_social, cuit)
+INSERT INTO subclientes (id_cliente, razon_social_subcliente, cuit_subcliente)
 VALUES 
     (1, 'Subcliente La Esquina 1', '20-22334455-6'),
     (1, 'Subcliente La Esquina 2', '20-33445566-7');
 
-INSERT INTO proveedores (id_cliente, razon_social, cuit)
+INSERT INTO proveedores (id_cliente, razon_social_proveedor, cuit_proveedor)
 VALUES 
     (1, 'Proveedor La Esquina 1', '30-44556677-8'),
     (1, 'Proveedor La Esquina 2', '30-55667788-9');
 
 -- Agregar subclientes y proveedores para el cliente 'Ferretería López'
-INSERT INTO subclientes (id_cliente, razon_social, cuit)
+INSERT INTO subclientes (id_cliente, razon_social_subcliente, cuit_subcliente)
 VALUES 
     (2, 'Subcliente López 1', '20-66778899-0'),
     (2, 'Subcliente López 2', '20-77889900-1');
 
-INSERT INTO proveedores (id_cliente, razon_social, cuit)
+INSERT INTO proveedores (id_cliente, razon_social_proveedor, cuit_proveedor)
 VALUES 
     (2, 'Proveedor López 1', '30-88990011-2'),
     (2, 'Proveedor López 2', '30-99001122-3');
 
 -- Agregar subclientes y proveedores para el cliente 'Tienda El Sol'
-INSERT INTO subclientes (id_cliente, razon_social, cuit)
+INSERT INTO subclientes (id_cliente, razon_social_subcliente, cuit_subcliente)
 VALUES 
     (3, 'Subcliente El Sol 1', '20-00112233-4'),
     (3, 'Subcliente El Sol 2', '20-11223344-5');
 
-INSERT INTO proveedores (id_cliente, razon_social, cuit)
+INSERT INTO proveedores (id_cliente, razon_social_proveedor, cuit_proveedor)
 VALUES 
     (3, 'Proveedor El Sol 1', '30-22334455-6'),
     (3, 'Proveedor El Sol 2', '30-33445566-7');

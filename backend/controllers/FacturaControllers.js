@@ -57,8 +57,11 @@ const registrarFactura = async (req, res) => {
 
 const obtenerFacturasCompras = async (req, res) => {
     const query = `
-            SELECT * FROM facturas 
-            WHERE tipo_factura = 'compra';`;
+            SELECT f.id_factura, f.nro_factura, f.fecha_factura, f.importe_neto, f.importe_iva, f.importe_total,f.tipo, 
+                   p.razon_social_proveedor,p.cuit_proveedor
+            FROM facturas f
+            JOIN proveedores p ON f.id_proveedor = p.id_proveedor
+            WHERE f.tipo_factura = 'compra'`;
     conection.query(query,(err,results)=>{
         if (err) throw err;
         res.json(results)
@@ -66,8 +69,8 @@ const obtenerFacturasCompras = async (req, res) => {
 };
 const obtenerFacturasVentas = async (req, res) => {
     const query = `
-            SELECT f.id_factura, f.nro_factura, f.fecha_factura, f.importe_neto, f.importe_iva, f.importe_total,f.tipo_factura, 
-                   c.razon_social AS cliente, s.razon_social AS subcliente, p.razon_social AS proveedor
+            SELECT f.id_factura, f.nro_factura, f.fecha_factura, f.importe_neto, f.importe_iva, f.importe_total,f.tipo, 
+                   c.razon_social_cliente,c.cuit_cliente
             FROM facturas f
             LEFT JOIN clientes c ON f.id_cliente = c.id_cliente
             LEFT JOIN subclientes s ON f.id_subcliente = s.id_subcliente

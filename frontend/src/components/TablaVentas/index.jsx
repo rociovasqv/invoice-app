@@ -3,16 +3,28 @@ import { FaEdit, FaTrash } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import useFacturasVenta from "../../hooks/useFacturasVenta"; // Hook para facturas de venta
 import "../../styles/facturaTabla.css";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { URL_FACTURAS_VENTA } from "../../constants/constantes";
 
 const TablaVentasComp = () => {
   const {
     loading,
-    error,
-    facturasVenta,
-    eliminarFactura,
+    error
   } = useFacturasVenta();
 
+  const [facturasVenta,setFacturasVenta]= useState([])
+
   const navigate = useNavigate();
+
+  const getFacturasVenta = async()=>{
+    let response = await axios.get(URL_FACTURAS_VENTA);
+    console.log(response.data)
+    setFacturasVenta(response.data)
+  }
+  useEffect(()=>{
+    getFacturasVenta()
+  },[])
 
   const handleEliminar = async (id) => {
     if (window.confirm("¿Estás seguro de que deseas eliminar esta facturasVenta?")) {
@@ -69,13 +81,13 @@ const TablaVentasComp = () => {
                   <tr key={facturasVenta.id}>
                     <td>{index + 1}</td>
                     <td>{facturasVenta.nro_factura}</td>
-                    <td>{facturasVenta.fecha}</td>
-                    <td>{facturasVenta.cliente}</td>
-                    <td>{facturasVenta.cuit}</td>
+                    <td>{facturasVenta.fecha_factura}</td>
+                    <td>{facturasVenta.razon_social_cliente}</td>
+                    <td>{facturasVenta.cuit_cliente}</td>
                     <td>{facturasVenta.tipo}</td>
-                    <td>${facturasVenta.neto.toLocaleString()}</td>
-                    <td>${facturasVenta.iva.toLocaleString()}</td>
-                    <td>${facturasVenta.importe_total.toLocaleString()}</td>
+                    <td>${facturasVenta.importe_neto}</td>
+                    <td>${facturasVenta.importe_iva}</td>
+                    <td>${facturasVenta.importe_total}</td>
                     <td>
                       <Button
                         variant="warning"

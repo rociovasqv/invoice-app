@@ -81,9 +81,9 @@ useEffect(()=>{
                   <tr key={facturasCompra.idFactura}>
                     <td>{index + 1}</td>
                     <td>{facturasCompra.nro_factura}</td>
-                    <td>{facturasCompra.fecha}</td>
-                    <td>{facturasCompra.idProveedor}</td>
-                    <td>{facturasCompra.cuit}</td>
+                    <td>{facturasCompra.fecha_factura}</td>
+                    <td>{facturasCompra.razon_social_proveedor}</td>
+                    <td>{facturasCompra.cuit_proveedor}</td>
                     <td>{facturasCompra.tipo}</td>
                     <td>{facturasCompra.importe_neto}</td>
                     <td>{facturasCompra.importe_iva}</td>
