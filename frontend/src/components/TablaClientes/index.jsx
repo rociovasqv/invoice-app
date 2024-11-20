@@ -80,8 +80,8 @@ const TablaClientesComp = () => {
                 clientes.map((cliente, index) => (
                   <tr key={cliente.id_cliente}>
                     <td>{index + 1}</td>
-                    <td>{cliente.razon_social}</td>
-                    <td>{cliente.cuit}</td>
+                    <td>{cliente.razon_social_cliente}</td>
+                    <td>{cliente.cuit_cliente}</td>
                     <td>{cliente.condicion_iva}</td>
                     <td>{cliente.domicilio_fiscal}</td>
                     <td>

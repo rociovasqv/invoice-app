@@ -2,31 +2,50 @@ import useLogin from '../hooks/useLogin';
 import { Container, Form, Button, Row, Col, Card, Alert, Spinner } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import '../styles/login.css';
+import { useState } from 'react';
+import axios from "axios"
+import {URL_LOGIN} from ".././constants/constantes"
 
 const InicioSesion = () => {
     const {
-      email,
-      setEmail,
-      password,
-      setPassword,
-      submitLogin,
+    //   submitLogin,
       error,
       loading
     } = useLogin();
+
+    const [user,setuser] = useState("")
+
+    const initialState = {
+        nombre: "",
+        password: ""
+    }
 
     const navigate = useNavigate();
   
     const onSubmitLogin = async (e) => {
       e.preventDefault();
-      try {
-        await submitLogin(e);
-      } catch (err) {
-        console.error("Error en el login:", err);
-        navigate("/not-found", {
-          state: { isErrorRole: false, message: err.message },
+
+        let response = await axios.post(URL_LOGIN,{
+            nombre : user.nombre,
+            password: user.password
         });
-      }
+        if(response){
+            alert(response.data.message)
+            navigate("/clientes")
+        }else{
+            alert(error.response.data.message)
+        }
+        // console.error("Error en el login:", err);
+        // navigate("/not-found", {
+        //   state: { isErrorRole: false, message: err.message },
+        // });
+        e.target.reset();
     };
+
+    const handlechange= (e) =>{
+        setuser({ ...user, [e.target.name]: e.target.value})
+    }
+
     return (
         <main className='login-bg'>
             <Container className="pad my-5 login-card">
@@ -44,8 +63,9 @@ const InicioSesion = () => {
                                     <Form.Control
                                         type="email"
                                         placeholder="Ingresa tu correo electrónico"
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
+                                        name='nombre'
+                                        // value={email}
+                                        onChange={handlechange}
                                         required/>
                                         <br/>
                                 </Form.Group>
@@ -55,8 +75,9 @@ const InicioSesion = () => {
                                     <Form.Control
                                         type="password"
                                         placeholder="Ingresa tu contraseña"
-                                        value={password}
-                                        onChange={(e) => setPassword(e.target.value)}
+                                        name='password'
+                                        // value={password}
+                                        onChange={handlechange}
                                         required/>
                                         <br/>
                                 </Form.Group>

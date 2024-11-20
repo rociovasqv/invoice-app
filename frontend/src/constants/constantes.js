@@ -1,3 +1,4 @@
+export const URL_USUARIOS = "http://localhost:8000/Usuarios"
 export const URL_LOGIN= "http://localhost:8000/Usuarios/inicio-sesion"
 export const URL_CLIENTES = "http://localhost:8000/Clientes"
 export const URL_CLIENTES_FILTRAR= "http://localhost:8000/Clientes/:id"

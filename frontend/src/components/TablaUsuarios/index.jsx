@@ -2,6 +2,8 @@ import  {useState, useEffect } from "react";
 import { Table, Button, Container, Spinner, Alert } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import "../../styles/userTabla.css";
+import axios from "axios";
+import {URL_USUARIOS} from "../../constants/constantes"
 
 const UserTable = () => {
     const [usuarios, setUsuarios] = useState([]);
@@ -9,21 +11,14 @@ const UserTable = () => {
     const [error, setError] = useState(null);
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const fetchUsuarios = async () => {
-            setLoading(true);
-            setError(null);
-            try {
-                const res = await UsuarioService.getAllUsers();
-                setUsuarios(res.data);
-            } catch (err) {
-                setError(err.response?.data?.message || "Error al cargar los usuarios.");
-            } finally {
-                setLoading(false);
-            }
-        };
+    const getAllUsers = async () => {
+        let response = await axios.get(URL_USUARIOS)
+        console.log(response.data)
+        setUsuarios(response.data)
+    }
 
-        fetchUsuarios();
+    useEffect(() => {
+        getAllUsers()
     }, []);
 
     const handleEdit = (id) => {
