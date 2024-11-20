@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import FacturaService from "../api/facturas";
 
-const useFacturas = () => {
-  const [facturas, setFacturas] = useState([]);
-  const [filteredFacturas, setFilteredFacturas] = useState([]);
+const useFacturasVenta = () => {
+  const [facturasVenta, setFacturasVenta] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [filtro, setFiltro] = useState("todas");
+
+//   const [filtro, setFiltro] = useState("todas");
+//   const [filteredFacturas, setFilteredFacturas] = useState([]);
 
   // Cargar facturas al inicio
   useEffect(() => {
@@ -15,8 +16,8 @@ const useFacturas = () => {
       setError(null);
       try {
         const res = await FacturaService.getAllInvoices();
-        setFacturas(res.data);
-        setFilteredFacturas(res.data);
+        setFacturasVenta(res.data);
+        // setFilteredFacturas(res.data);
       } catch (err) {
         setError(err.response?.data?.message || "Error al cargar las facturas.");
       } finally {
@@ -26,15 +27,16 @@ const useFacturas = () => {
     fetchFacturas();
   }, []);
 
-  // Filtrar facturas según tipo
-  const handleFilterChange = (value) => {
-    setFiltro(value);
-    if (value === "todas") {
-      setFilteredFacturas(facturas);
-    } else {
-      setFilteredFacturas(facturas.filter((factura) => factura.tipo === value));
-    }
-  }; 
+//   // Filtrar facturas según tipo
+//   const handleFilterChange = (value) => {
+//     setFiltro(value);
+//     if (value === "todas") {
+//       setFilteredFacturas(facturas);
+//     } else {
+//       setFilteredFacturas(facturas.filter((factura) => factura.tipo === value));
+//     }
+//   }; 
+
 //Eliminar factura
 const eliminarFactura = async (id) => {
   setLoading(true);
@@ -51,14 +53,11 @@ const eliminarFactura = async (id) => {
 };
 
   return {
-    facturas,
-    filteredFacturas,
+    facturasVenta,
     loading,
     error,
-    filtro,
-    handleFilterChange,
     eliminarFactura
   };
 };
 
-export default useFacturas;
+export default useFacturasVenta;
