@@ -19,40 +19,69 @@ const registrarFactura = async (req, res) => {
 };
 
 // Consultar facturas
-const obtenerFacturas = async (req, res) => {
-    const { id_cliente, tipo_factura, fecha_inicio, fecha_fin } = req.query;
+// const obtenerFacturas = async (req, res) => {
+//     const { id_cliente, tipo_factura, fecha_inicio, fecha_fin } = req.query;
 
-    try {
-        let query = `
-            SELECT f.id_factura, f.nro_factura, f.fecha_factura, f.importe_neto, f.importe_iva, f.importe_total, 
+//     try {
+//         let query = `
+//             SELECT f.id_factura, f.nro_factura, f.fecha_factura, f.importe_neto, f.importe_iva, f.importe_total, 
+//                    c.razon_social AS cliente, s.razon_social AS subcliente, p.razon_social AS proveedor
+//             FROM facturas f
+//             LEFT JOIN clientes c ON f.id_cliente = c.id_cliente
+//             LEFT JOIN subclientes s ON f.id_subcliente = s.id_subcliente
+//             LEFT JOIN proveedores p ON f.id_proveedor = p.id_proveedor
+//             WHERE 1=1
+//         `;
+
+//         const params = [];
+//         if (id_cliente) {
+//             query += ' AND f.id_cliente = ?';
+//             params.push(id_cliente);
+//         }
+//         if (tipo_factura) {
+//             query += ' AND f.tipo_factura = ?';
+//             params.push(tipo_factura);
+//         }
+//         if (fecha_inicio && fecha_fin) {
+//             query += ' AND f.fecha_factura BETWEEN ? AND ?';
+//             params.push(fecha_inicio, fecha_fin);
+//         }
+
+//         const [rows] = await pool.query(query, params);
+//         res.status(200).json(rows);
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).json({ error: 'Error al obtener las facturas' });
+//     }
+// };
+
+const obtenerFacturasCompras = async (req, res) => {
+    const query = `
+            SELECT f.id_factura, f.nro_factura, f.fecha_factura, f.importe_neto, f.importe_iva, f.importe_total,f.tipo_factura, 
                    c.razon_social AS cliente, s.razon_social AS subcliente, p.razon_social AS proveedor
             FROM facturas f
             LEFT JOIN clientes c ON f.id_cliente = c.id_cliente
             LEFT JOIN subclientes s ON f.id_subcliente = s.id_subcliente
             LEFT JOIN proveedores p ON f.id_proveedor = p.id_proveedor
-            WHERE 1=1
-        `;
-
-        const params = [];
-        if (id_cliente) {
-            query += ' AND f.id_cliente = ?';
-            params.push(id_cliente);
-        }
-        if (tipo_factura) {
-            query += ' AND f.tipo_factura = ?';
-            params.push(tipo_factura);
-        }
-        if (fecha_inicio && fecha_fin) {
-            query += ' AND f.fecha_factura BETWEEN ? AND ?';
-            params.push(fecha_inicio, fecha_fin);
-        }
-
-        const [rows] = await pool.query(query, params);
-        res.status(200).json(rows);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Error al obtener las facturas' });
-    }
+            WHERE f.tipo_factura = 'compra';`;
+    conection.query(query,(err,results)=>{
+        if (err) throw err;
+        res.json(results)
+    })
+};
+const obtenerFacturasVentas = async (req, res) => {
+    const query = `
+            SELECT f.id_factura, f.nro_factura, f.fecha_factura, f.importe_neto, f.importe_iva, f.importe_total,f.tipo_factura, 
+                   c.razon_social AS cliente, s.razon_social AS subcliente, p.razon_social AS proveedor
+            FROM facturas f
+            LEFT JOIN clientes c ON f.id_cliente = c.id_cliente
+            LEFT JOIN subclientes s ON f.id_subcliente = s.id_subcliente
+            LEFT JOIN proveedores p ON f.id_proveedor = p.id_proveedor
+            WHERE f.tipo_factura = 'venta'`;
+    conection.query(query,(err,results)=>{
+        if (err) throw err;
+        res.json(results)
+    })
 };
 
 const cargarComprobante = async (req, res) => {
@@ -111,5 +140,5 @@ const generarInformeIVA = async (req, res) => {
     }
 };
 
-module.exports = { registrarFactura, obtenerFacturas, cargarComprobante, generarInformeIVA };
+module.exports = { registrarFactura, obtenerFacturasCompras,obtenerFacturasVentas, cargarComprobante, generarInformeIVA };
 
