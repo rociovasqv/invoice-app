@@ -30,7 +30,7 @@ app.use(session({
     cookie: { 
         secure: false, // Cambiar a true en producción con HTTPS
         httpOnly: true, 
-        sameSite: 'lax', 
+        sameSite: 'lax', // Cambiar a 'none' si el frontend y el backend están en dominios diferentes
     },
 }));
 
