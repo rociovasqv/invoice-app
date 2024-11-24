@@ -1,22 +1,21 @@
 import { createContext, useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-// Crea el contexto
 const AuthContext = createContext();
 
 // Proveedor del contexto
 export const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(null); // Estado para el usuario actual
-    const [loading, setLoading] = useState(true); // Estado para manejar el loading durante la carga de la autenticación
-    const navigate = useNavigate(); // Para redirigir después del login/logout
+    const [user, setUser] = useState(null); 
+    const [loading, setLoading] = useState(true); 
+    const navigate = useNavigate(); 
 
     // Recupera el usuario del almacenamiento local al cargar la app
     useEffect(() => {
         const storedUser = localStorage.getItem("user");
         if (storedUser) {
-            setUser(JSON.parse(storedUser)); // Si el usuario existe en localStorage, lo usa
+            setUser(JSON.parse(storedUser)); 
         }
-        setLoading(false); // Una vez que hemos cargado el usuario, dejamos de cargar
+        setLoading(false); 
     }, []);
 
     // Función para iniciar sesión

@@ -1,23 +1,21 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../contexts/authContext'; // Asegúrate de importar el contexto
+import { useAuth } from '../contexts/authContext';
 
 const ProtectedRoute = ({ children }) => {
-  const { user, loading } = useAuth(); // Obtén el estado `user` y `loading` del contexto
+  const { user, loading } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!loading && user === null) {
-      navigate("/inicio-sesion", { replace: true }); // Redirige si no hay usuario y ya no estamos en loading
+      navigate("/inicio-sesion", { replace: true });
     }
-  }, [loading, user, navigate]); // Depende de `loading`, `user` y `navigate`
+  }, [loading, user, navigate]);
 
-  // Si estamos "cargando", no renderizamos nada
   if (loading) {
-    return null; // O puedes mostrar un spinner de carga si lo prefieres
+    return null; 
   }
 
-  // Si hay un usuario, renderizamos los hijos (la ruta protegida)
   return children;
 };
 
