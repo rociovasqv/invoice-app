@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom';
-import { Navbar, Nav, Container, Button, Image } from "react-bootstrap";
+import { Navbar, Nav, Container, Button, Image, Dropdown } from "react-bootstrap";
+import { useAuth } from '../../contexts/authContext'; // Importa el contexto de autenticación
 
 import logoAmp from '../../logos/logoAmpNav.png';
-import '../../styles/navbar.css'
-
-// const { user, logout } = useAuth();
+import '../../styles/navbar.css';
 
 const NavbarComp = () => {
+    const { user, logout } = useAuth(); // Obtiene el usuario actual y la función de logout desde el contexto
 
     const NavList = () => (
         <>
@@ -37,9 +37,23 @@ const NavbarComp = () => {
                     <Navbar.Collapse id="menu">
                         <Nav className="ms-auto">
                             <NavList />
-                            <Nav.Link as={Link} to="/inicio-sesion" className="ms-3">
-                                <Button variant="outline-primary">Iniciar Sesión</Button>
-                            </Nav.Link>
+
+                            {user ? (
+                                // Muestra el nombre del usuario y el botón de cerrar sesión si está logueado
+                                <Dropdown align="end" className="ms-3">
+                                    <Dropdown.Toggle variant="outline-primary" id="user-menu">
+                                        {user.nombre} {/* Nombre del usuario */}
+                                    </Dropdown.Toggle>
+                                    <Dropdown.Menu>
+                                        <Dropdown.Item onClick={logout}>Cerrar sesión</Dropdown.Item>
+                                    </Dropdown.Menu>
+                                </Dropdown>
+                            ) : (
+                                // Muestra el botón de iniciar sesión si no está logueado
+                                <Nav.Link as={Link} to="/inicio-sesion" className="ms-3">
+                                    <Button variant="outline-primary">Iniciar Sesión</Button>
+                                </Nav.Link>
+                            )}
                         </Nav>
                     </Navbar.Collapse>
                 </Container>

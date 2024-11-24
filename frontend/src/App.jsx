@@ -1,7 +1,10 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import axios from "axios"; // Importa axios
+import axios from "axios";
+
+import { AuthProvider } from "./contexts/authContext";
+import ProtectedRoute from './components/ProtectedRoutes';
 
 import NavbarComp from "./components/Navbar";
 import Footer from './components/Footer';
@@ -35,31 +38,38 @@ axios.defaults.baseURL = "http://localhost:8000";
 const App = () => {
   return (
     <Router>
-          <header id="navbar">
-              <NavbarComp/>
-          </header>
-          <Routes>
-              <Route path="/" element={<Inicio />} />
-              <Route path="/quienes-somos" element={<QuienesSomos/>}/>
-              <Route path="/Contacto" element={<ContactoPage/>}/>
-              <Route path="/inicio-sesion" element={<InicioSesion/>}/>
-              <Route path="/servicios" element={<ServicePage/>}/>
-              <Route path="/usuarios" element={<Usuarios/>}/>
-              <Route path="/usuarios/crear" element={<UserForm/>}/>
-              <Route path="/dashboard" element={<Dashboard/>}/>
-              <Route path="/compras" element={<ComprasPage/>}/>
-              <Route path="/registrar-compra" element={<CompraForm />} />
-              <Route path="/ventas" element={<VentaPage/>}/>
-              <Route path="/registrar-venta" element={<VentaForm/>} />
-              <Route path="/informes" element={<InformesPage/>}/>
-              <Route path="/clientes" element={<ClientesPage/>}/>
-              <Route path="/registrar-cliente" element={<ClienteForm />} />
-              {/* <Route path="/editar-cliente/:id" element={<ClienteForm clienteInicial={cliente}/>}/> */}
-              <Route path="/usuarios/crear" element={<UserForm isEdit={false} />} />
-              <Route path="/usuarios/editar/:id" element={<UserForm isEdit={true} />} />
-              {/* Agrega más rutas aquí según sea necesario */}
-          </Routes>
-          <Footer/>
+      <AuthProvider>
+        <header id="navbar">
+          <NavbarComp />
+        </header>
+        <Routes>
+          <Route path="/" element={<Inicio />} />
+          <Route path="/quienes-somos" element={<QuienesSomos />} />
+          <Route path="/Contacto" element={<ContactoPage />} />
+          <Route path="/inicio-sesion" element={<InicioSesion />} />
+          <Route path="/servicios" element={<ServicePage />} />
+          <Route path="/usuarios" element={<Usuarios />} />
+          <Route path="/usuarios/crear" element={<UserForm isEdit={false} />} />
+          <Route path="/usuarios/editar/:id" element={<UserForm isEdit={true} />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/compras" element={<ComprasPage />} />
+          <Route path="/registrar-compra" element={<CompraForm />} />
+          <Route path="/ventas" element={<VentaPage />} />
+          <Route path="/registrar-venta" element={<VentaForm />} />
+          <Route path="/informes" element={<InformesPage />} />
+          {/* Rutas protegidas */}
+          <Route 
+            path="/clientes" 
+            element={
+              <ProtectedRoute>
+                <ClientesPage />
+              </ProtectedRoute>
+            } 
+          />
+          <Route path="/registrar-cliente" element={<ClienteForm />} />
+        </Routes>
+        <Footer />
+      </AuthProvider>
     </Router>
   );
 };

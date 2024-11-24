@@ -2,14 +2,17 @@ import { useState } from 'react';
 import axios from 'axios';
 import { Container, Form, Button, Row, Col, Card, Alert, Spinner } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../contexts/authContext'; // Importa el contexto de autenticación
 import { URL_LOGIN } from "../constants/constantes";
 import '../styles/login.css';
 
 const InicioSesion = () => {
-    const [user, setUser] = useState({ nombre: "", password: "" });
+    const [userInput, setUserInput] = useState({ nombre: "", password: "" });
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
+
+    const { login } = useAuth(); // Obtiene la función `login` del contexto
 
     const onSubmitLogin = async (e) => {
         e.preventDefault();
@@ -17,35 +20,34 @@ const InicioSesion = () => {
         setError(null);
 
         try {
-            // Realiza la solicitud de login
-            let response = await axios.post(URL_LOGIN, {
-                nombre: user.nombre,
-                password: user.password
-            }, { withCredentials: true }); // Asegura que las cookies se envíen con la solicitud
+            // Realiza la solicitud de inicio de sesión
+            const response = await axios.post(
+                URL_LOGIN,
+                {
+                    nombre: userInput.nombre,
+                    password: userInput.password,
+                },
+                { withCredentials: true } // Asegura que las cookies se envíen con la solicitud
+            );
 
-            if (response && response.data.message) {
-                alert(response.data.message);
+            if (response && response.data.user) {
+                // Llama a la función `login` del contexto para almacenar los datos del usuario
+                login(response.data.user, true); // Almacenar en localStorage si se necesita persistencia
 
-                // Si el login es exitoso, guarda el token en localStorage (si aplica)
-                if (response.data.token) {
-                    localStorage.setItem('authToken', response.data.token); // Guarda el token en localStorage
-                }
-
-                // Redirige a la página de clientes
+                // Redirige a la página principal o a una página protegida
                 navigate("/clientes");
+            } else if (response.data.message) {
+                setError(response.data.message); // Muestra cualquier mensaje de error devuelto por el backend
             }
         } catch (err) {
             setError(err.response ? err.response.data.message : 'Error al iniciar sesión');
         } finally {
             setLoading(false);
         }
-
-        // Limpiar formulario
-        e.target.reset();
     };
 
     const handleChange = (e) => {
-        setUser({ ...user, [e.target.name]: e.target.value });
+        setUserInput({ ...userInput, [e.target.name]: e.target.value });
     };
 
     return (
@@ -56,16 +58,16 @@ const InicioSesion = () => {
                         <Row className="justify-content-center">
                             <Col md={8} lg={6} xs={12}>
                                 <h2 className="mb-4">Iniciar Sesión</h2>
-                                <p className="mb-3 text-primary">¡Por favor, ingresa tu correo y contraseña!</p>
+                                <p className="mb-3 text-primary">¡Por favor, ingresa tu nombre de usuario y contraseña!</p>
 
                                 {error && <Alert variant="danger">{error}</Alert>}
 
                                 <Form onSubmit={onSubmitLogin}>
                                     <Form.Group className='md-3 text-start' controlId="formEmail">
-                                        <Form.Label className='text-secondary'>Correo electrónico</Form.Label>
+                                        <Form.Label className='text-secondary'>Nombre de usuario</Form.Label>
                                         <Form.Control
-                                            type="email"
-                                            placeholder="Ingresa tu correo electrónico"
+                                            type="text"
+                                            placeholder="Ingresa tu nombre de usuario"
                                             name='nombre'
                                             onChange={handleChange}
                                             required />
