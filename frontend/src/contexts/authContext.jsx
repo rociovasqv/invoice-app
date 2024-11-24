@@ -29,8 +29,8 @@ export const AuthProvider = ({ children }) => {
     // Función para cerrar sesión
     const logout = () => {
         setUser(null);
-        localStorage.removeItem("user"); // Elimina el usuario del localStorage
-        navigate("/inicio-sesion"); // Redirige a la página de inicio de sesión
+        localStorage.removeItem("user"); 
+        navigate("/inicio-sesion"); 
     };
 
     return (
