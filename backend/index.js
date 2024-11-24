@@ -29,8 +29,8 @@ app.use(session({
     saveUninitialized: false,
     cookie: { 
         secure: false, // Cambiar a true en producción con HTTPS
-        httpOnly: true, // Mayor seguridad contra ataques XSS
-        sameSite: 'lax', // Cambiar a 'none' si el frontend y el backend están en dominios diferentes
+        httpOnly: true, 
+        sameSite: 'lax', 
     },
 }));
 
