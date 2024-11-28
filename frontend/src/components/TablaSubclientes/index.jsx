@@ -70,8 +70,6 @@ const TablaSublientesComp = () => {
                 <th>#</th>
                 <th>Razón Social</th>
                 <th>CUIT</th>
-                <th>Condición IVA</th>
-                <th>Domicilio Fiscal</th>
                 <th>Acciones</th>
               </tr>
             </thead>
@@ -80,10 +78,8 @@ const TablaSublientesComp = () => {
                 subclientes.map((subcliente, index) => (
                   <tr key={subcliente.id_subcliente}>
                     <td>{index + 1}</td>
-                    <td>{subcliente.razon_social}</td>
-                    <td>{subcliente.cuit}</td>
-                    <td>{subcliente.condicion_iva}</td>
-                    <td>{subcliente.domicilio_fiscal}</td>
+                    <td>{subcliente.razon_social_subcliente}</td>
+                    <td>{subcliente.cuit_subcliente}</td>
                     <td>
                       <Button
                         variant="warning"

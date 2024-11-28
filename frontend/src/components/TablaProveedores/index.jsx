@@ -70,8 +70,7 @@ const TablaProveedorComp = () => {
                 <th>#</th>
                 <th>Razón Social</th>
                 <th>CUIT</th>
-                <th>Condición IVA</th>
-                <th>Domicilio Fiscal</th>
+                <th>Cliente</th>
                 <th>Acciones</th>
               </tr>
             </thead>
@@ -80,10 +79,9 @@ const TablaProveedorComp = () => {
                 proveedores.map((proveedor, index) => (
                   <tr key={proveedor.id_proveedor}>
                     <td>{index + 1}</td>
-                    <td>{proveedor.razon_social}</td>
-                    <td>{proveedor.cuit}</td>
-                    <td>{proveedor.condicion_iva}</td>
-                    <td>{proveedor.domicilio_fiscal}</td>
+                    <td>{proveedor.razon_social_proveedor}</td>
+                    <td>{proveedor.cuit_proveedor}</td>
+                    <td>{proveedor.id_cliente}</td>
                     <td>
                       <Button
                         variant="warning"
