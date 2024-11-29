@@ -22,6 +22,7 @@ import VentaForm from "./modules/ventas/VentaForm";
 
 import ClientesPage from "./modules/clientes/CLientes";
 import ClienteForm from "./modules/clientes/ClienteForm";
+import InformeIvaComp from "./components/GenerarInformeIVA";
 
 import SubclientesPage from "./modules/subclientes/subclientesPage";
 import SubclienteForm from "./modules/subclientes/subclienteForm";
@@ -67,6 +68,7 @@ const App = () => {
 
               <Route path="/clientes" element={<ClientesPage/>}/>
               <Route path="/registrar-cliente" element={<ClienteForm />}/>
+              <Route path="/clientes/:id" element={<InformeIvaComp/>}/>
                {/* <Route path="/editar-cliente/:id" element={<ClienteForm clienteInicial={cliente}/>}/> */}
 
               <Route path="/subclientes" element={<SubclientesPage/>}/>
