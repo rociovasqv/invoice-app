@@ -70,6 +70,7 @@ const TablaSublientesComp = () => {
                 <th>#</th>
                 <th>Razón Social</th>
                 <th>CUIT</th>
+                <th>Clientes</th>
                 <th>Acciones</th>
               </tr>
             </thead>
@@ -80,6 +81,7 @@ const TablaSublientesComp = () => {
                     <td>{index + 1}</td>
                     <td>{subcliente.razon_social_subcliente}</td>
                     <td>{subcliente.cuit_subcliente}</td>
+                    <td>{subcliente.id_cliente}</td>
                     <td>
                       <Button
                         variant="warning"
