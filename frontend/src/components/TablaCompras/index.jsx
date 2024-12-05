@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import useFacturasCompra from "../../hooks/useFacturasCompra";
 import "../../styles/facturaTabla.css";
 import axios from "axios"
-import { URL_FACTURAS_COMPRA } from "../../constants/constantes";
+import { URL_FACTURAS_COMPRA,URL_FACTURAS_ELIMINAR } from "../../constants/constantes";
 import { useEffect, useState } from "react";
 
 const TablaCompraComp = () => {
@@ -25,11 +25,12 @@ useEffect(()=>{
   getFacturasCompra()
 },[])
 
-  const handleEliminar = async (id) => {
+  const handleEliminar = async (id_factura) => {
     if (window.confirm("¿Estás seguro de que deseas eliminar esta factura de compra?")) {
       try {
-        await eliminarFactura(id);
+        await axios.delete(`${URL_FACTURAS_ELIMINAR}/${id_factura}`);
         alert("Factura eliminada exitosamente");
+        getFacturasCompra()
       } catch (error) {
         alert("Error al eliminar la factura de compra");
       }
@@ -77,9 +78,9 @@ useEffect(()=>{
             </thead>
             <tbody>
               {facturasCompra && facturasCompra.length > 0 ? (
-                facturasCompra.map((facturasCompra,index) => (
-                  <tr key={facturasCompra.idFactura}>
-                    <td>{index + 1}</td>
+                facturasCompra.map((facturasCompra) => (
+                  <tr key={facturasCompra.id_factura}>
+                    <td>{facturasCompra.id_factura}</td>
                     <td>{facturasCompra.nro_factura}</td>
                     <td>{facturasCompra.fecha_factura}</td>
                     <td>{facturasCompra.razon_social_proveedor}</td>

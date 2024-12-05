@@ -31,10 +31,10 @@ const TablaSublientesComp = () => {
   }, []);
 
   // Eliminar subcliente
-  const handleEliminar = async (id) => {
+  const handleEliminar = async (id_subcliente) => {
     if (window.confirm("¿Estás seguro de que deseas eliminar este cliente?")) {
       try {
-        await axios.put(`${URL_SUBCLIENTES_ELIMINAR}/${id}`); // URL con el ID del subcliente
+        await axios.delete(`${URL_SUBCLIENTES_ELIMINAR}/${id_subcliente}`); // URL con el ID del subcliente
         alert("Cliente eliminado exitosamente.");
         getSubclientes(); // Actualizar la lista después de eliminar
       } catch (error) {

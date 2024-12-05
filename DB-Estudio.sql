@@ -61,7 +61,7 @@ CREATE TABLE facturas (
     FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente) ON DELETE CASCADE,
     FOREIGN KEY (id_subcliente) REFERENCES subclientes(id_subcliente) ON DELETE SET NULL,
     FOREIGN KEY (id_proveedor) REFERENCES proveedores(id_proveedor) ON DELETE SET NULL,
-    disponibleP bool default 1
+    disponibleF bool default 1
 );
 
 INSERT INTO roles(nombre)
@@ -174,3 +174,4 @@ FROM facturas f
 JOIN subclientes s ON f.id_subcliente = s.id_subcliente
 WHERE f.id_cliente = 2 AND f.tipo_factura = 'Venta';
 
+select 
