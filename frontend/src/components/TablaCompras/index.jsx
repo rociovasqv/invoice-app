@@ -86,9 +86,9 @@ useEffect(()=>{
                     <td>{facturasCompra.razon_social_proveedor}</td>
                     <td>{facturasCompra.cuit_proveedor}</td>
                     <td>{facturasCompra.tipo}</td>
-                    <td>{facturasCompra.importe_neto}</td>
-                    <td>{facturasCompra.importe_iva}</td>
-                    <td>{facturasCompra.importe_total}</td>
+                    <td>${facturasCompra.importe_neto}</td>
+                    <td>${facturasCompra.importe_iva}</td>
+                    <td>${facturasCompra.importe_total}</td>
                     <td>
                       <Button
                         variant="warning"
