@@ -67,7 +67,7 @@ const TablaSublientesComp = () => {
           <Table striped bordered hover responsive>
             <thead>
               <tr>
-                <th>#</th>
+                <th>idSubcliente</th>
                 <th>Razón Social</th>
                 <th>CUIT</th>
                 <th>Acciones</th>
@@ -75,9 +75,9 @@ const TablaSublientesComp = () => {
             </thead>
             <tbody>
               {subclientes && subclientes.length > 0 ? (
-                subclientes.map((subcliente, index) => (
+                subclientes.map((subcliente) => (
                   <tr key={subcliente.id_subcliente}>
-                    <td>{index + 1}</td>
+                    <td>{subcliente.id_subcliente}</td>
                     <td>{subcliente.razon_social_subcliente}</td>
                     <td>{subcliente.cuit_subcliente}</td>
                     <td>

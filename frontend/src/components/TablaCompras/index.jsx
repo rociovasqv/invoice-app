@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 const TablaCompraComp = () => {
   const {
     loading,
-    error
+    // error
   } = useFacturasCompra();
   const [facturasCompra,setFacturasCompra]= useState([])
 

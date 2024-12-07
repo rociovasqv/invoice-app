@@ -46,7 +46,7 @@ const TablaClientesComp = () => {
   return (
     <Container className="pad my-5">
       <h2 className="mb-4 text-center">Gestión de Clientes</h2>
-      {error && <Alert variant="danger">{error}</Alert>}
+      {/* {error && <Alert variant="danger">{error}</Alert>} */}
       {loading ? (
         <div className="text-center">
           <Spinner animation="border" />
@@ -67,7 +67,7 @@ const TablaClientesComp = () => {
           <Table striped bordered hover responsive>
             <thead>
               <tr>
-                <th>#</th>
+                <th>idClientes</th>
                 <th>Razón Social</th>
                 <th>CUIT</th>
                 <th>Condición IVA</th>
@@ -77,9 +77,9 @@ const TablaClientesComp = () => {
             </thead>
             <tbody>
               {clientes && clientes.length > 0 ? (
-                clientes.map((cliente, index) => (
+                clientes.map((cliente) => (
                   <tr key={cliente.id_cliente}>
-                    <td>{index + 1}</td>
+                    <td>{cliente.id_cliente}</td>
                     <td>{cliente.razon_social_cliente}</td>
                     <td>{cliente.cuit_cliente}</td>
                     <td>{cliente.condicion_iva}</td>

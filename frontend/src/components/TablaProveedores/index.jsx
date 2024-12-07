@@ -67,7 +67,7 @@ const TablaProveedorComp = () => {
           <Table striped bordered hover responsive>
             <thead>
               <tr>
-                <th>#</th>
+                <th>idProveedor</th>
                 <th>Razón Social</th>
                 <th>CUIT</th>
                 <th>Cliente</th>
@@ -76,9 +76,9 @@ const TablaProveedorComp = () => {
             </thead>
             <tbody>
               {proveedores && proveedores.length > 0 ? (
-                proveedores.map((proveedor, index) => (
+                proveedores.map((proveedor) => (
                   <tr key={proveedor.id_proveedor}>
-                    <td>{index + 1}</td>
+                    <td>{proveedor.id_proveedor}</td>
                     <td>{proveedor.razon_social_proveedor}</td>
                     <td>{proveedor.cuit_proveedor}</td>
                     <td>{proveedor.id_cliente}</td>
