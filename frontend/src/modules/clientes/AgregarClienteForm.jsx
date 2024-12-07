@@ -5,7 +5,7 @@ import axios from "axios";
 
 import {URL_CLIENTES_AGREGAR, URL_CLIENTES_EDITAR } from "../../constants/constantes";
 
-const ClienteForm = ({ clienteInicial = null }) => {
+const AgregarClienteForm = ({ clienteInicial = null }) => {
   const [cliente, setCliente] = useState({
     razon_social: "",
     cuit: "",
@@ -135,4 +135,4 @@ const ClienteForm = ({ clienteInicial = null }) => {
   );
 };
 
-export default ClienteForm;
+export default AgregarClienteForm;

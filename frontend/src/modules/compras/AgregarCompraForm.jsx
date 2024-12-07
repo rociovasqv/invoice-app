@@ -4,7 +4,7 @@ import { useState } from "react";
 // import axios from "axios"
 // import {URL_FACTURA_COMPRA_AGREGAR} from "D:/Documents/Proyectos/Proyecto Metodologia/invoice-app/frontend/src/constants/constantes"
 
-const CompraForm = () => {
+const AgregarCompraForm = () => {
 
     const {
         isSubmit,
@@ -166,7 +166,7 @@ const CompraForm = () => {
   );
 };
 
-export default CompraForm;
+export default AgregarCompraForm;
 
 // Estilo de formulario con los items incluidos
 

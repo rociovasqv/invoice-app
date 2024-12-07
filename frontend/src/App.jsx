@@ -6,7 +6,7 @@ import NavbarComp from "./components/Navbar";
 import Footer from './components/Footer';
 
 import Inicio from "./pages/Inicio";
-import QuienesSomos from "./pages/Somos";
+import QuienesSomos from "./pages/somos";
 import ContactoPage from "./pages/Contacto";
 import InicioSesion from "./pages/login";
 import ServicePage from "./pages/ServicePage";
@@ -15,19 +15,19 @@ import Usuarios from "./modules/usuarios/UsersPage";
 import UserForm from "./modules/usuarios/UserForm";
 
 import ComprasPage from "./modules/compras/ComprasPage";
-import CompraForm from "./modules/compras/CompraForm";
+import AgregarCompraForm from "./modules/compras/AgregarCompraForm";
 
 import VentaPage from "./modules/ventas/VentasPage";
-import VentaForm from "./modules/ventas/VentaForm";
+import AgregarVentaForm from "./modules/ventas/AgregarVentaForm";
 
 import ClientesPage from "./modules/clientes/Clientes";
-import ClienteForm from "./modules/clientes/ClienteForm";
+import AgregarClienteForm from "./modules/clientes/AgregarClienteForm";
 
 import SubclientesPage from "./modules/subclientes/subclientesPage";
-import SubclienteForm from "./modules/subclientes/subclienteForm";
+import AgregarSubclienteForm from "./modules/subclientes/AgregarsubclienteForm";
 
 import ProveedoresPage from "./modules/proveedores/proveedoresPage";
-import ProveedorForm from "./modules/proveedores/proveedorForm";
+import AgregarProveedorForm from "./modules/proveedores/AgregarproveedorForm";
 
 import InformesPage from "./modules/informes-iva/InformesPage";
 
@@ -66,22 +66,22 @@ const App = () => {
 
             
               <Route path="/compras" element={<ComprasPage/>}/>
-              <Route path="/registrar-compra" element={<CompraForm />} />
+              <Route path="/registrar-compra" element={<AgregarCompraForm />} />
 
               <Route path="/ventas" element={<VentaPage/>}/>
-              <Route path="/registrar-venta" element={<VentaForm/>} />
+              <Route path="/registrar-venta" element={<AgregarVentaForm/>} />
 
               <Route path="/informes" element={<InformesPage/>}/>
 
               <Route path="/clientes" element={<ClientesPage/>}/>
-              <Route path="/registrar-cliente" element={<ClienteForm />}/>
+              <Route path="/registrar-cliente" element={<AgregarClienteForm />}/>
                {/* <Route path="/editar-cliente/:id" element={<ClienteForm clienteInicial={cliente}/>}/> */}
 
               <Route path="/subclientes" element={<SubclientesPage/>}/>
-              <Route path="/registrar-subcliente" element={<SubclienteForm/>}/>
+              <Route path="/registrar-subcliente" element={<AgregarSubclienteForm/>}/>
 
               <Route path="/proveedores" element={<ProveedoresPage/>}/>
-              <Route path="/registrar-proveedor" element={<ProveedorForm/>}/>
+              <Route path="/registrar-proveedor" element={<AgregarProveedorForm/>}/>
 
           </Routes>
           <Footer/>

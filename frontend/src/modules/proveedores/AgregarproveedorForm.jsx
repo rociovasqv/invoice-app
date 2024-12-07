@@ -3,10 +3,10 @@ import { Form, Button, Container, Row, Col, Alert } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-import { URL_SUBCLIENTES_AGREGAR, URL_SUBCLIENTES_EDITAR } from "../../constants/constantes";
+import {URL_PROVEEDORES_AGREGAR, URL_PROVEEDORES_EDITAR } from "../../constants/constantes";
 
-const SubclienteForm = () => {
-  const [subcliente, setSubliente] = useState({
+const AgregarProveedorForm = () => {
+  const [proveedor, setProveedor] = useState({
     razon_social: "",
     cuit: "",
   });
@@ -18,7 +18,7 @@ const SubclienteForm = () => {
   // Manejar los cambios en los campos del formulario
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setSubliente((prev) => ({
+    setProveedor((prev) => ({
       ...prev,
       [name]: value,
     }));
@@ -31,18 +31,18 @@ const SubclienteForm = () => {
     setIsSubmit(true);
 
     try {
-      if (subcliente) {
-        // Editar cliente
-        await axios.put(`${URL_SUBCLIENTES_EDITAR}/${subcliente.id_subcliente}`, subcliente);
-        alert("Subcliente editado exitosamente.");
+      if (proveedor) {
+        // Editar proveedor
+        await axios.put(`${URL_PROVEEDORES_EDITAR}/${proveedor.id_proveedor}`, proveedor);
+        alert("Proveedor editado exitosamente.");
       } else {
-        // Crear cliente
-        await axios.post(URL_SUBCLIENTES_AGREGAR, subcliente);
-        alert("Subcliente registrado exitosamente.");
+        // Crear proveedor
+        await axios.post(URL_PROVEEDORES_AGREGAR, proveedor);
+        alert("Proveedor registrado exitosamente.");
       }
-      navigate("/subclientes"); // Redirigir a la lista de clientes
+      navigate("/proveedores"); // Redirigir a la lista de proveedores
     } catch (err) {
-      setError("Error al guardar los datos del cliente.");
+      setError("Error al guardar los datos del proveedor.");
     } finally {
       setIsSubmit(false);
     }
@@ -50,29 +50,17 @@ const SubclienteForm = () => {
 
   return (
     <Container className="my-5">
-      <h2 className="text-center mb-4">{subcliente ? "Editar Subcliente" : "Registrar Subcliente"}</h2>
+      <h2 className="text-center mb-4">{proveedor ? "Editar proveedor" : "Registrar proveedor"}</h2>
       {error && <Alert variant="danger">{error}</Alert>}
       <Form onSubmit={handleSubmit}>
         <Row>
-        {/* <Col md={6}>
-            <Form.Group className="mb-3">
-              <Form.Label>ID del cliente</Form.Label>
-              <Form.Control
-                type="number"
-                name="id"
-                value={cliente.id_cliente}
-                onChange={handleChange}
-                required
-              />
-            </Form.Group>
-          </Col> */}
           <Col md={6}>
             <Form.Group className="mb-3">
               <Form.Label>Razón Social</Form.Label>
               <Form.Control
                 type="text"
                 name="razon_social"
-                value={subcliente.razon_social}
+                value={proveedor.razon_social}
                 onChange={handleChange}
                 placeholder="Ej: Empresa XYZ"
                 required
@@ -85,7 +73,7 @@ const SubclienteForm = () => {
               <Form.Control
                 type="text"
                 name="cuit"
-                value={subcliente.cuit}
+                value={proveedor.cuit}
                 onChange={handleChange}
                 placeholder="Ej: 20-12345678-9"
                 required
@@ -95,14 +83,15 @@ const SubclienteForm = () => {
         </Row>
         <div className="text-center">
           <Button variant="primary" type="submit" disabled={isSubmit}>
-            {isSubmit ? "Guardando..." : subcliente ? "Guardar Cambios" : "Registrar Subcliente"}
+            {isSubmit ? "Guardando..." : proveedor ? "Guardar Cambios" : "Registrar proveedor"}
           </Button>
           <Button
             variant="secondary"
             className="ms-3"
-            onClick={() => navigate("/subclientes")}
+            onClick={() => navigate("/proveedores")}
             disabled={isSubmit}
-          >Cancelar
+          >
+            Cancelar
           </Button>
         </div>
       </Form>
@@ -110,6 +99,4 @@ const SubclienteForm = () => {
   );
 };
 
-export default SubclienteForm;
-
-
+export default AgregarProveedorForm;
