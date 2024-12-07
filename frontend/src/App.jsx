@@ -39,15 +39,15 @@ import { useState } from "react";
 
 const App = () => {
 
-  const usuario = JSON.parse(sessionStorage.getItem("usuario"));
-  const [usuarioLogeado,sertUsuarioLogeado] = useState(usuario)
+  // const usuario = JSON.parse(sessionStorage.getItem("usuario"));
+  // const [usuarioLogeado,sertUsuarioLogeado] = useState(usuario)
 
   return (
     <Router>
           <header id="navbar">
               <NavbarComp
-              usuarioLogeado={usuarioLogeado}
-              sertUsuarioLogeado= {sertUsuarioLogeado}
+              // usuarioLogeado={usuarioLogeado}
+              // sertUsuarioLogeado= {sertUsuarioLogeado}
               />
           </header>
           <Routes>
