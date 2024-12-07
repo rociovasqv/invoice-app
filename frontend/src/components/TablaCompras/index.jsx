@@ -40,7 +40,7 @@ useEffect(()=>{
   return (
     <Container className="pad my-5">
       <h2 className="mb-4 text-center">Gestión de facturas de compra</h2>
-      {error && <Alert variant="danger">{error}</Alert>}
+      {/* {error && <Alert variant="danger">{error}</Alert>} */}
       {loading ? (
         <div className="text-center">
           <Spinner animation="border" />
@@ -64,7 +64,7 @@ useEffect(()=>{
           <Table striped bordered hover responsive>
             <thead>
               <tr>
-                <th>#</th>
+                <th>idCompra</th>
                 <th>Número de Factura</th>
                 <th>Fecha de Emisión</th>
                 <th>Proveedor</th>
@@ -94,14 +94,14 @@ useEffect(()=>{
                         variant="warning"
                         size="sm"
                         className="me-2"
-                        onClick={() => navigate(`/editar-compra/${facturasCompra.id}`)}
+                        onClick={() => navigate(`/editar-compra/${facturasCompra.id_factura}`)}
                       >
                         <FaEdit />
                       </Button>
                       <Button
                         variant="danger"
                         size="sm"
-                        onClick={() => handleEliminar(facturasCompra.id)}
+                        onClick={() => handleEliminar(facturasCompra.id_factura)}
                       >
                         <FaTrash />
                       </Button>

@@ -10,7 +10,7 @@ import { URL_FACTURAS_VENTA } from "../../constants/constantes";
 const TablaVentasComp = () => {
   const {
     loading,
-    error
+    // error
   } = useFacturasVenta();
 
   const [facturasVenta,setFacturasVenta]= useState([])
@@ -26,13 +26,14 @@ const TablaVentasComp = () => {
     getFacturasVenta()
   },[])
 
-  const handleEliminar = async (id) => {
-    if (window.confirm("¿Estás seguro de que deseas eliminar esta facturasVenta?")) {
+  const handleEliminar = async (id_factura) => {
+    if (window.confirm("¿Estás seguro de que deseas eliminar esta factura de compra?")) {
       try {
-        await eliminarFactura(id);
+        await axios.delete(`${URL_FACTURAS_ELIMINAR}/${id_factura}`);
         alert("Factura eliminada exitosamente");
+        getFacturasVenta()
       } catch (error) {
-        alert("Error al eliminar la facturasVenta");
+        alert("Error al eliminar la factura de compra");
       }
     }
   };
@@ -40,7 +41,7 @@ const TablaVentasComp = () => {
   return (
     <Container className="pad my-5">
       <h2 className="mb-4 text-center">Gestión de facturas de venta</h2>
-      {error && <Alert variant="danger">{error}</Alert>}
+      {/* {error && <Alert variant="danger">{error}</Alert>} */}
       {loading ? (
         <div className="text-center">
           <Spinner animation="border" />
@@ -63,7 +64,7 @@ const TablaVentasComp = () => {
           <Table striped bordered hover responsive>
             <thead>
               <tr>
-                <th>#</th>
+                <th>idVenta</th>
                 <th>Número de Factura</th>
                 <th>Fecha de Emisión</th>
                 <th>Cliente</th>
@@ -77,9 +78,9 @@ const TablaVentasComp = () => {
             </thead>
             <tbody>
               {facturasVenta && facturasVenta.length > 0 ? (
-                facturasVenta.map((facturasVenta, index) => (
-                  <tr key={facturasVenta.id}>
-                    <td>{index + 1}</td>
+                facturasVenta.map((facturasVenta) => (
+                  <tr key={facturasVenta.id_factura}>
+                    <td>{facturasVenta.id_factura}</td>
                     <td>{facturasVenta.nro_factura}</td>
                     <td>{facturasVenta.fecha_factura}</td>
                     <td>{facturasVenta.razon_social_cliente}</td>
@@ -93,14 +94,14 @@ const TablaVentasComp = () => {
                         variant="warning"
                         size="sm"
                         className="me-2"
-                        onClick={() => navigate(`/editar-venta/${facturasVenta.id}`)}
+                        onClick={() => navigate(`/editar-venta/${facturasVenta.id_factura}`)}
                       >
                         <FaEdit />
                       </Button>
                       <Button
                         variant="danger"
                         size="sm"
-                        onClick={() => handleEliminar(facturasVenta.id)}
+                        onClick={() => handleEliminar(facturasVenta.id_factura)}
                       >
                         <FaTrash />
                       </Button>
