@@ -20,7 +20,7 @@ import CompraForm from "./modules/compras/CompraForm";
 import VentaPage from "./modules/ventas/VentasPage";
 import VentaForm from "./modules/ventas/VentaForm";
 
-import ClientesPage from "./modules/clientes/CLientes";
+import ClientesPage from "./modules/clientes/Clientes";
 import ClienteForm from "./modules/clientes/ClienteForm";
 
 import SubclientesPage from "./modules/subclientes/subclientesPage";
@@ -34,13 +34,21 @@ import InformesPage from "./modules/informes-iva/InformesPage";
 // import Comprobantes from 
 
 import Dashboard from "./pages/Dashboard";
+import { useState } from "react";
 // import { AuthProvider } from "./contexts/authContext";
 
 const App = () => {
+
+  const usuario = JSON.parse(sessionStorage.getItem("usuario"));
+  const [usuarioLogeado,sertUsuarioLogeado] = useState(usuario)
+
   return (
     <Router>
           <header id="navbar">
-              <NavbarComp/>
+              <NavbarComp
+              usuarioLogeado={usuarioLogeado}
+              sertUsuarioLogeado= {sertUsuarioLogeado}
+              />
           </header>
           <Routes>
               <Route path="/" element={<Inicio />} />
