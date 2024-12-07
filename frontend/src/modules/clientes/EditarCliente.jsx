@@ -3,9 +3,9 @@ import { Form, Button, Container, Row, Col, Alert } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-import {URL_CLIENTES, URL_CLIENTES_AGREGAR, URL_CLIENTES_EDITAR } from "../../constants/constantes";
+import {URL_CLIENTES, URL_CLIENTES_EDITAR } from "../../constants/constantes";
 
-const AgregarClienteForm = ({ clienteInicial = null }) => {
+const EditarClienteForm = ({ clienteInicial = null }) => {
   const [cliente, setCliente] = useState({
     razon_social: "",
     cuit: "",
@@ -146,4 +146,4 @@ const AgregarClienteForm = ({ clienteInicial = null }) => {
   );
 };
 
-export default AgregarClienteForm;
+export default EditarClienteForm;

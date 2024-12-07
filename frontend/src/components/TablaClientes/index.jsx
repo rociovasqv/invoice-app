@@ -89,7 +89,7 @@ const TablaClientesComp = () => {
                         variant="warning"
                         size="sm"
                         className="me-2"
-                        onClick={() => navigate(`${URL_CLIENTES_EDITAR}/${cliente.id_cliente}`)} // Navegar a la edición
+                        onClick={() => navigate(`/registrar-cliente/${cliente.id_cliente}`)} // Navegar a la edición
                       >
                         <FaEdit />
                       </Button>
