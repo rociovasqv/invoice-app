@@ -44,11 +44,14 @@ const EditarClienteForm = () => {
   };
 
   const getData = async() => {
-    let response = await axios.get(`${URL_CLIENTES}/${id_cliente}`)
-    if(response.status === 200 && response.data && response.data.length > 0) {
-      setCliente(response.data[0])
-    }else{
-      
+    try {
+      let response = await axios.get(`${URL_CLIENTES}/${id_cliente}`)
+      if(response.status === 200 && response.data && response.data.length > 0) {
+        setCliente(response.data)
+      }  
+    } catch (error) {
+      console.error("error al obtener los datos del cliente: ",error)
+      alert("no se pudieron cargar los datos del cliente")    
     }
   }
   useEffect(()=>{
@@ -93,7 +96,7 @@ const EditarClienteForm = () => {
               <Form.Control
                 type="text"
                 name="razon_social_cliente"
-                value={cliente.razon_social_cliente}
+                value={cliente.razon_social_cliente || ""}
                 onChange={handleChange}
                 placeholder="Ej: Empresa XYZ"
                 required
@@ -106,7 +109,7 @@ const EditarClienteForm = () => {
               <Form.Control
                 type="text"
                 name="cuit_cliente"
-                value={cliente.cuit_cliente}
+                value={cliente.cuit_cliente || ""}
                 onChange={handleChange}
                 placeholder="Ej: 20-12345678-9"
                 required
@@ -121,7 +124,7 @@ const EditarClienteForm = () => {
               <Form.Control
                 as="select"
                 name="condicion_iva"
-                value={cliente.condicion_iva}
+                value={cliente.condicion_iva || ""}
                 onChange={handleChange}
                 required
               >
@@ -139,7 +142,7 @@ const EditarClienteForm = () => {
               <Form.Control
                 type="text"
                 name="domicilio_fiscal"
-                value={cliente.domicilio_fiscal}
+                value={cliente.domicilio_fiscal || ""}
                 onChange={handleChange}
                 placeholder="Ej: Calle Falsa 123"
                 required
