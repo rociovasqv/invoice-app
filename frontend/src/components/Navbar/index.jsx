@@ -4,8 +4,6 @@ import { Navbar, Nav, Container, Button, Image } from "react-bootstrap";
 import logoAmp from '../../logos/logoAmpNav.png';
 import '../../styles/navbar.css'
 
-// const { user, logout } = useAuth();
-
 const NavbarComp = () => {
 
     const NavList = () => (
@@ -14,9 +12,12 @@ const NavbarComp = () => {
             <Nav.Link as={Link} to="/quienes-somos" className="">¿Quiénes somos?</Nav.Link>
             <Nav.Link as={Link} to="/servicios" className="">Servicios</Nav.Link>
             <Nav.Link as={Link} to="/contacto" className="">Contacto</Nav.Link>
+            <Nav.Link as={Link} to="/inicio-sesion" className="ms-3">
+                <Button variant="outline-primary">Iniciar Sesión</Button>
+            </Nav.Link>
+
         </>
     );
-
     return (
         <header>
             <Navbar
@@ -36,10 +37,7 @@ const NavbarComp = () => {
                     {/* Menú colapsable */}
                     <Navbar.Collapse id="menu">
                         <Nav className="ms-auto">
-                            <NavList />
-                            <Nav.Link as={Link} to="/inicio-sesion" className="ms-3">
-                                <Button variant="outline-primary">Iniciar Sesión</Button>
-                            </Nav.Link>
+                        <NavList/>
                         </Nav>
                     </Navbar.Collapse>
                 </Container>

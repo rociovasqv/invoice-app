@@ -3,6 +3,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
 import NavbarComp from "./components/Navbar";
+import NavLateral from "./components/NavbarLateral";
+import RutaPrivada from "./components/privateRoute/privateRoute";
 import Footer from './components/Footer';
 
 import Inicio from "./pages/Inicio";
@@ -31,32 +33,38 @@ import ProveedorForm from "./modules/proveedores/proveedorForm";
 
 import InformesPage from "./modules/informes-iva/InformesPage";
 
-// import Comprobantes from 
 
 import Dashboard from "./pages/Dashboard";
 import { useState } from "react";
-// import { AuthProvider } from "./contexts/authContext";
 
 const App = () => {
 
-  const usuario = JSON.parse(sessionStorage.getItem("usuario"));
-  const [usuarioLogeado,sertUsuarioLogeado] = useState(usuario)
+  const usuario = (() => {
+    try {
+      return JSON.parse(sessionStorage.getItem("usuario"));
+    } catch {
+      return null;
+    }
+  })();
+  
+  const [usuarioLogeado,setUsuarioLogeado] = useState(usuario);
+  const cerrarSesion = () => {
+    sessionStorage.removeItem("usuario");
+    setUsuarioLogeado(null);
+  }
 
   return (
     <Router>
           <header id="navbar">
-              <NavbarComp
-              usuarioLogeado={usuarioLogeado}
-              sertUsuarioLogeado= {sertUsuarioLogeado}
-              />
+          {usuarioLogeado ? <NavLateral cerrarSesion={cerrarSesion} /> : <NavbarComp />}
           </header>
           <Routes>
               <Route path="/" element={<Inicio />} />
               <Route path="/quienes-somos" element={<QuienesSomos/>}/>
               <Route path="/servicios" element={<ServicePage/>}/>
               <Route path="/Contacto" element={<ContactoPage/>}/>
-              <Route path="/inicio-sesion" element={<InicioSesion/>}/>
-
+              <Route path="/inicio-sesion" element={<InicioSesion setUsuarioLogeado={setUsuarioLogeado}/>}/>
+              
               <Route path="/dashboard" element={<Dashboard/>}/>
 
               <Route path="/usuarios" element={<Usuarios/>}/>
