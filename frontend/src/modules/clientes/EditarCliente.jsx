@@ -6,14 +6,17 @@ import {URL_CLIENTES ,URL_CLIENTES_EDITAR} from "../../constants/constantes";
 
 const EditarClienteForm = () => {
 
-  const [cliente,setCliente] = useState({
+  const [cliente,setCliente] = useState({})
+
+  const estadoInicial = {
     razon_social_cliente: "",
     cuit_cliente: "",
     condicion_iva: "",
     domicilio_fiscal: "",
-  })
+  }
 
-  const {id_cliente} = useParams()
+  const {id} = useParams()
+  console.log(id)
 
   // const [error, setError] = useState(null);
   // const [isSubmit, setIsSubmit] = useState(false);
@@ -23,7 +26,7 @@ const EditarClienteForm = () => {
     e.preventDefault()
     try {
       
-      let response = await axios.put(`${URL_CLIENTES_EDITAR}/${id_cliente}`,{
+      let response = await axios.put(URL_CLIENTES_EDITAR+"/"+id,{
         razon_social_cliente : cliente.razon_social_cliente,
         cuit_cliente : cliente.cuit_cliente,
         condicion_iva : cliente.condicion_iva,
@@ -39,21 +42,23 @@ const EditarClienteForm = () => {
     }
   }
   
-  const handleChange = (e) => {
-    setCliente({...cliente,[e.target.name]:e.target.value})
-  };
-
+  
   const getData = async() => {
     try {
-      let response = await axios.get(`${URL_CLIENTES}/${id_cliente}`)
-      if(response.status === 200 && response.data && response.data.length > 0) {
-        setCliente(response.data)
+      let response = await axios.get(URL_CLIENTES+"/"+id)
+      console.log(response.data)
+      if(response.status === 200) {
+        setCliente(response.data[0])
       }  
     } catch (error) {
       console.error("error al obtener los datos del cliente: ",error)
       alert("no se pudieron cargar los datos del cliente")    
     }
   }
+  const handleChange = (e) => {
+    setCliente({...cliente,[e.target.name]:e.target.value})
+  };
+
   useEffect(()=>{
     getData()
   },[])
@@ -165,6 +170,7 @@ const EditarClienteForm = () => {
           </Button>
         </div>
       </Form>
+      
     </Container>
   );
 };
