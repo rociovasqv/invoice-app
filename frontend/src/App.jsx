@@ -5,6 +5,7 @@ import './App.css';
 import NavbarComp from "./components/Navbar";
 import NavLateral from "./components/NavbarLateral";
 import RutaPrivada from "./components/privateRoute/privateRoute";
+import Swal from 'sweetalert2';
 import Footer from './components/Footer';
 
 import Inicio from "./pages/Inicio";
@@ -24,6 +25,7 @@ import VentaForm from "./modules/ventas/VentaForm";
 
 import ClientesPage from "./modules/clientes/Clientes";
 import ClienteForm from "./modules/clientes/ClienteForm";
+import FacturasCliente from "./modules/clientes/FacturasCliente";
 
 import SubclientesPage from "./modules/subclientes/subclientesPage";
 import SubclienteForm from "./modules/subclientes/subclienteForm";
@@ -48,15 +50,34 @@ const App = () => {
   })();
   
   const [usuarioLogeado,setUsuarioLogeado] = useState(usuario);
+  const [isLogin, setIsLogin] = useState(!!usuarioLogeado)
   const cerrarSesion = () => {
-    sessionStorage.removeItem("usuario");
-    setUsuarioLogeado(null);
-  }
+    Swal.fire({
+      title: '¿Estás seguro que desear cerrar sesión?',
+      text: "Se cerrará tu sesión",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, cerrar sesión',
+      cancelButtonText: 'No, cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: '¡Sesión cerrada!',
+          text: 'Has cerrado sesión exitosamente.',
+          icon: 'success',
+          confirmButtonText: 'Aceptar'
+        })
+        setUsuarioLogeado({});
+        sessionStorage.removeItem("usuario");
+        setIsLogin(false);
+      }
+    });
+  };
 
   return (
     <Router>
           <header id="navbar">
-          {usuarioLogeado ? <NavLateral cerrarSesion={cerrarSesion} /> : <NavbarComp />}
+          {isLogin ? <NavLateral cerrarSesion={cerrarSesion} /> : <NavbarComp />}
           </header>
           <Routes>
               <Route path="/" element={<Inicio />} />
@@ -82,6 +103,7 @@ const App = () => {
               <Route path="/informes" element={<InformesPage/>}/>
 
               <Route path="/clientes" element={<ClientesPage/>}/>
+              <Route path="/facturas/:clienteId" element={<FacturasCliente/>}/>
               <Route path="/registrar-cliente" element={<ClienteForm />}/>
                {/* <Route path="/editar-cliente/:id" element={<ClienteForm clienteInicial={cliente}/>}/> */}
 

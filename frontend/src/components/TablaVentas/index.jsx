@@ -5,7 +5,7 @@ import useFacturasVenta from "../../hooks/useFacturasVenta"; // Hook para factur
 import "../../styles/facturaTabla.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { URL_FACTURAS_VENTA } from "../../constants/constantes";
+import { URL_FACTURAS_VENTA, URL_FACTURAS_ELIMINAR } from "../../constants/constantes";
 
 const TablaVentasComp = () => {
   const {

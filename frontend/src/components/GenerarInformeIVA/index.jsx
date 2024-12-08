@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Container, Table, Button, Spinner } from "react-bootstrap";
 import axios from "axios";
-import { URL_CLIENTES, URL_PROVEEDORES, URL_INFORMES_IVA } from "../../constants/constantes";
+import { URL_CLIENTES, URL_INFORMES_IVA } from "../../constants/constantes";
 
 const InformeIvaComp = () => {
   const [startDate, setStartDate] = useState("");
@@ -13,16 +13,20 @@ const InformeIvaComp = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   // Obtener lista de clientes al cargar el componente
-  useEffect(() => {
-    const fetchClientes = async () => {
-      try {
-        const response = await axios.get(URL_CLIENTES);
-        setClientes(response.data);
-      } catch (err) {
-        console.error("Error al obtener los clientes:", err);
-        setError("No se pudo cargar la lista de clientes.");
+
+  const fetchClientes = async () => {
+    try {
+      const response = await axios.get(URL_CLIENTES);
+      if (response.data && Array.isArray(response.data)) {
+        setClientes(response.data); 
       }
-    };
+   } catch (err) {
+      console.error("Error al obtener los clientes:", err);
+      setError("No se pudo cargar la lista de clientes.");
+    }
+  };
+
+  useEffect(() => {
     fetchClientes();
   }, []);
 
@@ -101,18 +105,22 @@ const InformeIvaComp = () => {
           <div className="mb-3">
             <label htmlFor="cliente" className="form-label">Cliente</label>
             <select
-              id ="cliente"
+              id="cliente"
               className="form-control"
               value={clienteId}
               onChange={(e) => setClienteId(e.target.value)}
               required
             >
               <option value="">Seleccione un cliente</option>
-              {clientes.map((cliente) => (
-                <option key={cliente.id} value={cliente.id}>
-                  {cliente.nombre}
-                </option>
-              ))}
+              {clientes.length > 0 ? (
+                clientes.map((cliente) => (
+                  <option key={cliente.id_cliente} value={cliente.id_cliente}>
+                    {cliente.razon_social_cliente}
+                  </option>
+                ))
+              ) : (
+                <option value="">No hay clientes disponibles</option>
+              )}
             </select>
           </div>
           <div className="mb-3">
@@ -149,7 +157,7 @@ const InformeIvaComp = () => {
               <thead>
                 <tr>
                   <th>N° de factura</th>
-                  <th>Cliente/Proveedor</th>
+                  <th>Cliente</th>
                   <th>Fecha</th>
                   <th>Monto Neto</th>
                   <th>IVA</th>
@@ -160,7 +168,7 @@ const InformeIvaComp = () => {
                 {informe.map((item, index) => (
                   <tr key={index}>
                     <td>{item.numero_factura}</td>
-                    <td>{item.proveedor || item.cliente}</td>
+                    <td>{item.cliente}</td>
                     <td>{item.fecha}</td>
                     <td>{item.neto.toFixed(2)}</td>
                     <td>{item.iva.toFixed(2)}</td>
@@ -189,7 +197,7 @@ export default InformeIvaComp;
 // import { useState , useEffect} from "react";
 // import { Container, Table, Button, Spinner } from "react-bootstrap";
 // import axios from "axios";
-// import { URL_CLIENTES, URL_PROVEEDORES, URL_INFORMES_IVA } from "../../constants/constantes";
+// import { URL_CLIENTES, URL_INFORMES_IVA } from "../../constants/constantes";
 
 // const InformeIvaComp = () => {
 //     const [startDate, setStartDate] = useState("");
@@ -201,16 +209,16 @@ export default InformeIvaComp;
 //     const [isLoading, setIsLoading] = useState(false);
   
 //     // Obtener lista de clientes al cargar el componente
+// const fetchClientes = async () => {
+  //         try {
+  //           const response = await axios.get(URL_CLIENTES);
+  //           setClientes(response.data);
+  //         } catch (err) {
+  //           console.error("Error al obtener los clientes. ", err);
+  //           setError("No se pudo cargar la lista de clientes.");
+  //         }
+  //       };
 //     useEffect(() => {
-//       const fetchClientes = async () => {
-//         try {
-//           const response = await axios.get(URL_CLIENTES || URL_PROVEEDORES);
-//           setClientes(response.data);
-//         } catch (err) {
-//           console.error("Error al obtener los clientes:" || "Error al obtener los proveedores", err);
-//           setError("No se pudo cargar la lista de clientes." || "No se pudo cargar la lista de proveedores." );
-//         }
-//       };
 //       fetchClientes();
 //     }, []);
 
@@ -296,7 +304,7 @@ export default InformeIvaComp;
 //               id="cliente"
 //               type="text"
 //               className="form-control"
-//               placeholder="Nombre del cliente o proveedor"
+//               placeholder="Nombre del cliente"
 //             />
 //           </div>
 //           <div className="mb-3">
