@@ -4,12 +4,12 @@ import "../styles/dashboard.css";
 
 const Dashboard = () => {
   const modules = [
-    { title: "Gestión de Compras", icon: "🛒", description: "Administra las compras realizadas.", path: "/compras" },
+    { title: "Gestión de Compras", icon: "📄", description: "Administra las compras realizadas.", path: "/compras" },
     { title: "Gestión de Ventas", icon: "💰", description: "Registra y gestiona las ventas.", path: "/ventas" },
-    // { title: "Carga de Comprobantes", icon: "📄", description: "Simplifica la carga de comprobantes.", path: "/comprobantes" },
-    { title: "Informes Impositivos", icon: "📊", description: "Genera informes y reportes.", path: "/informes" },
-    { title: "Usuarios y Seguridad", icon: "🔒", description: "Administra roles y permisos.", path: "/usuarios" },
+    // { title: "Carga de Comprobantes", icon: "🛒📄", description: "Simplifica la carga de comprobantes.", path: "/comprobantes" },
+    // { title: "Informes Impositivos", icon: "📊", description: "Genera informes y reportes.", path: "/informes" },
     { title: "Clientes", icon: "👤", description: "Administra clientes.", path: "/clientes" },
+    { title: "Usuarios y Seguridad", icon: "🔒", description: "Administra roles y permisos.", path: "/usuarios" },
   ];
   return (
     <Container fluid className="pad dashboard-container">
