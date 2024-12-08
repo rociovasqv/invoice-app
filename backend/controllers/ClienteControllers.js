@@ -28,7 +28,7 @@ const agregarClientes = (req,res) => {
 const editarClientes = (req,res) => {
 
     const id= req.params.id
-    const {razon_social_cliente,cuit_cliente,condicionIva,domicilioFiscal} =req.body 
+    const {razon_social_cliente,cuit_cliente,condicion_iva,domicilio_fiscal} =req.body 
     const query = `update clientes set razon_social_cliente='${razon_social_cliente}' ,cuit_cliente='${cuit_cliente}' ,condicion_iva='${condicion_iva}' ,domicilio_fiscal='${domicilio_fiscal}' where id_cliente='${id}'`
     conection.query(query,(err,results)=> {
         if (err) throw err
