@@ -5,7 +5,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import "../../styles/facturaTabla.css";
 
-import { URL_PROVEEDORES,URL_PROVEEDORES_EDITAR, URL_PROVEEDORES_ELIMINAR } from "../../constants/constantes";
+import { URL_PROVEEDORES, URL_PROVEEDORES_ELIMINAR } from "../../constants/constantes";
 
 const TablaProveedorComp = () => {
   const [proveedores, setproveedores] = useState([]);
@@ -87,7 +87,7 @@ const TablaProveedorComp = () => {
                         variant="warning"
                         size="sm"
                         className="me-2"
-                        onClick={() => navigate(`${URL_PROVEEDORES_EDITAR}/${proveedor.id_proveedor}`)} // Navegar a la edición
+                        onClick={() => navigate(`/editar-proveedor/${proveedor.id_proveedor}`)} // Navegar a la edición
                       >
                         <FaEdit />
                       </Button>

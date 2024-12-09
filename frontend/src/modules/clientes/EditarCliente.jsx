@@ -16,10 +16,7 @@ const EditarClienteForm = () => {
   }
 
   const {id} = useParams()
-  console.log(id)
 
-  // const [error, setError] = useState(null);
-  // const [isSubmit, setIsSubmit] = useState(false);
   const navigate = useNavigate();
   
   const handleSubmit = async (e)=>{
@@ -51,7 +48,6 @@ const EditarClienteForm = () => {
         setCliente(response.data[0])
       }  
     } catch (error) {
-      console.error("error al obtener los datos del cliente: ",error)
       alert("no se pudieron cargar los datos del cliente")    
     }
   }
@@ -61,33 +57,7 @@ const EditarClienteForm = () => {
 
   useEffect(()=>{
     getData()
-  },[])
-  
-  // Manejar la acción de envío (crear o editar)
-  // const handleSubmit = async (e) => {
-    //   e.preventDefault();
-    //   setError(null);
-    //   setIsSubmit(true);
-    
-    //   try {
-      //     if (clienteInicial) {
-        //       // Editar cliente
-        //       await axios.put(`${URL_CLIENTES_EDITAR}/${clienteInicial.id_cliente}`, cliente);
-        //       alert("Cliente editado exitosamente.");
-        //     } else {
-          //       // Crear cliente
-          //       await axios.post(URL_CLIENTES_AGREGAR, cliente);
-          //       alert("Cliente registrado exitosamente.");
-          //     }
-          //     navigate("/clientes"); // Redirigir a la lista de clientes
-          //   } catch (err) {
-            //     setError("Error al guardar los datos del cliente.");
-            //   } finally {
-              //     setIsSubmit(false);
-              //   }
-              // };
-              
-              
+  },[])      
 
   return (
     <Container className="my-5">

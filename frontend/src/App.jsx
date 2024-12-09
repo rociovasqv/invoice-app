@@ -29,6 +29,7 @@ import AgregarSubclienteForm from "./modules/subclientes/AgregarsubclienteForm";
 
 import ProveedoresPage from "./modules/proveedores/proveedoresPage";
 import AgregarProveedorForm from "./modules/proveedores/AgregarproveedorForm";
+import EditarProveedorForm from "./modules/proveedores/EditarProveedor";
 
 import InformesPage from "./modules/informes-iva/InformesPage";
 
@@ -83,6 +84,7 @@ const App = () => {
 
               <Route path="/proveedores" element={<ProveedoresPage/>}/>
               <Route path="/registrar-proveedor" element={<AgregarProveedorForm/>}/>
+              <Route path="/editar-proveedor/:id" element={<EditarProveedorForm/>}/>
 
           </Routes>
           <Footer/>
