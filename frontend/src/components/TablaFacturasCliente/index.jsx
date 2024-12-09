@@ -1,10 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
 import { Table, Spinner, Container, Row, Col, Alert, Button } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 
 import {jsPDF} from 'jspdf';
-import autoTable from 'jspdf-autotable';
 import * as XLSX from 'xlsx';
 import {format} from '@formkit/tempo'
 
@@ -13,6 +12,7 @@ import logoAmpuero from '../../logos/logoAmpNav.png';
 
 // import Totales from '../Totales';
 import { URL_FACTURAS_VENTA } from '../../constants/constantes';
+import { URL_CLIENTES } from '../../constants/constantes';
 import '../../styles/informeTabla.css'
 
 const TablaFacturasCliente = () => {
@@ -21,7 +21,8 @@ const TablaFacturasCliente = () => {
     const [facturas, setFacturas] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-
+    const [cliente, setCliente] = useState(null);
+  
     //Para exportar como PDF
     const ExportPDF = () => {
         const doc = new jsPDF();
@@ -49,7 +50,28 @@ const TablaFacturasCliente = () => {
         doc.setTextColor(0, 0, 0); // Color negro para el subtítulo
         doc.text('Facturas del Cliente', 15, 45);
 
-        //Tabla
+        //Tabla de los datos del cliente
+        if (cliente) {
+          const clienteData = [
+              ['Nombre', cliente.nombre_cliente || 'N/A'],
+              ['Razón Social', cliente.razon_social_cliente || 'N/A'],
+              ['CUIT', cliente.cuit_cliente || 'N/A'],
+              ['Domicilio Fiscal', cliente.domicilio_fiscal || 'N/A'],
+              ['Condición IVA', cliente.condicion_iva || 'N/A'],
+          ];
+          doc.autoTable({
+              body: clienteData,
+              startY: 55,
+              styles: { fontSize: 10, cellPadding: 2, cellWidth: 'wrap'},
+              theme: 'grid',
+              headStyles: { fillColor: [217, 217, 217], textColor: [33, 33, 33] },
+              columnStyles: {
+                0: { cellWidth: 35 }, // Ancho fijo para el encabezado (Nombre, Razón Social, etc.)
+                1: { cellWidth: 'auto' }, // Relleno dinámico para la celda de datos
+            },
+          });
+      }
+        //Tabla principal (facturas)
         const headers = [['N° Factura', 'Fecha', 'Monto Neto', 'IVA', 'Total']];
         const data = facturas.map(factura => [
             factura.nro_factura,
@@ -64,8 +86,8 @@ const TablaFacturasCliente = () => {
         doc.autoTable({
             head: headers,
             body: data,
-            startY: 55,
-            styles: { fontSize: 10, cellPadding: 3 },
+            startY: doc.previousAutoTable.finalY + 10,
+            styles: { fontSize: 10, cellPadding: 2 },
             headStyles: { fillColor: [217, 217, 217], textColor: [33, 33, 33] }, 
         });
         doc.save('facturas_cliente.pdf');
@@ -79,22 +101,37 @@ const TablaFacturasCliente = () => {
         XLSX.writeFile(workbook, "facturas_cliente.xlsx");
     };
 
-    //Para mostrar los datos de las facturas
-    const fetchFacturas = async () => {
-        try {
-          const response = await axios.get(`${URL_FACTURAS_VENTA}?clienteId=${clienteId}`);
-          setFacturas(response.data);
-        } catch (error) {
+    //Para obtener y mostrar los datos del cliente
+    const fetchCliente = useCallback(async () => {
+      try {
+          const res = await axios.get(`${URL_CLIENTES}/${clienteId}`);
+          setCliente(res.data);
+      } catch (error) {
+          console.error("Error al obtener los datos del cliente:", error);
+          setError("No se pudieron cargar los datos del cliente.");
+      }
+  }, [clienteId]);
+
+  //Para obtener y mostrar las facturas del cliente específico
+  const fetchFacturas = useCallback(async () => {
+      try {
+          const res = await axios.get(`${URL_FACTURAS_VENTA}?clienteId=${clienteId}`);
+          setFacturas(res.data);
+      } catch (error) {
           console.error("Error al obtener las facturas:", error);
           setError("No se pudieron cargar las facturas.");
-        } finally {
+      } finally {
           setLoading(false);
-        }
-      };
-    useEffect(() => {
-      fetchFacturas();
-    }, [clienteId]);
-  
+      }
+  }, [clienteId]);
+
+  useEffect(() => {
+      if (clienteId) {
+          fetchCliente();
+          fetchFacturas();
+      }
+  }, [clienteId, fetchCliente, fetchFacturas]);
+
     if (loading) {
       return (
         <div className="text-center">
@@ -116,6 +153,35 @@ const TablaFacturasCliente = () => {
             <h2 className="mb-4 text-center">Facturas del cliente</h2>
           </Col>
         </Row>
+        {cliente ? (
+          <div className="mb-4">
+            <h3 className="text-start">Datos del Cliente</h3>
+            <Table responsive bordered className='tableData justify-content-start'>
+              <tbody>
+                <tr>
+                  <th>Nombre</th>
+                  <td>{cliente.nombre_cliente}</td>
+                </tr>
+                <tr>
+                  <th>Razón Social</th>
+                  <td>{cliente.razon_social_cliente}</td>
+                </tr>
+                <tr>
+                  <th>CUIT</th>
+                  <td>{cliente.cuit_cliente}</td>
+                </tr>
+                <tr>
+                  <th>Domicilio</th>
+                  <td>{cliente.domicilio_fiscal}</td>
+                </tr>
+                <tr>
+                  <th>Condición IVA</th>
+                  <td>{cliente.condicion_iva}</td>
+                </tr>
+              </tbody>
+            </Table>
+          </div>
+    ): (<Alert variant="warning" className="text-center">Cargando datos del cliente...</Alert>)}
         {error && (<Alert variant="danger" className="text-center">{error}</Alert>)}
         {facturas.length === 0 ? (
           <Alert variant="info" className="text-center">

@@ -4,7 +4,7 @@ import './App.css';
 
 import NavbarComp from "./components/Navbar";
 import NavLateral from "./components/NavbarLateral";
-import RutaPrivada from "./components/privateRoute/privateRoute";
+// import RutaPrivada from "./components/privateRoute/privateRoute";
 import Swal from 'sweetalert2';
 import Footer from './components/Footer';
 
@@ -26,6 +26,7 @@ import AgregarVentaForm from "./modules/ventas/AgregarVentaForm";
 import ClientesPage from "./modules/clientes/Clientes";
 import AgregarClienteForm from "./modules/clientes/AgregarClienteForm";
 import EditarClienteForm from "./modules/clientes/EditarCliente";
+import FacturasCliente from "./modules/clientes/FacturasCliente";
 
 import SubclientesPage from "./modules/subclientes/subclientesPage";
 import AgregarSubclienteForm from "./modules/subclientes/AgregarsubclienteForm";
@@ -35,7 +36,7 @@ import ProveedoresPage from "./modules/proveedores/proveedoresPage";
 import AgregarProveedorForm from "./modules/proveedores/AgregarproveedorForm";
 import EditarProveedorForm from "./modules/proveedores/EditarProveedor";
 
-import InformesPage from "./modules/informes-iva/InformesPage";
+// import InformesPage from "./modules/informes-iva/InformesPage";
 
 
 import Dashboard from "./pages/Dashboard";
@@ -102,11 +103,12 @@ const App = () => {
               <Route path="/ventas" element={<VentaPage/>}/>
               <Route path="/registrar-venta" element={<AgregarVentaForm/>} />
 
-              <Route path="/informes" element={<InformesPage/>}/>
+              {/* <Route path="/informes" element={<InformesPage/>}/> */}
 
               <Route path="/clientes" element={<ClientesPage/>}/>
               <Route path="/registrar-cliente" element={<AgregarClienteForm />}/>
-               <Route path="/editar-cliente/:id" element={<EditarClienteForm/>}/>
+              <Route path="/editar-cliente/:id" element={<EditarClienteForm/>}/>
+              <Route path="/facturas/:clienteId" element={<FacturasCliente/>}/>
 
               <Route path="/subclientes" element={<SubclientesPage/>}/>
               <Route path="/registrar-subcliente" element={<AgregarSubclienteForm/>}/>
