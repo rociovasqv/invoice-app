@@ -1,53 +1,43 @@
 import { Form, Button, Container, Row, Col, Alert, Spinner } from "react-bootstrap";
 import useCompraForm from '../../hooks/useCompraForm';
 import { useState } from "react";
-// import axios from "axios"
-// import {URL_FACTURA_COMPRA_AGREGAR} from "D:/Documents/Proyectos/Proyecto Metodologia/invoice-app/frontend/src/constants/constantes"
+import { useNavigate } from "react-router-dom";
+import axios from "axios"
+import { URL_FACTURAS_COMPRA_CARGAR } from "../../constants/constantes";
 
 const AgregarCompraForm = () => {
 
-    const {
-        isSubmit,
-        successMessage,
-        error,
-        calcularTotal,
-      } = useCompraForm()
-      const [formData,setformData] = useState()
+  const [proveedor,setProveedor] = useState()
+
+  const estadoInicial = {
+  }
+
+  const navigate = useNavigate();
+  
+  const handleSubmit = async (e)=>{
+    e.preventDefault()
+    let response = await axios.post(URL_FACTURAS_COMPRA_CARGAR,{
+      id_cliente : proveedor.id_cliente,
+      razon_social_proveedor : proveedor.razon_social_proveedor,
+      cuit_proveedor : proveedor.cuit_proveedor
+    })
+    if(response){
+      alert("Se agrego Proveedor")
+      navigate("/proveedores")
+    }
+  }
+  
+  const handleChange = (e) => {
+    setProveedor({...proveedor,[e.target.name]:e.target.value})
+  };
 
   return (
     <Container className="pad my-5 mt-1">
       <h2 className="text-center mb-4">Registrar factura de compra</h2>
-      {successMessage && <Alert variant="success">{successMessage}</Alert>}
-      {error && <Alert variant="danger">{error}</Alert>}
+      {/* {successMessage && <Alert variant="success">{successMessage}</Alert>}
+      {error && <Alert variant="danger">{error}</Alert>} */}
 
       <Form onSubmit={handleSubmit}>
-        {/* <Row className="mb-3">
-          <Col md={6}>
-            <Form.Group>
-              <Form.Label>ID</Form.Label>
-              <Form.Control
-                type="number"
-                name="id_proveedor"
-                value={formData.id_proveedor}
-                onChange={handleChange}
-                placeholder="ID del proveedor"
-                required
-              />
-            </Form.Group>
-          </Col>
-          <Col md={6}>
-            <Form.Group>
-              <Form.Label>Subcliente</Form.Label>
-              <Form.Control
-                type="text"
-                name="id_subcliente"
-                value={formData.id_subcliente}
-                onChange={handleChange}
-                placeholder="ID del subcliente"
-              />
-            </Form.Group>
-          </Col>
-        </Row> */}
         <Row className="mb-3">
           <Col md={4}>
             <Form.Group>
@@ -55,7 +45,6 @@ const AgregarCompraForm = () => {
               <Form.Control
                 type="text"
                 name="nro_factura"
-                value={formData.nro_factura}
                 onChange={handleChange}
                 placeholder="Número de factura"
                 required
@@ -68,7 +57,6 @@ const AgregarCompraForm = () => {
               <Form.Control
                 type="date"
                 name="fecha_factura"
-                value={formData.fecha_factura}
                 onChange={handleChange}
                 required
               />
@@ -77,7 +65,7 @@ const AgregarCompraForm = () => {
           <Col md={4}>
           <Form.Group>
               <Form.Label>Tipo de Factura</Form.Label>
-              <Form.Select name="tipo" value={formData.tipo} onChange={handleChange}>
+              <Form.Select name="tipo" onChange={handleChange}>
                 <option value="compra">A</option>
                 <option value="venta">B</option>
                 <option value="venta">C</option>
@@ -93,7 +81,6 @@ const AgregarCompraForm = () => {
               <Form.Control
                 type="text"
                 name="proveedor"
-                value={formData.nombre_proveedor}
                 onChange={handleChange}
                 placeholder="Nombre del proveedor"
               />
@@ -105,7 +92,6 @@ const AgregarCompraForm = () => {
               <Form.Control
                 type="number"
                 name="cuit"
-                value={formData.cuit}
                 onChange={handleChange}
                 placeholder="CUIT del proveedor"
               />
@@ -120,10 +106,9 @@ const AgregarCompraForm = () => {
               <Form.Control
                 type="number"
                 name="importe_neto"
-                value={formData.importe_neto}
                 onChange={handleChange}
-                onBlur={calcularTotal}
-                step="0.01"
+                // onBlur={calcularTotal}
+                // step="0.01"
                 required
               />
             </Form.Group>
@@ -134,10 +119,9 @@ const AgregarCompraForm = () => {
               <Form.Control
                 type="number"
                 name="importe_iva"
-                value={formData.importe_iva}
                 onChange={handleChange}
-                onBlur={calcularTotal}
-                step="0.01"
+                // onBlur={calcularTotal}
+                // step="0.01"
                 required
               />
             </Form.Group>
@@ -148,7 +132,6 @@ const AgregarCompraForm = () => {
               <Form.Control
                 type="number"
                 name="importe_total"
-                value={formData.importe_total}
                 readOnly
               />
             </Form.Group>
@@ -158,8 +141,8 @@ const AgregarCompraForm = () => {
       
         </Row>
 
-        <Button type="submit" variant="primary" disabled={isSubmit}>
-          {isSubmit ? <Spinner animation="border" size="sm" /> : "Registrar"}
+        <Button type="submit" variant="primary">
+          Cargar Factura
         </Button>
       </Form>
     </Container>

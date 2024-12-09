@@ -1,13 +1,12 @@
 const express = require('express');
-const { registrarFactura, obtenerFacturasCompras,obtenerFacturasVentas,eliminarFactura, cargarComprobante, generarInformeIVA } = require('../controllers/FacturaControllers');
+const {obtenerFacturasCompras,obtenerFacturasVentas,eliminarFactura, generarInformeIVA, registrarFacturaCompra,registrarFacturaVenta } = require('../controllers/FacturaControllers');
 const router = express.Router();
 
-router.post('/facturas/agregar', registrarFactura); // Registrar compra/venta
 router.get('/facturas/compras', obtenerFacturasCompras);   // Consultar facturas
 router.get('/facturas/ventas', obtenerFacturasVentas);   // Consultar facturas
+router.post('/facturas/compras/agregar', registrarFacturaCompra); // Registrar compra/venta
+router.post('/facturas/ventas/agregar',registrarFacturaVenta)
 router.delete('/facturas/eliminar/:id',eliminarFactura);
-
-router.post('/comprobantes/cargar', cargarComprobante); // Cargar comprobantes
 
 router.get('/informes/iva', generarInformeIVA); // Informe de IVA
 
