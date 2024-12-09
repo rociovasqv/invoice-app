@@ -31,10 +31,10 @@ const TablaSublientesComp = () => {
   }, []);
 
   // Eliminar subcliente
-  const handleEliminar = async (id) => {
+  const handleEliminar = async (id_subcliente) => {
     if (window.confirm("¿Estás seguro de que deseas eliminar este cliente?")) {
       try {
-        await axios.put(`${URL_SUBCLIENTES_ELIMINAR}/${id}`); // URL con el ID del subcliente
+        await axios.delete(`${URL_SUBCLIENTES_ELIMINAR}/${id_subcliente}`); // URL con el ID del subcliente
         alert("Cliente eliminado exitosamente.");
         getSubclientes(); // Actualizar la lista después de eliminar
       } catch (error) {
@@ -67,18 +67,22 @@ const TablaSublientesComp = () => {
           <Table striped bordered hover responsive>
             <thead>
               <tr>
-                <th>#</th>
+                <th>idSubcliente</th>
                 <th>Razón Social</th>
                 <th>CUIT</th>
+<<<<<<< HEAD
                 <th>Clientes</th>
+=======
+                <th>Cliente</th>
+>>>>>>> f37eabf0457ec5538fbdd0213ec68432bdb015ec
                 <th>Acciones</th>
               </tr>
             </thead>
             <tbody>
               {subclientes && subclientes.length > 0 ? (
-                subclientes.map((subcliente, index) => (
+                subclientes.map((subcliente) => (
                   <tr key={subcliente.id_subcliente}>
-                    <td>{index + 1}</td>
+                    <td>{subcliente.id_subcliente}</td>
                     <td>{subcliente.razon_social_subcliente}</td>
                     <td>{subcliente.cuit_subcliente}</td>
                     <td>{subcliente.id_cliente}</td>
@@ -87,7 +91,7 @@ const TablaSublientesComp = () => {
                         variant="warning"
                         size="sm"
                         className="me-2"
-                        onClick={() => navigate(`${URL_SUBCLIENTES_EDITAR}/${subcliente.id_subcliente}`)} // Navegar a la edición
+                        onClick={() => navigate(`/editar-subcliente/${subcliente.id_subcliente}`)} // Navegar a la edición
                       >
                         <FaEdit />
                       </Button>

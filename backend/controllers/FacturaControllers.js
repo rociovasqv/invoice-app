@@ -61,7 +61,7 @@ const obtenerFacturasCompras = async (req, res) => {
                    p.razon_social_proveedor,p.cuit_proveedor
             FROM facturas f
             JOIN proveedores p ON f.id_proveedor = p.id_proveedor
-            WHERE f.tipo_factura = 'compra'`;
+            WHERE f.tipo_factura = 'compra' and disponibleF=1`;
     conection.query(query,(err,results)=>{
         if (err) throw err;
         res.json(results)
@@ -137,6 +137,14 @@ const generarInformeIVA = async (req, res) => {
         res.status(500).json({ error: 'Error al generar el informe' });
     }
 };
+const eliminarFactura = (req,res) => {
+    const id= req.params.id
+    const query= `update facturas set disponibleF= 0 where id_factura='${id}'`
+    conection.query(query,(err,results)=> {
+        if (err) throw err
+        res.send(results)
+    })
+}
 
-module.exports = { registrarFactura, obtenerFacturasCompras,obtenerFacturasVentas, cargarComprobante, generarInformeIVA };
+module.exports = { registrarFactura, obtenerFacturasCompras,obtenerFacturasVentas, cargarComprobante,eliminarFactura, generarInformeIVA };
 

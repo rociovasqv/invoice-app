@@ -16,9 +16,9 @@ const buscarClientes = (req,res)=>{
     })
 }
 const agregarClientes = (req,res) => {
-    const {razonSocial,cuit,condicionIva,domicilioFiscal} =req.body 
+    const {razon_social_cliente,cuit_cliente,condicion_iva,domicilio_fiscal} =req.body 
 
-    const query = `insert into Clientes (razon_social,cuit,condicion_iva,domicilio_fiscal) values ('${razonSocial}','${cuit}','${condicionIva}','${domicilioFiscal}')`
+    const query = `insert into Clientes (razon_social_cliente,cuit_cliente,condicion_iva,domicilio_fiscal) values ('${razon_social_cliente}','${cuit_cliente}','${condicion_iva}','${domicilio_fiscal}')`
 
     conection.query(query,(err,results)=> {
         if (err) throw err
@@ -28,8 +28,8 @@ const agregarClientes = (req,res) => {
 const editarClientes = (req,res) => {
 
     const id= req.params.id
-    const {razonSocial,cuit,condicionIva,domicilioFiscal} =req.body 
-    const query = `update clientes set razon_social='${razonSocial}' ,cuit='${cuit}' ,condicion_iva='${condicionIva}' ,domicilio_fiscal='${domicilioFiscal}' where id_cliente='${id}'`
+    const {razon_social_cliente,cuit_cliente,condicion_iva,domicilio_fiscal} =req.body 
+    const query = `update clientes set razon_social_cliente='${razon_social_cliente}' ,cuit_cliente='${cuit_cliente}' ,condicion_iva='${condicion_iva}' ,domicilio_fiscal='${domicilio_fiscal}' where id_cliente='${id}'`
     conection.query(query,(err,results)=> {
         if (err) throw err
         res.send(results)

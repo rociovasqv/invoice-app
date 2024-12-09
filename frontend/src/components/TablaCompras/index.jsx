@@ -4,13 +4,13 @@ import { useNavigate } from "react-router-dom";
 import useFacturasCompra from "../../hooks/useFacturasCompra";
 import "../../styles/facturaTabla.css";
 import axios from "axios"
-import { URL_FACTURAS_COMPRA } from "../../constants/constantes";
+import { URL_FACTURAS_COMPRA,URL_FACTURAS_ELIMINAR } from "../../constants/constantes";
 import { useEffect, useState } from "react";
 
 const TablaCompraComp = () => {
   const {
     loading,
-    error
+    // error
   } = useFacturasCompra();
   const [facturasCompra,setFacturasCompra]= useState([])
 
@@ -25,11 +25,12 @@ useEffect(()=>{
   getFacturasCompra()
 },[])
 
-  const handleEliminar = async (id) => {
+  const handleEliminar = async (id_factura) => {
     if (window.confirm("¿Estás seguro de que deseas eliminar esta factura de compra?")) {
       try {
-        await eliminarFactura(id);
+        await axios.delete(`${URL_FACTURAS_ELIMINAR}/${id_factura}`);
         alert("Factura eliminada exitosamente");
+        getFacturasCompra()
       } catch (error) {
         alert("Error al eliminar la factura de compra");
       }
@@ -39,7 +40,7 @@ useEffect(()=>{
   return (
     <Container className="pad my-5">
       <h2 className="mb-4 text-center">Gestión de facturas de compra</h2>
-      {error && <Alert variant="danger">{error}</Alert>}
+      {/* {error && <Alert variant="danger">{error}</Alert>} */}
       {loading ? (
         <div className="text-center">
           <Spinner animation="border" />
@@ -63,7 +64,7 @@ useEffect(()=>{
           <Table striped bordered hover responsive>
             <thead>
               <tr>
-                <th>#</th>
+                <th>idCompra</th>
                 <th>Número de Factura</th>
                 <th>Fecha de Emisión</th>
                 <th>Proveedor</th>
@@ -77,30 +78,30 @@ useEffect(()=>{
             </thead>
             <tbody>
               {facturasCompra && facturasCompra.length > 0 ? (
-                facturasCompra.map((facturasCompra,index) => (
-                  <tr key={facturasCompra.idFactura}>
-                    <td>{index + 1}</td>
+                facturasCompra.map((facturasCompra) => (
+                  <tr key={facturasCompra.id_factura}>
+                    <td>{facturasCompra.id_factura}</td>
                     <td>{facturasCompra.nro_factura}</td>
                     <td>{facturasCompra.fecha_factura}</td>
                     <td>{facturasCompra.razon_social_proveedor}</td>
                     <td>{facturasCompra.cuit_proveedor}</td>
                     <td>{facturasCompra.tipo}</td>
-                    <td>{facturasCompra.importe_neto}</td>
-                    <td>{facturasCompra.importe_iva}</td>
-                    <td>{facturasCompra.importe_total}</td>
+                    <td>${facturasCompra.importe_neto}</td>
+                    <td>${facturasCompra.importe_iva}</td>
+                    <td>${facturasCompra.importe_total}</td>
                     <td>
                       <Button
                         variant="warning"
                         size="sm"
                         className="me-2"
-                        onClick={() => navigate(`/editar-compra/${facturasCompra.id}`)}
+                        onClick={() => navigate(`/editar-compra/${facturasCompra.id_factura}`)}
                       >
                         <FaEdit />
                       </Button>
                       <Button
                         variant="danger"
                         size="sm"
-                        onClick={() => handleEliminar(facturasCompra.id)}
+                        onClick={() => handleEliminar(facturasCompra.id_factura)}
                       >
                         <FaTrash />
                       </Button>

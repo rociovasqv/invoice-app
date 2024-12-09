@@ -32,7 +32,7 @@ CREATE TABLE subclientes (
     id_cliente INT,
     razon_social_subcliente VARCHAR(255) NOT NULL,
     cuit_subcliente VARCHAR(20) NOT NULL UNIQUE,
-    FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente) ON DELETE CASCADE,
+    FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente),
     disponibleS bool default 1
 );
 
@@ -41,7 +41,7 @@ CREATE TABLE proveedores (
     id_cliente INT,
     razon_social_proveedor VARCHAR(255) NOT NULL,
     cuit_proveedor VARCHAR(20) NOT NULL UNIQUE,
-    FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente) ON DELETE CASCADE,
+    FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente),
     disponibleP bool default 1
 );
 
@@ -58,10 +58,10 @@ CREATE TABLE facturas (
     importe_iva DECIMAL(10, 2) NULL,
     importe_total DECIMAL(10, 2) NOT NULL,
     tipo_factura ENUM('Venta', 'Compra') NOT NULL,
-    FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente) ON DELETE CASCADE,
-    FOREIGN KEY (id_subcliente) REFERENCES subclientes(id_subcliente) ON DELETE SET NULL,
-    FOREIGN KEY (id_proveedor) REFERENCES proveedores(id_proveedor) ON DELETE SET NULL,
-    disponibleP bool default 1
+    FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente),
+    FOREIGN KEY (id_subcliente) REFERENCES subclientes(id_subcliente),
+    FOREIGN KEY (id_proveedor) REFERENCES proveedores(id_proveedor),
+    disponibleF bool default 1
 );
 
 INSERT INTO roles(nombre)
@@ -173,4 +173,3 @@ SELECT f.id_factura, f.nro_factura, f.fecha_factura, f.importe_neto, f.importe_i
 FROM facturas f
 JOIN subclientes s ON f.id_subcliente = s.id_subcliente
 WHERE f.id_cliente = 2 AND f.tipo_factura = 'Venta';
-

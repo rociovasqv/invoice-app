@@ -16,9 +16,9 @@ const buscarProveedor = (req,res)=>{
     })
 }
 const agregarProveedor = (req,res) => {
-    const {idCliente,razonSocial,cuit} =req.body 
+    const {id_cliente,razon_social_proveedor,cuit_proveedor} =req.body 
 
-    const query = `insert into proveedores (id_cliente,razon_social,cuit) values ('${idCliente}','${razonSocial}','${cuit}')`
+    const query = `insert into proveedores (id_cliente,razon_social_proveedor,cuit_proveedor) values ('${id_cliente}','${razon_social_proveedor}','${cuit_proveedor}')`
 
     conection.query(query,(err,results)=> {
         if (err) throw err
@@ -28,8 +28,8 @@ const agregarProveedor = (req,res) => {
 const editarProveedor = (req,res) => {
 
     const id= req.params.id
-    const {idCliente,razonSocial,cuit} =req.body 
-    const query = `update proveedores set id_cliente='${idCliente}' , razon_social='${razonSocial}' ,cuit='${cuit}' where id_proveedor='${id}'`
+    const {id_cliente,razon_social_proveedor,cuit_proveedor} =req.body 
+    const query = `update proveedores set id_cliente='${id_cliente}' , razon_social_proveedor='${razon_social_proveedor}' ,cuit_proveedor='${cuit_proveedor}' where id_proveedor='${id}'`
     conection.query(query,(err,results)=> {
         if (err) throw err
         res.send(results)

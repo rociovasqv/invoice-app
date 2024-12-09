@@ -5,7 +5,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import "../../styles/facturaTabla.css";
 
-import { URL_PROVEEDORES,URL_PROVEEDORES_EDITAR, URL_PROVEEDORES_ELIMINAR } from "../../constants/constantes";
+import { URL_PROVEEDORES, URL_PROVEEDORES_ELIMINAR } from "../../constants/constantes";
 
 const TablaProveedorComp = () => {
   const [proveedores, setproveedores] = useState([]);
@@ -67,7 +67,7 @@ const TablaProveedorComp = () => {
           <Table striped bordered hover responsive>
             <thead>
               <tr>
-                <th>#</th>
+                <th>idProveedor</th>
                 <th>Razón Social</th>
                 <th>CUIT</th>
                 <th>Cliente</th>
@@ -76,9 +76,9 @@ const TablaProveedorComp = () => {
             </thead>
             <tbody>
               {proveedores && proveedores.length > 0 ? (
-                proveedores.map((proveedor, index) => (
+                proveedores.map((proveedor) => (
                   <tr key={proveedor.id_proveedor}>
-                    <td>{index + 1}</td>
+                    <td>{proveedor.id_proveedor}</td>
                     <td>{proveedor.razon_social_proveedor}</td>
                     <td>{proveedor.cuit_proveedor}</td>
                     <td>{proveedor.id_cliente}</td>
@@ -87,7 +87,7 @@ const TablaProveedorComp = () => {
                         variant="warning"
                         size="sm"
                         className="me-2"
-                        onClick={() => navigate(`${URL_PROVEEDORES_EDITAR}/${proveedor.id_proveedor}`)} // Navegar a la edición
+                        onClick={() => navigate(`/editar-proveedor/${proveedor.id_proveedor}`)} // Navegar a la edición
                       >
                         <FaEdit />
                       </Button>
