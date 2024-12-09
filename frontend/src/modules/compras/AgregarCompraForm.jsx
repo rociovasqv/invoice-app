@@ -1,7 +1,7 @@
 import { Form, Button, Container, Row, Col, Alert, Spinner } from "react-bootstrap";
 import useCompraForm from '../../hooks/useCompraForm';
 
-const CompraForm = () => {
+const AgregarCompraForm = () => {
 
     const {
       formData,
@@ -138,7 +138,7 @@ const CompraForm = () => {
   );
 };
 
-export default CompraForm;
+export default AgregarCompraForm;
 
 // Estilo de formulario con los items incluidos
 

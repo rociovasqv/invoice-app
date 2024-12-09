@@ -70,6 +70,7 @@ const TablaSublientesComp = () => {
                 <th>idSubcliente</th>
                 <th>Razón Social</th>
                 <th>CUIT</th>
+                <th>Cliente</th>
                 <th>Acciones</th>
               </tr>
             </thead>
@@ -80,12 +81,13 @@ const TablaSublientesComp = () => {
                     <td>{subcliente.id_subcliente}</td>
                     <td>{subcliente.razon_social_subcliente}</td>
                     <td>{subcliente.cuit_subcliente}</td>
+                    <td>{subcliente.id_cliente}</td>
                     <td>
                       <Button
                         variant="warning"
                         size="sm"
                         className="me-2"
-                        onClick={() => navigate(`${URL_SUBCLIENTES_EDITAR}/${subcliente.id_subcliente}`)} // Navegar a la edición
+                        onClick={() => navigate(`/editar-subcliente/${subcliente.id_subcliente}`)} // Navegar a la edición
                       >
                         <FaEdit />
                       </Button>
