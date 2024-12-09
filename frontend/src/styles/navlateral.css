@@ -1,0 +1,23 @@
+.navbar-lateral {
+    width: 250px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #343a40;
+    padding: 15px;
+    color: #fff;
+  }
+  
+  .navbar-lateral .nav-link {
+    color: #fff;
+    padding: 10px;
+    text-decoration: none;
+  }
+  
+  .navbar-lateral .nav-link:hover {
+    background-color: #495057;
+    color: #fff;
+    border-radius: 4px;
+  }
+  

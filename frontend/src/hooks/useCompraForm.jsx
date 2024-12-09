@@ -1,9 +1,9 @@
 import { useState } from "react";
+import { URL_FACTURAS_CARGAR } from "../constants/constantes";
+import axios from "axios";
 
 const useCompraForm = () => {
   const [formData, setFormData] = useState({
-    // id_cliente: "",
-    // id_subcliente: "",
     id_proveedor: "",
     tipo: "compra",
     nro_factura: "",
@@ -28,7 +28,7 @@ const useCompraForm = () => {
   const calcularTotal = () => {
     const neto = parseFloat(formData.importe_neto) || 0;
     const iva = parseFloat(formData.importe_iva) || 0;
-    setFormData({ ...formData, importe_total: (neto + iva).toFixed(2) });
+    setFormData({ ...formData, importe_total: (neto + iva).toFixed(2)});
   };
 
   const handleSubmit = async (e) => {
@@ -38,7 +38,7 @@ const useCompraForm = () => {
     setError("");
 
     try {
-      await FacturaService.createInvoice(formData);
+      await axios.post(URL_FACTURAS_CARGAR, formData);
       setSuccessMessage("Factura registrada con éxito");
       setFormData({
         // id_subcliente: "",
@@ -54,6 +54,7 @@ const useCompraForm = () => {
         importe_total: "",
       });
     } catch (error) {
+      console.error("Error en la respuesta del servidor:", error.response?.data || error.message);
       setError(error.response?.data?.error || "Error al registrar la factura.");
     } finally {
       setIsSubmit(false);
@@ -65,12 +66,12 @@ const useCompraForm = () => {
     successMessage,
     error,
     handleChange,
-    calcularTotal,
     handleSubmit,
+    calcularTotal
   };
 };
 
-export default useCompraForm
+export default useCompraForm;
 
 
 

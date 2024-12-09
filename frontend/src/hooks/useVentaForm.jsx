@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { URL_FACTURAS_CARGAR } from "../constants/constantes.js";
+import axios from "axios";
 
 const useVentaForm = () => {
   const [formData, setFormData] = useState({
@@ -27,7 +29,7 @@ const useVentaForm = () => {
   const calcularTotal = () => {
     const neto = parseFloat(formData.importe_neto) || 0;
     const iva = parseFloat(formData.importe_iva) || 0;
-    setFormData({ ...formData, importe_total: (neto + iva).toFixed(2) });
+    setFormData({ ...formData, importe_total: (neto + iva).toFixed(2)});
   };
 
   const handleSubmit = async (e) => {
@@ -37,7 +39,7 @@ const useVentaForm = () => {
     setError("");
 
     try {
-      await FacturaService.createInvoice(formData);
+      await axios.post(URL_FACTURAS_CARGAR, formData);
       setSuccessMessage("Factura registrada con éxito");
       setFormData({
         // id_subcliente: "",
