@@ -16,9 +16,9 @@ const buscarSubCliente = (req,res)=>{
     })
 }
 const agregarSubCliente = (req,res) => {
-    const {idCliente,razonSocial,cuit} =req.body 
+    const {id_cliente,razon_social_subcliente,cuit_subcliente} =req.body 
 
-    const query = `insert into subclientes (id_cliente,razon_social,cuit) values ('${idCliente}','${razonSocial}','${cuit}')`
+    const query = `insert into subclientes (id_cliente,razon_social_subcliente,cuit_subcliente) values ('${id_cliente}','${razon_social_subcliente}','${cuit_subcliente}')`
 
     conection.query(query,(err,results)=> {
         if (err) throw err
@@ -28,8 +28,8 @@ const agregarSubCliente = (req,res) => {
 const editarSubCliente = (req,res) => {
 
     const id= req.params.id
-    const {idCliente,razonSocial,cuit} =req.body 
-    const query = `update subclientes set id_cliente='${idCliente}' , razon_social='${razonSocial}' ,cuit='${cuit}' where id_subcliente='${id}'`
+    const {id_cliente,razon_social_subcliente,cuit_subcliente} =req.body 
+    const query = `update subclientes set id_cliente='${id_cliente}' , razon_social_subcliente='${razon_social_subcliente}' ,cuit_subcliente='${cuit_subcliente}' where id_subcliente='${id}'`
     conection.query(query,(err,results)=> {
         if (err) throw err
         res.send(results)

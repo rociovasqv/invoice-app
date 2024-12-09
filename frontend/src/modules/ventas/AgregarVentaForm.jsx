@@ -1,7 +1,7 @@
 import { Form, Button, Container, Row, Col, Alert, Spinner } from "react-bootstrap";
 import useVentaForm from "../../hooks/useVentaForm";
 
-const VentaForm = () => {
+const AgregarVentaForm = () => {
     const {
         formData,
         isSubmit,
@@ -160,4 +160,4 @@ const VentaForm = () => {
   );
 };
 
-export default VentaForm;
+export default AgregarVentaForm;

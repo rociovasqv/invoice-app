@@ -5,7 +5,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import "../../styles/facturaTabla.css";
 
-import { URL_CLIENTES,URL_CLIENTES_ELIMINAR,URL_CLIENTES_EDITAR } from "../../constants/constantes";
+import { URL_CLIENTES,URL_CLIENTES_ELIMINAR } from "../../constants/constantes";
 
 const TablaClientesComp = () => {
   const [clientes, setClientes] = useState([]);
@@ -31,10 +31,10 @@ const TablaClientesComp = () => {
   }, []);
 
   // Manejar eliminación de cliente
-  const handleEliminar = async (id) => {
+  const handleEliminar = async (id_cliente) => {
     if (window.confirm("¿Estás seguro de que deseas eliminar este cliente?")) {
       try {
-        await axios.put(`${URL_CLIENTES_ELIMINAR}/${id}`); // URL con el ID del cliente
+        await axios.delete(`${URL_CLIENTES_ELIMINAR}/${id_cliente}`); // URL con el ID del cliente
         alert("Cliente eliminado exitosamente.");
         getClientes(); // Actualizar la lista después de eliminar
       } catch (error) {
@@ -89,7 +89,7 @@ const TablaClientesComp = () => {
                         variant="warning"
                         size="sm"
                         className="me-2"
-                        onClick={() => navigate(`${URL_CLIENTES_EDITAR}/${cliente.id_cliente}`)} // Navegar a la edición
+                        onClick={() =>navigate(`/editar-cliente/${cliente.id_cliente}`)} // Navegar a la edición
                       >
                         <FaEdit />
                       </Button>
