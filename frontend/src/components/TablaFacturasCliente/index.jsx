@@ -22,7 +22,12 @@ const TablaFacturasCliente = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [cliente, setCliente] = useState(null);
-  
+    
+    //Para calcular montos
+    const totalNeto = facturas.reduce((acc, factura) => acc + (parseFloat(factura.neto ?? 0)), 0);
+    const totalIVA = facturas.reduce((acc, factura) => acc + (parseFloat(factura.iva ?? 0)), 0);
+    const total = facturas.reduce((acc, factura) => acc + (parseFloat(factura.total ?? 0)), 0);
+
     //Para exportar como PDF
     const ExportPDF = () => {
         const doc = new jsPDF();
@@ -53,7 +58,7 @@ const TablaFacturasCliente = () => {
         //Tabla de los datos del cliente
         if (cliente) {
           const clienteData = [
-              ['Nombre', cliente.nombre_cliente || 'N/A'],
+              // ['Nombre', cliente.nombre_cliente || 'N/A'],
               ['Razón Social', cliente.razon_social_cliente || 'N/A'],
               ['CUIT', cliente.cuit_cliente || 'N/A'],
               ['Domicilio Fiscal', cliente.domicilio_fiscal || 'N/A'],
@@ -75,7 +80,7 @@ const TablaFacturasCliente = () => {
         const headers = [['N° Factura', 'Fecha', 'Monto Neto', 'IVA', 'Total']];
         const data = facturas.map(factura => [
             factura.nro_factura,
-            factura.fecha_factura,
+            format(factura.fecha_factura,'DD/MM/YYYY'),
             factura.neto?.toFixed(2) ?? '0.00', 
             factura.iva?.toFixed(2) ?? '0.00', 
             factura.total?.toFixed(2) ?? '0.00'
@@ -83,6 +88,16 @@ const TablaFacturasCliente = () => {
             // factura.iva.toFixed(2),
             // factura.total.toFixed(2)
         ]);
+        data.push([
+          {
+            content: 'Totales',
+            colSpan: 2,
+            styles: { halign: 'right', fontStyle: 'bold' },
+          },
+          totalNeto,
+          totalIVA,
+          total,
+      ]);
         doc.autoTable({
             head: headers,
             body: data,
@@ -95,7 +110,21 @@ const TablaFacturasCliente = () => {
       
     //Para exportar como Excel
     const ExportExcel = () => {
-        const worksheet = XLSX.utils.json_to_sheet(facturas);
+      const data = facturas.map(factura => ({
+        "N° Factura": factura.nro_factura,
+        "Fecha": new Date(format(factura.fecha_factura,'DD/MM/YYYY')).toLocaleDateString('es-AR'),
+        "Monto Neto": factura.neto?.toFixed(2) ?? '0.00',
+        "IVA": factura.iva?.toFixed(2) ?? '0.00',
+        "Total": factura.total?.toFixed(2) ?? '0.00'
+    }));
+    data.push({
+      "N° Factura": "Totales",
+      "Fecha": "", // Columna vacía
+      "Monto Neto": totalNeto,
+      "IVA": totalIVA,
+      "Total": total,
+  });
+        const worksheet = XLSX.utils.json_to_sheet(data);
         const workbook = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(workbook, worksheet, "Facturas");
         XLSX.writeFile(workbook, "facturas_cliente.xlsx");
@@ -105,7 +134,12 @@ const TablaFacturasCliente = () => {
     const fetchCliente = useCallback(async () => {
       try {
           const res = await axios.get(`${URL_CLIENTES}/${clienteId}`);
-          setCliente(res.data);
+          const clienteData = res.data[0];
+          if (clienteData) {
+              setCliente(clienteData);
+          } else {
+              setError("No se encontraron datos del cliente.");
+          }
       } catch (error) {
           console.error("Error al obtener los datos del cliente:", error);
           setError("No se pudieron cargar los datos del cliente.");
@@ -116,7 +150,15 @@ const TablaFacturasCliente = () => {
   const fetchFacturas = useCallback(async () => {
       try {
           const res = await axios.get(`${URL_FACTURAS_VENTA}?clienteId=${clienteId}`);
-          setFacturas(res.data);
+          const todasFacturas = res.data;
+          setFacturas(todasFacturas);
+          console.log(todasFacturas);
+
+        // Filtrar las facturas correspondientes al cliente actual
+        // const facturasCliente = todasFacturas.filter((factura) => factura.cliente_id === parseInt(clienteId));
+        // setFacturas(facturasCliente);
+        // console.log(facturasCliente)
+
       } catch (error) {
           console.error("Error al obtener las facturas:", error);
           setError("No se pudieron cargar las facturas.");
@@ -140,12 +182,7 @@ const TablaFacturasCliente = () => {
         </div>
       );
     };
-
-    //Para calcular montos
-    const totalNeto = facturas.reduce((acc, factura) => acc + (parseFloat(factura.neto ?? 0)), 0);
-    const totalIVA = facturas.reduce((acc, factura) => acc + (parseFloat(factura.iva ?? 0)), 0);
-    const total = facturas.reduce((acc, factura) => acc + (parseFloat(factura.total ?? 0)), 0);
-  
+    console.log('Cliente state:', cliente);
     return (
       <Container className="pad py-5">
         <Row className="mb-4">
@@ -158,10 +195,10 @@ const TablaFacturasCliente = () => {
             <h3 className="text-start">Datos del Cliente</h3>
             <Table responsive bordered className='tableData justify-content-start'>
               <tbody>
-                <tr>
+                {/* <tr>
                   <th>Nombre</th>
                   <td>{cliente.nombre_cliente}</td>
-                </tr>
+                </tr> */}
                 <tr>
                   <th>Razón Social</th>
                   <td>{cliente.razon_social_cliente}</td>
@@ -202,7 +239,7 @@ const TablaFacturasCliente = () => {
               {facturas.map((factura) => (
                 <tr key={factura.id_factura}>
                   <td>{factura.nro_factura}</td>
-                  <td>{format(factura.fecha_factura, 'DD/MM/YYYY')}</td>
+                  <td>{format(factura.fecha_factura,'DD/MM/YYYY')}</td>
                 </tr>
               ))}
                <tr>
