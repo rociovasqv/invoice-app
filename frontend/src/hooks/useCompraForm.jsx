@@ -1,19 +1,17 @@
 import { useState } from "react";
+import axios from "axios"
+import { URL_FACTURAS_COMPRA_CARGAR } from "../constants/constantes";
 
 const useCompraForm = () => {
   const [formData, setFormData] = useState({
-    // id_cliente: "",
-    // id_subcliente: "",
-    id_proveedor: "",
-    tipo: "compra",
-    nro_factura: "",
-    fecha_factura: "",
-    nombre_proveedor: "",
-    cuit: "",
-    tipo_factura: "",
-    importe_neto: "",
-    importe_iva: "",
-    importe_total: "",
+    id_proveedor:"",
+    tipo:"",
+    nro_factura:"",
+    fecha_factura:"",
+    importe_neto:"",
+    importe_iva:"",
+    importe_total:"",
+    tipo_factura:"Compra"
   });
 
   const [isSubmit, setIsSubmit] = useState(false);
@@ -38,21 +36,18 @@ const useCompraForm = () => {
     setError("");
 
     try {
-      await FacturaService.createInvoice(formData);
-      setSuccessMessage("Factura registrada con éxito");
-      setFormData({
-        // id_subcliente: "",
-        id_proveedor: "",
-        tipo: "compra",
-        nombre_proveedor: "",
-        nro_factura: "",
-        fecha_factura: "",
-        cuit: "",
-        tipo_factura: "",
-        importe_neto: "",
-        importe_iva: "",
-        importe_total: "",
-      });
+      let response = await axios.post(URL_FACTURAS_COMPRA_CARGAR,{
+        id_proveedor:formData.id_proveedor,
+        tipo:formData.tipo,
+        nro_factura:formData.nro_factura,
+        fecha_factura:formData.fecha_factura,
+        importe_neto:formData.importe_neto,
+        importe_iva:formData.importe_iva,
+        importe_total:formData.importe_total,
+        tipo_factura:formData.tipo_factura
+      })
+        alert("Se cargo Factura de Compra")
+        navigate("/compras")
     } catch (error) {
       setError(error.response?.data?.error || "Error al registrar la factura.");
     } finally {

@@ -6,30 +6,13 @@ import axios from "axios"
 import { URL_FACTURAS_COMPRA_CARGAR } from "../../constants/constantes";
 
 const AgregarCompraForm = () => {
-
-  const [proveedor,setProveedor] = useState()
-
-  const estadoInicial = {
-  }
-
-  const navigate = useNavigate();
-  
-  const handleSubmit = async (e)=>{
-    e.preventDefault()
-    let response = await axios.post(URL_FACTURAS_COMPRA_CARGAR,{
-      id_cliente : proveedor.id_cliente,
-      razon_social_proveedor : proveedor.razon_social_proveedor,
-      cuit_proveedor : proveedor.cuit_proveedor
-    })
-    if(response){
-      alert("Se agrego Proveedor")
-      navigate("/proveedores")
-    }
-  }
-  
-  const handleChange = (e) => {
-    setProveedor({...proveedor,[e.target.name]:e.target.value})
-  };
+  const {formData,
+    isSubmit,
+    successMessage,
+    error,
+    handleChange,
+    calcularTotal,
+    handleSubmit,} = useCompraForm()
 
   return (
     <Container className="pad my-5 mt-1">
@@ -66,34 +49,24 @@ const AgregarCompraForm = () => {
           <Form.Group>
               <Form.Label>Tipo de Factura</Form.Label>
               <Form.Select name="tipo" onChange={handleChange}>
-                <option value="compra">A</option>
-                <option value="venta">B</option>
-                <option value="venta">C</option>
-                <option value="venta">E</option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+                <option value="Nota de Débito A">Nota de Débito A</option>
               </Form.Select>
             </Form.Group>
           </Col>
         </Row>
-        <Row className="mb-3">
-          <Col md={6}>
+        <Row className="justify-content-md-center mb-3">
+          <Col md={4}>
             <Form.Group>
-              <Form.Label>Proveedor</Form.Label>
-              <Form.Control
-                type="text"
-                name="proveedor"
-                onChange={handleChange}
-                placeholder="Nombre del proveedor"
-              />
-            </Form.Group>
-          </Col>
-          <Col md={6}>
-            <Form.Group>
-              <Form.Label>CUIT del proveedor</Form.Label>
+            {/* cambiar por cuit  */}
+              <Form.Label>Id del proveedor</Form.Label>
               <Form.Control
                 type="number"
-                name="cuit"
+                name="id_proveedor"
                 onChange={handleChange}
-                placeholder="CUIT del proveedor"
+                placeholder="id del proveedor"
               />
             </Form.Group>
           </Col>
@@ -107,8 +80,8 @@ const AgregarCompraForm = () => {
                 type="number"
                 name="importe_neto"
                 onChange={handleChange}
-                // onBlur={calcularTotal}
-                // step="0.01"
+                onBlur={calcularTotal}
+                step="0.01"
                 required
               />
             </Form.Group>
@@ -120,8 +93,8 @@ const AgregarCompraForm = () => {
                 type="number"
                 name="importe_iva"
                 onChange={handleChange}
-                // onBlur={calcularTotal}
-                // step="0.01"
+                onBlur={calcularTotal}
+                step="0.01"
                 required
               />
             </Form.Group>
@@ -132,6 +105,7 @@ const AgregarCompraForm = () => {
               <Form.Control
                 type="number"
                 name="importe_total"
+                value={formData.importe_total}
                 readOnly
               />
             </Form.Group>
