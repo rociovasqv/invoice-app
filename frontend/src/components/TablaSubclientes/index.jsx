@@ -87,7 +87,7 @@ const TablaSublientesComp = () => {
                         variant="warning"
                         size="sm"
                         className="me-2"
-                        onClick={() => navigate(`${URL_SUBCLIENTES_EDITAR}/${subcliente.id_subcliente}`)} // Navegar a la edición
+                        onClick={() => navigate(`/editar-subcliente/${subcliente.id_subcliente}`)} // Navegar a la edición
                       >
                         <FaEdit />
                       </Button>

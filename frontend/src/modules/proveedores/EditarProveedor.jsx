@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Form, Button, Container, Row, Col, Alert } from "react-bootstrap";
+import { Form, Button, Container, Row, Col} from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
@@ -53,7 +53,6 @@ const EditarProveedorForm = () => {
   return (
     <Container className="my-5">
       <h2 className="text-center mb-4">Registrar Proveedor</h2>
-      {/* {error && <Alert variant="danger">{error}</Alert>} */}
       <Form onSubmit={handleSubmit}>
         <Row>
         <Col md={6}>
@@ -99,13 +98,11 @@ const EditarProveedorForm = () => {
         <div className="text-center">
           <Button variant="warning" type="submit">
             Editar
-            {/* {isSubmit ? "Guardando..." : proveedor ? "Guardar Cambios" : "Registrar proveedor"} */}
           </Button>
           <Button
             variant="secondary"
             className="ms-3"
             onClick={() => navigate("/proveedores")}
-            // disabled={isSubmit}
           >
             Cancelar
           </Button>
