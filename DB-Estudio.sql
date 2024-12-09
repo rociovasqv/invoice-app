@@ -47,7 +47,7 @@ CREATE TABLE proveedores (
 
 CREATE TABLE facturas (
     id_factura INT PRIMARY KEY AUTO_INCREMENT,
-    id_cliente INT,
+    id_cliente INT NULL,
     id_subcliente INT NULL,
     id_proveedor INT NULL,
     tipo ENUM('A', 'B', 'C', 'Nota de Débito A', 'Nota de Débito B', 'Nota de Débito C', 
