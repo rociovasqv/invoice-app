@@ -20,33 +20,6 @@ const CompraForm = () => {
       {error && <Alert variant="danger">{error}</Alert>}
 
       <Form onSubmit={handleSubmit}>
-        {/* <Row className="mb-3">
-          <Col md={6}>
-            <Form.Group>
-              <Form.Label>ID</Form.Label>
-              <Form.Control
-                type="number"
-                name="id_proveedor"
-                value={formData.id_proveedor}
-                onChange={handleChange}
-                placeholder="ID del proveedor"
-                required
-              />
-            </Form.Group>
-          </Col>
-          <Col md={6}>
-            <Form.Group>
-              <Form.Label>Subcliente</Form.Label>
-              <Form.Control
-                type="text"
-                name="id_subcliente"
-                value={formData.id_subcliente}
-                onChange={handleChange}
-                placeholder="ID del subcliente"
-              />
-            </Form.Group>
-          </Col>
-        </Row> */}
         <Row className="mb-3">
           <Col md={4}>
             <Form.Group>
@@ -91,7 +64,7 @@ const CompraForm = () => {
               <Form.Label>Proveedor</Form.Label>
               <Form.Control
                 type="text"
-                name="proveedor"
+                name="nombre_proveedor"
                 value={formData.nombre_proveedor}
                 onChange={handleChange}
                 placeholder="Nombre del proveedor"

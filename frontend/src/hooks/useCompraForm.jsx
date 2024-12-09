@@ -54,6 +54,7 @@ const useCompraForm = () => {
         importe_total: "",
       });
     } catch (error) {
+      console.error("Error en la respuesta del servidor:", error.response?.data || error.message);
       setError(error.response?.data?.error || "Error al registrar la factura.");
     } finally {
       setIsSubmit(false);
@@ -70,7 +71,7 @@ const useCompraForm = () => {
   };
 };
 
-export default useCompraForm
+export default useCompraForm;
 
 
 
