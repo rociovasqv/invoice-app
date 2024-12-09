@@ -5,7 +5,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import "../../styles/facturaTabla.css";
 
-import { URL_SUBCLIENTES, URL_SUBCLIENTES_EDITAR, URL_SUBCLIENTES_ELIMINAR } from "../../constants/constantes";
+import { URL_SUBCLIENTES , URL_SUBCLIENTES_ELIMINAR } from "../../constants/constantes";
 
 const TablaSublientesComp = () => {
   const [subclientes, setSubclientes] = useState([]);
@@ -70,11 +70,7 @@ const TablaSublientesComp = () => {
                 <th>idSubcliente</th>
                 <th>Razón Social</th>
                 <th>CUIT</th>
-<<<<<<< HEAD
                 <th>Clientes</th>
-=======
-                <th>Cliente</th>
->>>>>>> f37eabf0457ec5538fbdd0213ec68432bdb015ec
                 <th>Acciones</th>
               </tr>
             </thead>

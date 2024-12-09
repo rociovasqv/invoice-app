@@ -173,3 +173,15 @@ SELECT f.id_factura, f.nro_factura, f.fecha_factura, f.importe_neto, f.importe_i
 FROM facturas f
 JOIN subclientes s ON f.id_subcliente = s.id_subcliente
 WHERE f.id_cliente = 2 AND f.tipo_factura = 'Venta';
+
+INSERT INTO facturas (id_cliente, tipo, nro_factura, fecha_factura, importe_neto, importe_iva, importe_total, tipo_factura)
+VALUES (
+    (SELECT id_cliente FROM clientes WHERE cuit_cliente = '30-11223344-5'),
+    'B',
+    '0004-00000001',
+    '2024-11-03',
+    NULL,
+    NULL,
+    968.00,
+    'Compra'
+);
