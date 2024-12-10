@@ -1,11 +1,12 @@
 import { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
-import { Table, Spinner, Container, Row, Col, Alert, Button } from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
-
+import { Table, Spinner, Container, Row, Col, Alert, Button} from 'react-bootstrap';
+import {useParams } from 'react-router-dom';
 import {jsPDF} from 'jspdf';
+import autotable from 'jspdf-autotable';
 import * as XLSX from 'xlsx';
-import {format} from '@formkit/tempo'
+import {format} from '@formkit/tempo';
+import DateFilter from '../FechasFiltro';
 
 import logoAmpuero from '../../logos/logoAmpNav.png';
 
@@ -18,11 +19,12 @@ import '../../styles/informeTabla.css'
 const TablaFacturasCliente = () => {
 
     const { clienteId } = useParams(); // Obtienes el clienteId de la URL
+    const {cuitCliente} = useParams();
     const [facturas, setFacturas] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [cliente, setCliente] = useState(null);
-    
+
     //Para calcular montos
     const totalNeto = facturas.reduce((acc, factura) => acc + (parseFloat(factura.neto ?? 0)), 0);
     const totalIVA = facturas.reduce((acc, factura) => acc + (parseFloat(factura.iva ?? 0)), 0);
@@ -78,15 +80,12 @@ const TablaFacturasCliente = () => {
       }
         //Tabla principal (facturas)
         const headers = [['N° Factura', 'Fecha', 'Monto Neto', 'IVA', 'Total']];
-        const data = facturas.map(factura => [
+        const data = filteredFacturas.map(factura => [
             factura.nro_factura,
             format(factura.fecha_factura,'DD/MM/YYYY'),
             factura.neto?.toFixed(2) ?? '0.00', 
             factura.iva?.toFixed(2) ?? '0.00', 
             factura.total?.toFixed(2) ?? '0.00'
-            // factura.neto.toFixed(2),
-            // factura.iva.toFixed(2),
-            // factura.total.toFixed(2)
         ]);
         data.push([
           {
@@ -104,6 +103,11 @@ const TablaFacturasCliente = () => {
             startY: doc.previousAutoTable.finalY + 10,
             styles: { fontSize: 10, cellPadding: 2 },
             headStyles: { fillColor: [217, 217, 217], textColor: [33, 33, 33] }, 
+            didDrawCell: (data) => 
+              {
+              if (data.row.raw && data.row.raw.content === 'Totales') {
+                  doc.setFontStyle('bold');
+              }}
         });
         doc.save('facturas_cliente.pdf');
     };
@@ -146,16 +150,41 @@ const TablaFacturasCliente = () => {
       }
   }, [clienteId]);
 
+  //Para filtrar facturas según rango de fechas
+  const [filteredFacturas, setFilteredFacturas] = useState(facturas);
+
+  const handleDateFilter = ({ startDate, endDate }) => {
+    const filtered = facturas.filter((factura) => {
+      const facturaDate = new Date(factura.fecha_factura);
+      const start = startDate ? new Date(startDate) : null;
+      const end = endDate ? new Date(endDate) : null;
+
+      return (!start || facturaDate >= start) && (!end || facturaDate <= end);
+    });
+
+    setFilteredFacturas(filtered);
+  };
+
+  useEffect(() => {
+    setFilteredFacturas(facturas);
+  }, [facturas]);
+
+  //Para limpiar el filtro de fechas
+  const handlelimpiarFiltro = () => {
+    setFilteredFacturas(facturas); // Restaura todas las facturas al estado filtrado
+};
+
+
   //Para obtener y mostrar las facturas del cliente específico
   const fetchFacturas = useCallback(async () => {
       try {
-          const res = await axios.get(`${URL_FACTURAS_VENTA}?clienteId=${clienteId}`);
+          const res = await axios.get(`${URL_FACTURAS_VENTA}?cuitCliente=${cuitCliente}`);
           const todasFacturas = res.data;
           setFacturas(todasFacturas);
           console.log(todasFacturas);
 
         // Filtrar las facturas correspondientes al cliente actual
-        // const facturasCliente = todasFacturas.filter((factura) => factura.cliente_id === parseInt(clienteId));
+        // const facturasCliente = todasFacturas.filter((factura) => factura.cuit_cliente === cliente.cuit_cliente);
         // setFacturas(facturasCliente);
         // console.log(facturasCliente)
 
@@ -165,14 +194,14 @@ const TablaFacturasCliente = () => {
       } finally {
           setLoading(false);
       }
-  }, [clienteId]);
+  }, [cuitCliente]);
 
   useEffect(() => {
       if (clienteId) {
           fetchCliente();
           fetchFacturas();
       }
-  }, [clienteId, fetchCliente, fetchFacturas]);
+  }, [clienteId, cuitCliente, fetchCliente, fetchFacturas]);
 
     if (loading) {
       return (
@@ -183,6 +212,7 @@ const TablaFacturasCliente = () => {
       );
     };
     console.log('Cliente state:', cliente);
+
     return (
       <Container className="pad py-5">
         <Row className="mb-4">
@@ -217,13 +247,23 @@ const TablaFacturasCliente = () => {
                 </tr>
               </tbody>
             </Table>
+            <Row>
+                    <Col md={6}>
+                        <DateFilter onFilter={handleDateFilter} />
+                    </Col>
+                    <Col md={6} className="text-end">
+                        <Button variant="secondary" onClick={handlelimpiarFiltro}>
+                            Limpiar Filtro
+                        </Button>
+                    </Col>
+                </Row>
           </div>
     ): (<Alert variant="warning" className="text-center">Cargando datos del cliente...</Alert>)}
         {error && (<Alert variant="danger" className="text-center">{error}</Alert>)}
-        {facturas.length === 0 ? (
+        {filteredFacturas.length === 0 ? (
           <Alert variant="info" className="text-center">
-            No hay facturas para este cliente.
-          </Alert>
+          No se encontraron facturas del cliente.
+        </Alert>
         ) : (
           <Table striped bordered hover responsive>
             <thead>
@@ -236,7 +276,7 @@ const TablaFacturasCliente = () => {
               </tr>
             </thead>
             <tbody>
-              {facturas.map((factura) => (
+              {filteredFacturas.map((factura) => (
                 <tr key={factura.id_factura}>
                   <td>{factura.nro_factura}</td>
                   <td>{format(factura.fecha_factura,'DD/MM/YYYY')}</td>
