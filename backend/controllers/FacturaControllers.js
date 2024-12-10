@@ -70,6 +70,9 @@ const obtenerFacturasVentas = async (req, res) => {
         res.json(results)
     })
 };
+// const editarFacturaCompra = async(req,res) => {
+
+// }
 
 const generarInformeIVA = async (req, res) => {
     const { fecha_inicio, fecha_fin } = req.query;
