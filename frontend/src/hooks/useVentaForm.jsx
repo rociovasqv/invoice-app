@@ -29,7 +29,7 @@ const useVentaForm = () => {
   const calcularTotal = () => {
     const neto = parseFloat(formData.importe_neto) || 0;
     const iva = parseFloat(formData.importe_iva) || 0;
-    setFormData({ ...formData, importe_total: (neto + iva).toFixed(2) });
+    setFormData({ ...formData, importe_total: (neto + iva).toFixed(2)});
   };
 
   const handleSubmit = async (e) => {

@@ -29,7 +29,7 @@ const UserTable = () => {
         if (window.confirm("¿Estás seguro de que quieres eliminar este usuario?")) {
             setLoading(true);
             try {
-                await UsuarioService.deleteUser(id);
+                await usuarios.deleteUser(id);
                 setUsuarios((prev) => prev.filter((user) => user.id !== id));
             } catch (err) {
                 setError(err.response?.data?.message || "Error al eliminar el usuario.");

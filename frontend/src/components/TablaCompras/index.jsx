@@ -2,6 +2,7 @@ import { Table, Button, Container, Spinner, Alert, Row, Col } from "react-bootst
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import useFacturasCompra from "../../hooks/useFacturasCompra";
+import {format} from "@formkit/tempo";
 import "../../styles/facturaTabla.css";
 import axios from "axios"
 import { URL_FACTURAS_COMPRA,URL_FACTURAS_ELIMINAR } from "../../constants/constantes";
@@ -64,14 +65,14 @@ useEffect(()=>{
           <Table striped bordered hover responsive>
             <thead>
               <tr>
-                <th>idCompra</th>
+                <th>ID</th>
                 <th>Número de Factura</th>
                 <th>Fecha de Emisión</th>
                 <th>Proveedor</th>
                 <th>CUIT</th>
                 <th>Tipo de Factura</th>
                 <th>Importe Neto</th>
-                <th>IVA</th>
+                <th>Importe IVA</th>
                 <th>Importe Total</th>
                 <th>Acciones</th>
               </tr>
@@ -82,7 +83,7 @@ useEffect(()=>{
                   <tr key={facturasCompra.id_factura}>
                     <td>{facturasCompra.id_factura}</td>
                     <td>{facturasCompra.nro_factura}</td>
-                    <td>{facturasCompra.fecha_factura}</td>
+                    <td>{format(facturasCompra.fecha_factura, 'DD/MM/YYYY')}</td>
                     <td>{facturasCompra.razon_social_proveedor}</td>
                     <td>{facturasCompra.cuit_proveedor}</td>
                     <td>{facturasCompra.tipo}</td>

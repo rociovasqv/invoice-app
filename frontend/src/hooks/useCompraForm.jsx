@@ -28,7 +28,7 @@ const useCompraForm = () => {
   const calcularTotal = () => {
     const neto = parseFloat(formData.importe_neto) || 0;
     const iva = parseFloat(formData.importe_iva) || 0;
-    setFormData({ ...formData, importe_total: (neto + iva).toFixed(2) });
+    setFormData({ ...formData, importe_total: (neto + iva).toFixed(2)});
   };
 
   // const handleEditar =async (e)=> {
@@ -77,6 +77,7 @@ const useCompraForm = () => {
         alert("Se cargo Factura de Compra")
         navigate("/compras")
     } catch (error) {
+      console.error("Error en la respuesta del servidor:", error.response?.data || error.message);
       setError(error.response?.data?.error || "Error al registrar la factura.");
     } finally {
       setIsSubmit(false);
@@ -88,12 +89,12 @@ const useCompraForm = () => {
     successMessage,
     error,
     handleChange,
-    calcularTotal,
     handleSubmit,
+    calcularTotal
   };
 };
 
-export default useCompraForm
+export default useCompraForm;
 
 
 

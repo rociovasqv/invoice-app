@@ -1,0 +1,39 @@
+.table {
+    margin-top: 20px;
+}
+
+button {
+    min-width: 80px;
+}
+
+.container {
+    font-family: "Poppins", sans-serif;
+    color: #4a4a4a;
+}
+
+h2 {
+    color: #0056b3;
+    font-weight: 600;
+    margin-top: 10%;
+}
+
+.form-select {
+    background-color: #f8f9fa;
+    border: 1px solid #ced4da;
+}
+
+.tableData{
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+.tableData th{
+padding: 0.4em;
+font-size: 1rem;
+width: 15%;
+text-align: justify;
+}
+.tableData td{
+    padding: 6px;
+    text-align: start;
+}

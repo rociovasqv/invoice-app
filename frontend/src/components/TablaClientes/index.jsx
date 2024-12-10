@@ -1,5 +1,5 @@
-import { Table, Button, Container, Spinner, Alert, Row, Col } from "react-bootstrap";
-import { FaEye,FaEdit, FaTrash } from "react-icons/fa";
+import { Table, Button, Container, Spinner, Row, Col } from "react-bootstrap";
+import { FaEdit, FaTrash, FaEye} from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -42,6 +42,12 @@ const TablaClientesComp = () => {
       }
     }
   };
+
+  //Para navegar y ver las facturas del cliente
+  const verFacturasCliente = (clienteId) => {
+  navigate(`/facturas/${clienteId}`); // Asegúrate de tener esta ruta configurada en tu router
+};
+
 
   return (
     <Container className="pad my-5">
@@ -107,6 +113,12 @@ const TablaClientesComp = () => {
                         onClick={() => handleEliminar(cliente.id_cliente)} // Pasar ID del cliente
                       >
                         <FaTrash />
+                      </Button>
+                      <Button
+                      variant="link"
+                      size="sm"
+                      onClick={() => verFacturasCliente(cliente.id_cliente)}>
+                      <FaEye />
                       </Button>
                     </td>
                   </tr>
