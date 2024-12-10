@@ -49,6 +49,7 @@ const AgregarCompraForm = () => {
           <Form.Group>
               <Form.Label>Tipo de Factura</Form.Label>
               <Form.Select name="tipo" onChange={handleChange}>
+                <option value="">Seleccione una opción</option>
                 <option value="A">A</option>
                 <option value="B">B</option>
                 <option value="C">C</option>
