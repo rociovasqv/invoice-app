@@ -5,7 +5,7 @@ import axios from "axios";
 import '../styles/login.css';
 import { URL_LOGIN } from "../constants/constantes";
 
-const InicioSesion = () => {
+const InicioSesion = ({setUsuarioLogeado, setIsLogin}) => {
   const [user, setUser] = useState({ nombre: "", password: "" });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState({ error: false, message: "" });
@@ -20,7 +20,11 @@ const InicioSesion = () => {
     try {
       const response = await axios.post(URL_LOGIN, user);
       alert(response.data.message);
-      sessionStorage.setItem("usuario", JSON.stringify(response.data.usuario));
+
+      const usuario = response.data.usuario;
+      sessionStorage.setItem("usuario", JSON.stringify(usuario));
+      setUsuarioLogeado(usuario);
+      setIsLogin(true); //Cambiar navbar
       navigate("/dashboard");
     } catch (err) {
       setError({
@@ -30,7 +34,6 @@ const InicioSesion = () => {
     } finally {
       setLoading(false);
     }
-
     e.target.reset();
   };
 

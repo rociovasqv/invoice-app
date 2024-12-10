@@ -1,23 +1,19 @@
-.navbar-lateral {
-    width: 250px;
-    height: 100vh;
-    position: fixed;
-    top: 0;
-    left: 0;
-    background-color: #343a40;
-    padding: 15px;
-    color: #fff;
-  }
-  
-  .navbar-lateral .nav-link {
-    color: #fff;
-    padding: 10px;
-    text-decoration: none;
-  }
-  
-  .navbar-lateral .nav-link:hover {
-    background-color: #495057;
-    color: #fff;
-    border-radius: 4px;
-  }
-  
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 250px;
+  z-index: 1000;
+}
+
+.navbarSec {
+  padding: 0;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 9999;
+  box-shadow: 0 0 8px 0px rgba(0, 0, 0, 0.1);
+  transition: all 0.5s linear;
+}

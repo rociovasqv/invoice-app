@@ -1,0 +1,14 @@
+.headerbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 500;
+    border-bottom: 1px solid #ddd;
+    height: 50px; /* Ajusta según sea necesario */
+  }
+.logonavsec{
+    justify-self: center;
+    width: 60px;
+    height: 60px;
+}
