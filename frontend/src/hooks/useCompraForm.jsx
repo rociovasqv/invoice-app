@@ -22,13 +22,37 @@ const useCompraForm = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData((prevData) => {
+      const updatedData = { ...prevData, [name]: value };
+
+      // Recalcula el IVA y total si cambia el tipo o importe_neto
+      if (name === "tipo" || name === "importe_neto") {
+          const neto = parseFloat(updatedData.importe_neto) || 0;
+
+          let iva = 0;
+          if (updatedData.tipo !== "C") {
+              iva = parseFloat(neto * 0.21) || 0;
+          }
+
+          updatedData.importe_iva = iva.toFixed(2);
+          updatedData.importe_total = (neto + iva).toFixed(2);
+      }
+
+      return updatedData;
+    });
   };
 
   const calcularTotal = () => {
     const neto = parseFloat(formData.importe_neto) || 0;
-    const iva = parseFloat(formData.importe_iva) || 0;
-    setFormData({ ...formData, importe_total: (neto + iva).toFixed(2)});
+
+    let iva=0;
+    if(formData.tipo !=="C"){
+      iva = parseFloat(neto * 0.21) || 0;
+    }
+    
+    setFormData({ ...formData,
+      importe_iva:iva.toFixed(2),
+      importe_total: (neto + iva).toFixed(2)});
   };
 
   // const handleEditar =async (e)=> {
