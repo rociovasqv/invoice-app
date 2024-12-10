@@ -1,59 +1,48 @@
 const {conection} = require("../config/DB")
 
-// Registrar una nueva factura
-const registrarFactura = async (req, res) => {
-    const { id_cliente, id_subcliente, id_proveedor, tipo, nro_factura, fecha_factura, importe_neto, importe_iva, importe_total, tipo_factura } = req.body;
+// Registrar una nuevas facturas
+const registrarFacturaCompra = async (req, res) => {
+    const { cuit_proveedor,tipo, nro_factura, fecha_factura, importe_neto, importe_iva, importe_total, tipo_factura} = req.body;
 
-    try {
         const query = `
-            INSERT INTO facturas (id_cliente, id_subcliente, id_proveedor, tipo, nro_factura, fecha_factura, importe_neto, importe_iva, importe_total, tipo_factura)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        INSERT INTO facturas (id_proveedor, tipo, nro_factura, fecha_factura, importe_neto, importe_iva, importe_total, tipo_factura)
+        VALUES (
+        (SELECT id_proveedor FROM proveedores WHERE cuit_proveedor ='${cuit_proveedor}'),
+        '${tipo}'
+        ,${nro_factura},
+        '${fecha_factura}',
+        ${importe_neto},
+        ${importe_iva},
+        ${importe_total},
+        '${tipo_factura}');
         `;
-        const [result] = await pool.query(query, [id_cliente, id_subcliente, id_proveedor, tipo, nro_factura, fecha_factura, importe_neto, importe_iva, importe_total, tipo_factura]);
-
-        res.status(201).json({ message: 'Factura registrada con éxito', id_factura: result.insertId });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Error al registrar la factura' });
-    }
+        conection.query(query,(err,results)=>{
+            if(err) throw err;
+            res.send(results)
+        })
 };
 
-// Consultar facturas
-// const obtenerFacturas = async (req, res) => {
-//     const { id_cliente, tipo_factura, fecha_inicio, fecha_fin } = req.query;
+const registrarFacturaVenta = async (req, res) => {
+    const { cuit_cliente, tipo, nro_factura, fecha_factura, importe_neto, importe_iva, importe_total,tipo_factura } = req.body;
 
-//     try {
-//         let query = `
-//             SELECT f.id_factura, f.nro_factura, f.fecha_factura, f.importe_neto, f.importe_iva, f.importe_total, 
-//                    c.razon_social AS cliente, s.razon_social AS subcliente, p.razon_social AS proveedor
-//             FROM facturas f
-//             LEFT JOIN clientes c ON f.id_cliente = c.id_cliente
-//             LEFT JOIN subclientes s ON f.id_subcliente = s.id_subcliente
-//             LEFT JOIN proveedores p ON f.id_proveedor = p.id_proveedor
-//             WHERE 1=1
-//         `;
-
-//         const params = [];
-//         if (id_cliente) {
-//             query += ' AND f.id_cliente = ?';
-//             params.push(id_cliente);
-//         }
-//         if (tipo_factura) {
-//             query += ' AND f.tipo_factura = ?';
-//             params.push(tipo_factura);
-//         }
-//         if (fecha_inicio && fecha_fin) {
-//             query += ' AND f.fecha_factura BETWEEN ? AND ?';
-//             params.push(fecha_inicio, fecha_fin);
-//         }
-
-//         const [rows] = await pool.query(query, params);
-//         res.status(200).json(rows);
-//     } catch (error) {
-//         console.error(error);
-//         res.status(500).json({ error: 'Error al obtener las facturas' });
-//     }
-// };
+        const query = `
+        INSERT INTO facturas (id_cliente, tipo, nro_factura, fecha_factura, importe_neto, importe_iva, importe_total, tipo_factura)
+        VALUES (
+        (SELECT id_cliente FROM clientes WHERE cuit_cliente ='${cuit_cliente}'),
+        '${tipo}',
+        ${nro_factura},
+        '${fecha_factura}',
+        ${importe_neto},
+        ${importe_iva},
+        ${importe_total},
+        '${tipo_factura}'
+        );
+        `;
+        conection.query(query,(err,results)=>{
+            if(err) throw err;
+            res.send(results)
+        })
+};
 
 const obtenerFacturasCompras = async (req, res) => {
     const query = `
@@ -75,39 +64,15 @@ const obtenerFacturasVentas = async (req, res) => {
             LEFT JOIN clientes c ON f.id_cliente = c.id_cliente
             LEFT JOIN subclientes s ON f.id_subcliente = s.id_subcliente
             LEFT JOIN proveedores p ON f.id_proveedor = p.id_proveedor
-            WHERE f.tipo_factura = 'venta'`;
+            WHERE f.tipo_factura = 'venta' and disponibleF=1`;
     conection.query(query,(err,results)=>{
         if (err) throw err;
         res.json(results)
     })
 };
+// const editarFacturaCompra = async(req,res) => {
 
-const cargarComprobante = async (req, res) => {
-    const { tipo, nro_factura, id_cliente, id_subcliente, id_proveedor, fecha_factura, importe_neto, importe_iva, importe_total, tipo_factura } = req.body;
-
-    try {
-        // Validar si ya existe el comprobante
-        const [existente] = await pool.query(`
-            SELECT * FROM facturas WHERE nro_factura = ? AND id_cliente = ?
-        `, [nro_factura, id_cliente]);
-
-        if (existente.length > 0) {
-            return res.status(400).json({ error: 'El comprobante ya existe para este cliente' });
-        }
-
-        // Insertar el comprobante
-        const query = `
-            INSERT INTO facturas (tipo, nro_factura, id_cliente, id_subcliente, id_proveedor, fecha_factura, importe_neto, importe_iva, importe_total, tipo_factura)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-        `;
-        const [result] = await pool.query(query, [tipo, nro_factura, id_cliente, id_subcliente, id_proveedor, fecha_factura, importe_neto, importe_iva, importe_total, tipo_factura]);
-
-        res.status(201).json({ message: 'Comprobante cargado exitosamente', id_factura: result.insertId });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Error al cargar el comprobante' });
-    }
-};
+// }
 
 const generarInformeIVA = async (req, res) => {
     const { fecha_inicio, fecha_fin } = req.query;
@@ -146,5 +111,5 @@ const eliminarFactura = (req,res) => {
     })
 }
 
-module.exports = { registrarFactura, obtenerFacturasCompras,obtenerFacturasVentas, cargarComprobante,eliminarFactura, generarInformeIVA };
+module.exports = { registrarFacturaCompra,registrarFacturaVenta, obtenerFacturasCompras,obtenerFacturasVentas,eliminarFactura, generarInformeIVA };
 

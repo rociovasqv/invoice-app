@@ -92,6 +92,14 @@ const TablaClientesComp = () => {
                     <td>{cliente.domicilio_fiscal}</td>
                     <td>
                       <Button
+                      variant="primary"
+                      size="sm"
+                      className="me-2"
+                      onClick={()=> navigate(`/clientes/${cliente.id_cliente}`)}
+                      >
+                        <FaEye />
+                      </Button>
+                      <Button
                         variant="warning"
                         size="sm"
                         className="me-2"
