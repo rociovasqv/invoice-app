@@ -1,19 +1,28 @@
-.sidebar {
+#tituloPanel{
+  font-size: smaller;
+}
+.pinned {
   position: fixed;
-  top: 0;
-  left: 0;
+  width: 250px; /* Ajusta según tus necesidades */
   height: 100vh;
-  width: 250px;
-  z-index: 1000;
+  z-index: 1045; /* Mayor que el nivel del contenido */
 }
 
-.navbarSec {
-  padding: 0;
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: 0;
-  z-index: 9999;
-  box-shadow: 0 0 8px 0px rgba(0, 0, 0, 0.1);
-  transition: all 0.5s linear;
+.nav-link {
+  padding: 0.5rem;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.nav-link:hover {
+  background-color: #f8f9fa; /* Fondo claro al pasar el mouse */
+  color: #0056b3; /* Texto azul */
+}
+
+.pinfij{
+  background: none;
+  border: none;
+  color: #0056b3;
+}
+#logotitle{
+  font-family: 'Times New Roman', Times, serif;
 }
