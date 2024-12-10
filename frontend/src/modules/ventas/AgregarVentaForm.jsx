@@ -52,7 +52,6 @@ const AgregarVentaForm = () => {
               <Form.Control
                 type="text"
                 name="nro_factura"
-                value={formData.nro_factura}
                 onChange={handleChange}
                 placeholder="Número de factura"
                 required
@@ -65,7 +64,6 @@ const AgregarVentaForm = () => {
               <Form.Control
                 type="date"
                 name="fecha_factura"
-                value={formData.fecha_factura}
                 onChange={handleChange}
                 required
               />
@@ -74,35 +72,34 @@ const AgregarVentaForm = () => {
           <Col md={4}>
           <Form.Group>
               <Form.Label>Tipo de Factura</Form.Label>
-              <Form.Select name="tipo" value={formData.tipo} onChange={handleChange}>
-                <option value="compra">A</option>
-                <option value="venta">B</option>
-                <option value="venta">C</option>
-                <option value="venta">E</option>
+              <Form.Select name="tipo" onChange={handleChange}>
+              <option value="">Seleccione una opción</option>
+              <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+                <option value="Nota de Débito A">Nota de Débito A</option>
               </Form.Select>
             </Form.Group>
           </Col>
         </Row>
-        <Row className="mb-3">
-          <Col md={6}>
+        <Row className="justify-content-md-center mb-3">
+          {/* <Col md={6}>
             <Form.Group>
               <Form.Label>Cliente</Form.Label>
               <Form.Control
                 type="text"
                 name="cliente"
-                value={formData.nombre_cliente}
                 onChange={handleChange}
                 placeholder="Nombre del cliente"
               />
             </Form.Group>
-          </Col>
-          <Col md={6}>
+          </Col> */}
+          <Col md={4}>
             <Form.Group>
               <Form.Label>CUIT del cliente</Form.Label>
               <Form.Control
-                type="number"
-                name="cuit"
-                value={formData.cuit}
+                type="text"
+                name="cuit_cliente"
                 onChange={handleChange}
                 placeholder="CUIT del cliente"
               />
@@ -117,7 +114,6 @@ const AgregarVentaForm = () => {
               <Form.Control
                 type="number"
                 name="importe_neto"
-                value={formData.importe_neto}
                 onChange={handleChange}
                 onBlur={calcularTotal}
                 step="0.01"
@@ -131,7 +127,6 @@ const AgregarVentaForm = () => {
               <Form.Control
                 type="number"
                 name="importe_iva"
-                value={formData.importe_iva}
                 onChange={handleChange}
                 onBlur={calcularTotal}
                 step="0.01"

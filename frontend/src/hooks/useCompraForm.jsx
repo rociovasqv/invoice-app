@@ -1,24 +1,24 @@
 import { useState } from "react";
-import { URL_FACTURAS_CARGAR } from "../constants/constantes";
-import axios from "axios";
+import axios from "axios"
+import { useNavigate } from "react-router-dom";
+import { URL_FACTURAS_COMPRA_CARGAR } from "../constants/constantes";
 
 const useCompraForm = () => {
   const [formData, setFormData] = useState({
-    id_proveedor: "",
-    tipo: "compra",
-    nro_factura: "",
-    fecha_factura: "",
-    nombre_proveedor: "",
-    cuit: "",
-    tipo_factura: "",
-    importe_neto: "",
-    importe_iva: "",
-    importe_total: "",
+    cuit_proveedor:"",
+    tipo:"",
+    nro_factura:"",
+    fecha_factura:"",
+    tipo_factura:"Compra",
+    importe_neto:"",
+    importe_iva:"",
+    importe_total:""
   });
 
   const [isSubmit, setIsSubmit] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -38,21 +38,18 @@ const useCompraForm = () => {
     setError("");
 
     try {
-      await axios.post(URL_FACTURAS_CARGAR, formData);
-      setSuccessMessage("Factura registrada con éxito");
-      setFormData({
-        // id_subcliente: "",
-        id_proveedor: "",
-        tipo: "compra",
-        nombre_proveedor: "",
-        nro_factura: "",
-        fecha_factura: "",
-        cuit: "",
-        tipo_factura: "",
-        importe_neto: "",
-        importe_iva: "",
-        importe_total: "",
-      });
+      let response = await axios.post(URL_FACTURAS_COMPRA_CARGAR,{
+        cuit_proveedor:formData.cuit_proveedor,
+        tipo:formData.tipo,
+        nro_factura:formData.nro_factura,
+        fecha_factura:formData.fecha_factura,
+        tipo_factura:"Compra",
+        importe_neto:formData.importe_neto,
+        importe_iva:formData.importe_iva,
+        importe_total:formData.importe_total
+      })
+        alert("Se cargo Factura de Compra")
+        navigate("/compras")
     } catch (error) {
       console.error("Error en la respuesta del servidor:", error.response?.data || error.message);
       setError(error.response?.data?.error || "Error al registrar la factura.");
