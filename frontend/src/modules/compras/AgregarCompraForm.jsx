@@ -13,8 +13,8 @@ const AgregarCompraForm = () => {
   return (
     <Container className="pad my-5 mt-1">
       <h2 className="text-center mb-4">Registrar factura de compra</h2>
-      {/* {successMessage && <Alert variant="success">{successMessage}</Alert>}
-      {error && <Alert variant="danger">{error}</Alert>} */}
+      {successMessage && <Alert variant="success">{successMessage}</Alert>}
+      {error && <Alert variant="danger">{error}</Alert>}
 
       <Form onSubmit={handleSubmit}>
         <Row className="mb-3">
@@ -58,12 +58,12 @@ const AgregarCompraForm = () => {
           <Col md={4}>
             <Form.Group>
             {/* cambiar por cuit  */}
-              <Form.Label>Id del proveedor</Form.Label>
+              <Form.Label>CUIT del proveedor</Form.Label>
               <Form.Control
-                type="number"
-                name="id_proveedor"
+                type="text"
+                name="cuit_proveedor"
                 onChange={handleChange}
-                placeholder="id del proveedor"
+                placeholder="cuit del proveedor"
               />
             </Form.Group>
           </Col>
@@ -112,8 +112,8 @@ const AgregarCompraForm = () => {
       
         </Row>
 
-        <Button type="submit" variant="primary">
-          Cargar Factura
+        <Button type="submit" variant="primary" disabled={isSubmit}>
+        {isSubmit ? <Spinner animation="border" size="sm" /> : "Registrar"}
         </Button>
       </Form>
     </Container>

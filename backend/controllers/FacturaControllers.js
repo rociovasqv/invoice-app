@@ -2,11 +2,19 @@ const {conection} = require("../config/DB")
 
 // Registrar una nuevas facturas
 const registrarFacturaCompra = async (req, res) => {
-    const { id_proveedor,tipo, nro_factura, fecha_factura, importe_neto, importe_iva, importe_total, tipo_factura} = req.body;
+    const { cuit_proveedor,tipo, nro_factura, fecha_factura, importe_neto, importe_iva, importe_total, tipo_factura} = req.body;
 
         const query = `
         INSERT INTO facturas (id_proveedor, tipo, nro_factura, fecha_factura, importe_neto, importe_iva, importe_total, tipo_factura)
-        VALUES (${id_proveedor},'${tipo}',${nro_factura},'${fecha_factura}',${importe_neto},${importe_iva},${importe_total},'${tipo_factura}');
+        VALUES (
+        (SELECT id_proveedor FROM proveedores WHERE cuit_proveedor ='${cuit_proveedor}'),
+        '${tipo}'
+        ,${nro_factura},
+        '${fecha_factura}',
+        ${importe_neto},
+        ${importe_iva},
+        ${importe_total},
+        '${tipo_factura}');
         `;
         conection.query(query,(err,results)=>{
             if(err) throw err;

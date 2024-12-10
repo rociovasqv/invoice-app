@@ -5,14 +5,14 @@ import { URL_FACTURAS_COMPRA_CARGAR } from "../constants/constantes";
 
 const useCompraForm = () => {
   const [formData, setFormData] = useState({
-    id_proveedor:"",
+    cuit_proveedor:"",
     tipo:"",
     nro_factura:"",
     fecha_factura:"",
+    tipo_factura:"Compra",
     importe_neto:"",
     importe_iva:"",
-    importe_total:"",
-    tipo_factura:"Compra"
+    importe_total:""
   });
 
   const [isSubmit, setIsSubmit] = useState(false);
@@ -39,14 +39,14 @@ const useCompraForm = () => {
 
     try {
       let response = await axios.post(URL_FACTURAS_COMPRA_CARGAR,{
-        id_proveedor:formData.id_proveedor,
+        cuit_proveedor:formData.cuit_proveedor,
         tipo:formData.tipo,
         nro_factura:formData.nro_factura,
         fecha_factura:formData.fecha_factura,
+        tipo_factura:"Compra",
         importe_neto:formData.importe_neto,
         importe_iva:formData.importe_iva,
-        importe_total:formData.importe_total,
-        tipo_factura:formData.tipo_factura
+        importe_total:formData.importe_total
       })
         alert("Se cargo Factura de Compra")
         navigate("/compras")
