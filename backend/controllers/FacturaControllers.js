@@ -15,12 +15,12 @@ const registrarFacturaCompra = async (req, res) => {
 };
 
 const registrarFacturaVenta = async (req, res) => {
-    const { cuit_cliente, tipo, nro_factura, fecha_factura, importe_neto, importe_iva, importe_total } = req.body;
+    const { cuit_cliente, tipo, nro_factura, fecha_factura, importe_neto, importe_iva, importe_total,tipo_factura } = req.body;
 
         const query = `
         INSERT INTO facturas (id_cliente, tipo, nro_factura, fecha_factura, importe_neto, importe_iva, importe_total, tipo_factura)
         VALUES (
-        (SELECT id_cliente FROM clientes WHERE cuit_cliente =${cuit_cliente}),
+        (SELECT id_cliente FROM clientes WHERE cuit_cliente ='${cuit_cliente}'),
         '${tipo}',
         ${nro_factura},
         '${fecha_factura}',

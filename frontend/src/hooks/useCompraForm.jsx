@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios"
+import { useNavigate } from "react-router-dom";
 import { URL_FACTURAS_COMPRA_CARGAR } from "../constants/constantes";
 
 const useCompraForm = () => {
@@ -17,6 +18,7 @@ const useCompraForm = () => {
   const [isSubmit, setIsSubmit] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
