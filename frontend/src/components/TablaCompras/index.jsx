@@ -39,7 +39,7 @@ useEffect(()=>{
   };
 
   return (
-    <Container className="pad my-5">
+    <Container className="my-5">
       <h2 className="mb-4 text-center">Gestión de facturas de compra</h2>
       {/* {error && <Alert variant="danger">{error}</Alert>} */}
       {loading ? (

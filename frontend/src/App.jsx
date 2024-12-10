@@ -13,7 +13,6 @@ import QuienesSomos from "./pages/somos";
 import ContactoPage from "./pages/Contacto";
 import ServicePage from "./pages/ServicePage";
 import InicioSesion from "./pages/login";
-// import CerrarSesion from "./components/CerrarSesion";
 
 import Usuarios from "./modules/usuarios/UsersPage";
 import UserForm from "./modules/usuarios/UserForm";

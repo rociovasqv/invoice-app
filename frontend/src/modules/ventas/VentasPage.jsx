@@ -1,8 +1,6 @@
 import { Container } from "react-bootstrap";
 import TablaVentasComp from "../../components/TablaVentas";
 
-
-
 const VentaPage = ()=>
 {
     return(

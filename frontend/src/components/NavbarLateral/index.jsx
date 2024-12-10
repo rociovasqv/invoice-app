@@ -45,7 +45,7 @@ const NavLateral = ({ setUsuarioLogeado, setIsLogin }) => {
             <Navbar bg="light" fixed="top" className="p-1">
                 <Container fluid>
                   <Button variant="primary" onClick={handleShow}  aria-controls="offcanvas"aria-expanded={show}><FaBars/></Button>
-                  <Navbar.Brand as={Link} to="/">
+                  <Navbar.Brand as={Link} to="/dashboard">
                     <span id="tituloPanel">Sistema web del Estudio Contable Ampuero</span>
                     <img className='logonav' src={logoAmp} alt="Logo" />
                   </Navbar.Brand>
