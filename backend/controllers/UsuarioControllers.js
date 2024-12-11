@@ -1,5 +1,5 @@
 const {conection} = require("../config/DB")
-// const bcrypt = require ('bcrypt')
+const bcrypt = require ('bcrypt')
 
 const AllUsers = async (req,res) => {
     const query = `Select * from Usuarios where disponibleU = 1`
@@ -8,23 +8,23 @@ const AllUsers = async (req,res) => {
         res.json(results)
     })
 }
-// const register = async (req,res)=>{
-//     const {nombre,password} = req.body;
+const register = async (req,res)=>{
+    const {nombre,password,rol} = req.body;
 
-//     try {
-//         const hashedPassword = await bcrypt.hash(password, 10);
+    try {
+        const hashedPassword = await bcrypt.hash(password, 10);
 
-//         const query = `insert into Usuarios(nombre,password) values ('${nombre}','${hashedPassword}')`;
-//         conection.query(query,(err,result)=> {
-//             if (err) {
-//                 return res.status(500).json ({error: err})
-//             }
-//             res.status(201).json({message: 'Usuario registrado'})
-//         })
-//     } catch (err) {
-//         res.status(500).json({error:'Error al registrar usuario'})
-//     }
-// }
+        const query = `insert into Usuarios(nombre,password,rol_id) values ('${nombre}','${hashedPassword}',${rol})`;
+        conection.query(query, (err,result)=> {
+            if (err) {
+                return res.status(500).json ({error: err})
+            }
+            res.status(201).json({message: 'Usuario registrado'})
+        })
+    } catch (err) {
+        res.status(500).json({error:'Error al registrar usuario'})
+    }
+}
 
 const login = async (req,res) => {
     const nombre = req.body.nombre;
@@ -43,9 +43,9 @@ const login = async (req,res) => {
         const usuario = results[0];
         try{
 
-            // const coincide = await bcrypt.compare(password, usuario.password)
+            const isMatch = await bcrypt.compare(password, usuario.password)
 
-            if (password == usuario.password) {
+            if (isMatch) {
                 res.status(200).json({ message: 'Inicio de sesión exitoso' });
             } else {
                 res.status(401).json({ message: 'Usuario o contraseña erroneo' });
@@ -57,4 +57,4 @@ const login = async (req,res) => {
     })
 }
 
-module.exports = {AllUsers,login}
+module.exports = {AllUsers,register,login}
