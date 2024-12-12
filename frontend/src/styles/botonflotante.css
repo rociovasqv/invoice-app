@@ -1,0 +1,31 @@
+.boton-flotante-whatsapp {
+    position:fixed;
+	width:80px;
+	height:50px;
+	bottom:40px;
+	right:40px;
+	border-radius: 100%;
+	text-align:center;
+    z-index:100;
+  }
+  
+  .boton-whatsapp {
+    background-color: #25D366;
+    color: #fff;
+    border: none;
+    padding: 20%;
+    font-size: 24px;
+    border-radius: 100%;
+    cursor: pointer;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.6);
+    transition: all 0.5s ease-in-out;
+  }
+  .iconWp{
+    margin-bottom: 5px;
+  }
+  
+  .boton-whatsapp:hover {
+    background-color: #34C759; /* Cambia el color de fondo a una gama de verde más oscuro */
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+    transform: scale(1.1);
+  }

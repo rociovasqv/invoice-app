@@ -6,6 +6,7 @@ import logoAmp from '../logos/logoAmpNav.png';
 import '../styles/inicio.css'
 
 import ValoresSection from '../components/ValoresSection';
+import BotonFlotante from '../components/BotonFlotante';
 
 const Inicio = () => {
     return (
@@ -47,7 +48,8 @@ const Inicio = () => {
             </Container>
             <ValoresSection className="m-2"/>
         </Container>
-    </main>  
+        <BotonFlotante/> 
+    </main>
     );
 };
 
