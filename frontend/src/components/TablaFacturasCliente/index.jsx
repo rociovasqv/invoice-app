@@ -12,7 +12,7 @@ import logoAmpuero from '../../logos/logoAmpNav.png';
 
 
 // import Totales from '../Totales';
-import { URL_FACTURAS_VENTA } from '../../constants/constantes';
+import { URL_FACTURAS_VENTA_INFORME } from '../../constants/constantes';
 import { URL_CLIENTES } from '../../constants/constantes';
 import '../../styles/informeTabla.css'
 
