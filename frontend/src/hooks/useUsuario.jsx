@@ -1,43 +1,23 @@
+import { useState } from "react";
+import { useNavigate} from "react-router-dom";
+import axios from "axios";
+import { URL_REGISTER } from "../constants/constantes";
 
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-
-const useUsuario = ({isEdit = true}) =>
+const useUsuario = ( ) =>
 {
     const [usuario, setUsuario] = useState({
         nombre: "",
-        apellido: "",
-        email: "",
-        dni: "",
-        rol: "",
+        password: "",
+        rol_id: "",
     });
 
 const [loading, setLoading] = useState(false);
 const [error, setError] = useState(null);
 const navigate = useNavigate();
-const { id } = useParams();
 
-useEffect( () => {
-    if (isEdit && id) {
-        const getOneUser = async () =>
-        {
-            setLoading(true);
-            try{
-                const res = UsuarioService.getUserById(id);
-                setUsuario(res.data);
-                setLoading(false);
-            }
-            catch(err){
-                setError(err.response?.data.message || "Error al cargar el usuario");
-                setLoading(false);
-            }
-        };
-        getOneUser();
-    };
-}, [isEdit, id])
-
-const actualizarUsuario = (campo, valor) => {
-    setUsuario((prev) => ({ ...prev, [campo]: valor }));
+const actualizarUsuario = (e) => {
+    const { name, value } = e.target;
+    setUsuario((prev) => ({ ...prev, [name]: value }));
 };
 
 const handleSubmitUser = async (e) => {
@@ -45,32 +25,23 @@ const handleSubmitUser = async (e) => {
     setLoading(true);
     setError(null);
     try{
-        if (isEdit){
-            const {...restUsuario} = usuario;
-            await UsuarioService.updateUser(id, restUsuario);
-        }else{
-            const formData = new formData();
-            const data = {
-                nombre: usuario.nombre,
-                apellido: usuario.apellido,
-                email: usuario.email,
-                dni: usuario.dni,
-                rol: usuario.rol,
-            };
-            formData.append("data", JSON.stringify(data))
-            await UsuarioService.createUser(formData);
-        }
+        let response = await axios.post(URL_REGISTER,{
+            nombre: usuario.nombre,
+            password: usuario.password,
+            rol_id: usuario.rol_id,
+        })
+        console.log(response.data)
         navigate("/usuarios");
     }
     catch(err){
         setError(
             err.response?.data?.message ||
-              `Error al ${isEdit ? "actualizar" : "crear"} usuario`
+              `Error al Registrar usuario`
           );
           setLoading(false);
     }
 };
-return{ usuario, setUsuario, loading, setLoading, error, setError, isEdit, handleSubmitUser, actualizarUsuario}
+return{ usuario, setUsuario, loading, setLoading, error, setError, handleSubmitUser, actualizarUsuario}
 }
 
 export default useUsuario;

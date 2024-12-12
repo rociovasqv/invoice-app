@@ -54,7 +54,7 @@ CREATE TABLE facturas (
               'Nota de Crédito A', 'Nota de Crédito B', 'Nota de Crédito C') NOT NULL,
     nro_factura VARCHAR(50) NOT NULL,
     fecha_factura DATE NOT NULL,
-    importe_neto DECIMAL(10, 2) NULL,
+    importe_neto DECIMAL(10, 2) NOT NULL,
     importe_iva DECIMAL(10, 2) NULL,
     importe_total DECIMAL(10, 2) NOT NULL,
     tipo_factura ENUM('Venta', 'Compra') NOT NULL,
@@ -68,9 +68,9 @@ INSERT INTO roles(nombre)
 values('contador'),
 ('empleado');
 
-INSERT INTO Usuarios (nombre,password,rol_id) 
-values ('contador@email.com','1234',1),
-('empleado@email.com','1234',2);
+-- INSERT INTO Usuarios (nombre,password,rol_id) 
+-- values ('contador@email.com','1234',1),
+-- ('empleado@email.com','1234',2);
 
 
 -- Insertar un cliente Monotributista
@@ -122,14 +122,14 @@ VALUES
 -- Facturas de venta (tipo C) - Solo se llena importe_total
 INSERT INTO facturas (id_cliente, id_subcliente, tipo, nro_factura, fecha_factura, importe_neto, importe_iva, importe_total, tipo_factura)
 VALUES 
-    (1, 1, 'C', '0003-00000001', '2024-11-01', NULL, NULL, 1000.00, 'Venta'),
-    (1, 2, 'C', '0003-00000002', '2024-11-02', NULL, NULL, 1500.00, 'Venta');
+    (1, 1, 'C', '0003-00000001', '2024-11-01', 1000.00, NULL, 1000.00, 'Venta'),
+    (1, 2, 'C', '0003-00000002', '2024-11-02', 1500.00, NULL, 1500.00, 'Venta');
 
 -- Facturas de compra (tipo B) - Solo se llena importe_total
 INSERT INTO facturas (id_cliente, id_proveedor, tipo, nro_factura, fecha_factura, importe_neto, importe_iva, importe_total, tipo_factura)
 VALUES 
-    (1, 1, 'B', '0004-00000001', '2024-11-03', NULL, NULL, 968.00, 'Compra'),
-    (1, 2, 'B', '0004-00000002', '2024-11-04', NULL, NULL, 1452.00, 'Compra');
+    (1, 1, 'B', '0004-00000001', '2024-11-03', 800.00, 168.00, 968.00, 'Compra'),
+    (1, 2, 'B', '0004-00000002', '2024-11-04', 1200.00, 252.00, 1452.00, 'Compra');
     
     -- Facturas para el cliente 'Ferretería López'
 -- Facturas de venta (tipo A)
@@ -174,14 +174,3 @@ FROM facturas f
 JOIN subclientes s ON f.id_subcliente = s.id_subcliente
 WHERE f.id_cliente = 2 AND f.tipo_factura = 'Venta';
 
-INSERT INTO facturas (id_cliente, tipo, nro_factura, fecha_factura, importe_neto, importe_iva, importe_total, tipo_factura)
-VALUES (
-    (SELECT id_cliente FROM clientes WHERE cuit_cliente = '30-11223344-5'),
-    'B',
-    '0004-00000001',
-    '2024-11-03',
-    NULL,
-    NULL,
-    968.00,
-    'Compra'
-);

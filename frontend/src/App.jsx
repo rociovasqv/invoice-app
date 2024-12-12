@@ -65,7 +65,7 @@ const App = () => {
               <Route path="/dashboard" element={<Dashboard/>}/>
 
               <Route path="/usuarios" element={<Usuarios/>}/>
-              <Route path="/usuarios/crear" element={<UserForm/>}/>
+              <Route path="/usuarios/registro" element={<UserForm/>}/>
               {/* <Route path="/usuarios/crear" element={<UserForm isEdit={false} />} />
               <Route path="/usuarios/editar/:id" element={<UserForm isEdit={true} />}/> */}
 
