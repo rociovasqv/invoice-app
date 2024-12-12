@@ -26,7 +26,7 @@ import AgregarVentaForm from "./modules/ventas/AgregarVentaForm";
 import ClientesPage from "./modules/clientes/Clientes";
 import AgregarClienteForm from "./modules/clientes/AgregarClienteForm";
 import EditarClienteForm from "./modules/clientes/EditarCliente";
-import FacturasCliente from "./modules/clientes/FacturasCliente";
+
 
 import SubclientesPage from "./modules/subclientes/subclientesPage";
 import AgregarSubclienteForm from "./modules/subclientes/AgregarsubclienteForm";
@@ -37,6 +37,9 @@ import AgregarProveedorForm from "./modules/proveedores/AgregarproveedorForm";
 import EditarProveedorForm from "./modules/proveedores/EditarProveedor";
 
 import Dashboard from "./pages/Dashboard";
+import InformesCompra from "./modules/informesCompra/informeCompra";
+import InformesVenta from "./modules/informesVenta/FacturasCliente";
+
 // import InformesPage from "./modules/informes-iva/InformesPage";
 
 const App = () => {
@@ -81,7 +84,7 @@ const App = () => {
               <Route path="/clientes" element={<ClientesPage/>}/>
               <Route path="/registrar-cliente" element={<AgregarClienteForm />}/>
               <Route path="/editar-cliente/:id" element={<EditarClienteForm/>}/>
-              <Route path="/facturas/:id" element={<FacturasCliente/>}/>
+              
 
               <Route path="/subclientes" element={<SubclientesPage/>}/>
               <Route path="/registrar-subcliente" element={<AgregarSubclienteForm/>}/>
@@ -90,6 +93,9 @@ const App = () => {
               <Route path="/proveedores" element={<ProveedoresPage/>}/>
               <Route path="/registrar-proveedor" element={<AgregarProveedorForm/>}/>
               <Route path="/editar-proveedor/:id" element={<EditarProveedorForm/>}/>
+
+              <Route path="/informe-venta/:id" element={<InformesVenta/>}/>
+              <Route path="/informe-compra/:id" element={<InformesCompra/>}/>
 
           </Routes>
           <Footer/>

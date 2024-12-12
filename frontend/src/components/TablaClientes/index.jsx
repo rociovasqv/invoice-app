@@ -45,7 +45,7 @@ const TablaClientesComp = () => {
 
   //Para navegar y ver las facturas del cliente
   const verFacturasCliente = (clienteId) => {
-  navigate(`/facturas/${clienteId}`); // Asegúrate de tener esta ruta configurada en tu router
+  navigate(`/informe-venta/${clienteId}`); // Asegúrate de tener esta ruta configurada en tu router
 };
 
 
@@ -91,14 +91,6 @@ const TablaClientesComp = () => {
                     <td>{cliente.condicion_iva}</td>
                     <td>{cliente.domicilio_fiscal}</td>
                     <td>
-                      <Button
-                      variant="primary"
-                      size="sm"
-                      className="me-2"
-                      onClick={()=> navigate(`/clientes/${cliente.id_cliente}`)}
-                      >
-                        <FaEye />
-                      </Button>
                       <Button
                         variant="warning"
                         size="sm"

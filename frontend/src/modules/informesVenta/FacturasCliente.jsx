@@ -1,11 +1,11 @@
 import { Container } from "react-bootstrap";
 import TablaFacturasCliente from "../../components/TablaFacturasCliente";
 
-const FacturasCliente = () => {
+const InformesVenta = () => {
   return(
     <Container fluid>
       <TablaFacturasCliente/>
     </Container>
   )
 };
-export default FacturasCliente;
+export default InformesVenta;

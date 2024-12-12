@@ -10,32 +10,31 @@ import DateFilter from '../FechasFiltro';
 
 import logoAmpuero from '../../logos/logoAmpNav.png';
 
-import { URL_FACTURAS_VENTA_INFORME } from '../../constants/constantes';
-import { URL_CLIENTES } from '../../constants/constantes';
+import { URL_FACTURAS_COMPRA_INFORME, URL_PROVEEDORES } from '../../constants/constantes';
 import '../../styles/informeTabla.css'
 
-const TablaFacturasCliente = () => {
+const TablaFacturasProveedor = () => {
 
     const { id } = useParams(); // Obtienes el ID del cliente de la URL
 
     const [facturas, setFacturas] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [cliente, setCliente] = useState(null);
+    const [proveedor, setProveedor] = useState(null);
 
-    //Para obtener y mostrar los datos del cliente
-    const fetchCliente = useCallback(async () => {
+    //Para obtener y mostrar los datos del proveedor
+    const fetchProveedor = useCallback(async () => {
       try {
-          const res = await axios.get(`${URL_CLIENTES}/${id}`);
-          const clienteData = res.data[0];
-          if (clienteData) {
-              setCliente(clienteData);
+          const res = await axios.get(`${URL_PROVEEDORES}/${id}`);
+          const proveedorData = res.data[0];
+          if (proveedorData) {
+              setProveedor(proveedorData);
           } else {
-              setError("No se encontraron datos del cliente.");
+              setError("No se encontraron datos del proveedor.");
           }
       } catch (error) {
-          console.error("Error al obtener los datos del cliente:", error);
-          setError("No se pudieron cargar los datos del cliente.");
+          console.error("Error al obtener los datos del proveedor:", error);
+          setError("No se pudieron cargar los datos del proveedor.");
       }
   }, [id]);
 
@@ -76,15 +75,15 @@ const TablaFacturasCliente = () => {
   //Para obtener y mostrar las facturas del cliente específico
   const fetchFacturas = useCallback(async () => {
       try {
-          const res = await axios.get(`${URL_FACTURAS_VENTA_INFORME}/${id}`);
+          const res = await axios.get(`${URL_FACTURAS_COMPRA_INFORME}/${id}`);
           const todasFacturas = res.data;
           setFacturas(todasFacturas);
           console.log(todasFacturas);
 
         // // Filtrar las facturas correspondientes al cliente actual
-        // const facturasCliente = todasFacturas.filter((factura) => factura.cuit_cliente === cliente.cuit_cliente);
-        // setFacturas(facturasCliente);
-        // console.log(facturasCliente)
+        // const facturasProveedor = todasFacturas.filter((factura) => factura.cuit_proveedor === cliente.cuit_proveedor);
+        // setFacturas(facturasProveedor);
+        // console.log(facturasProveedor)
 
       } catch (error) {
           console.error("Error al obtener las facturas:", error);
@@ -96,10 +95,10 @@ const TablaFacturasCliente = () => {
 
   useEffect(() => {
       if (id) {
-          fetchCliente();
+          fetchProveedor();
           fetchFacturas();
       }
-  }, [id, fetchCliente, fetchFacturas]);
+  }, [id, fetchProveedor, fetchFacturas]);
 
     if (loading) {
       return (
@@ -109,7 +108,7 @@ const TablaFacturasCliente = () => {
         </div>
       );
     };
-    console.log('Client state:', cliente);
+    console.log('Supplier state:', proveedor);
 
     //Para calcular montos
     const totalNeto = filteredFacturas.reduce((acc, factura) => acc + (parseFloat(factura.importe_neto?? 0)), 0);
@@ -135,7 +134,7 @@ const TablaFacturasCliente = () => {
         const worksheet = XLSX.utils.json_to_sheet(data);
         const workbook = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(workbook, worksheet, "Facturas");
-        XLSX.writeFile(workbook, "informe_venta.xlsx");
+        XLSX.writeFile(workbook, "informe_proveedor.xlsx");
     };
 
     //Para exportar como PDF
@@ -163,25 +162,24 @@ const TablaFacturasCliente = () => {
       doc.setFontSize(14);
       doc.setFont('Helvetica');
       doc.setTextColor(0, 0, 0); // Color negro para el subtítulo
-      doc.text('Informe de Venta', 15, 45);
+      doc.text('Informe de Compra', 15, 45);
 
       //Tabla de los datos del cliente
-      if (cliente) {
-        const clienteData = [
-            // ['Nombre', cliente.nombre_cliente || 'N/A'],
-            ['Razón Social', cliente.razon_social_cliente || 'N/A'],
-            ['CUIT', cliente.cuit_cliente || 'N/A'],
-            ['Domicilio Fiscal', cliente.domicilio_fiscal || 'N/A'],
-            ['Condición IVA', cliente.condicion_iva || 'N/A'],
+      if (proveedor) {
+        const proveedorData = [
+            // ['Nombre', proveedor.nombre_proveedor || 'N/A'],
+            // ['ID de cliente', proveedor.id_cliente || 'N/A'],
+            ['Razón Social', proveedor.razon_social_proveedor || 'N/A'],
+            ['CUIT', proveedor.cuit_proveedor || 'N/A'],
         ];
         doc.autoTable({
-            body: clienteData,
+            body: proveedorData,
             startY: 55,
             styles: { fontSize: 10, cellPadding: 2, cellWidth: 'wrap'},
             theme: 'grid',
             headStyles: { fillColor: [217, 217, 217], textColor: [33, 33, 33] },
             columnStyles: {
-              0: { cellWidth: 35 }, // Ancho fijo para el encabezado (Nombre, Razón Social, etc.)
+              0: { cellWidth: 35 }, // Ancho fijo para el encabezado
               1: { cellWidth: 'auto' }, // Relleno dinámico para la celda de datos
           },
         });
@@ -228,39 +226,31 @@ const TablaFacturasCliente = () => {
                 doc.setFontStyle('bold');
             }}
       });
-      doc.save('informe_venta.pdf');
+      doc.save('informe_compra.pdf');
   };
     return (
       <Container className="pad py-5">
         <Row className="mb-4">
           <Col>
-            <h2 className="mb-4 text-center">Informes de Venta</h2>
+            <h2 className="mb-4 text-center">Informe de Compra</h2>
           </Col>
         </Row>
-        {cliente ? (
+        {proveedor ? (
           <div className="mb-4">
-            <h3 className="text-start">Datos del Cliente</h3>
+            <h3 className="text-start">Datos del proveedor</h3>
             <Table responsive bordered className='tableData justify-content-start'>
               <tbody>
                 {/* <tr>
                   <th>Nombre</th>
-                  <td>{cliente.nombre_cliente}</td>
+                  <td>{proveedor.nombre_proveedor}</td>
                 </tr> */}
                 <tr>
                   <th>Razón Social</th>
-                  <td>{cliente.razon_social_cliente}</td>
+                  <td>{proveedor.razon_social_proveedor}</td>
                 </tr>
                 <tr>
                   <th>CUIT</th>
-                  <td>{cliente.cuit_cliente}</td>
-                </tr>
-                <tr>
-                  <th>Domicilio</th>
-                  <td>{cliente.domicilio_fiscal}</td>
-                </tr>
-                <tr>
-                  <th>Condición IVA</th>
-                  <td>{cliente.condicion_iva}</td>
+                  <td>{proveedor.cuit_proveedor}</td>
                 </tr>
               </tbody>
             </Table>
@@ -275,11 +265,11 @@ const TablaFacturasCliente = () => {
                     </Col>
                 </Row>
           </div>
-    ): (<Alert variant="warning" className="text-center">Cargando datos del cliente...</Alert>)}
+    ): (<Alert variant="warning" className="text-center">Cargando datos del proveedor...</Alert>)}
         {/* {error && (<Alert variant="danger" className="text-center">{error}</Alert>)} */}
         {filteredFacturas.length === 0 ? (
           <Alert variant="info" className="text-center">
-          No se encontraron facturas del cliente.
+          No se encontraron facturas del proveedor.
         </Alert>
         ) : (
           <Table striped bordered hover responsive>
@@ -320,4 +310,4 @@ const TablaFacturasCliente = () => {
     );
 }
 
-export default TablaFacturasCliente;
+export default TablaFacturasProveedor;
