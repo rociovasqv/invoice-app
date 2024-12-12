@@ -74,6 +74,7 @@ const AgregarCompraForm = () => {
             <Form.Group>
               <Form.Label>Importe Neto</Form.Label>
               <Form.Control
+                min={1}
                 type="number"
                 name="importe_neto"
                 onChange={handleChange}
