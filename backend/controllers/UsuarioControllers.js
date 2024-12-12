@@ -14,7 +14,7 @@ const register = async (req,res)=>{
     try {
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        const query = `insert into Usuarios(nombre,password,rol_id) values ('${nombre}','${hashedPassword}',${rol})`;
+        const query = `insert into Usuarios(nombre,password,rol_id) values ('${nombre}','${hashedPassword}','${rol}')`;
         conection.query(query, (err,result)=> {
             if (err) {
                 return res.status(500).json ({error: err})

@@ -8,7 +8,7 @@ const useUsuario = ( ) =>
     const [usuario, setUsuario] = useState({
         nombre: "",
         password: "",
-        rol_id: "",
+        rol: "",
     });
 
 const [loading, setLoading] = useState(false);
@@ -28,8 +28,9 @@ const handleSubmit = async (e) => {
         let response = await axios.post(URL_REGISTER,{
             nombre: usuario.nombre,
             password: usuario.password,
-            rol_id: usuario.rol_id,
+            rol: usuario.rol,
         })
+        alert("Registro Exitoso")
         navigate("/usuarios");
     }
     catch(err){

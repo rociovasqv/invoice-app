@@ -2,7 +2,7 @@ import { Container, Form, Button, Row, Col, Card, Alert } from 'react-bootstrap'
 import useUsuario from '../../hooks/useUsuario';
 import '../../styles/userForm.css'
 
-const UserForm = () => {
+const Register = () => {
     const { 
         loading, 
         error, 
@@ -42,13 +42,13 @@ const UserForm = () => {
                                     </Form.Group>                    
                                     <Form.Group className='md-3 text-start' >
                                         <Form.Label className='text-secondary'>Rol</Form.Label>
-                                        <Form.Select name='rol_id' onChange={handleChange} required>
+                                        <Form.Select name='rol' onChange={handleChange} required>
                                         <option value="">Seleccione un Rol</option>
                                         <option value="1">Contador</option>
                                         <option value="2">Empleado</option>
                                         </Form.Select>
                                     </Form.Group>
-                                    <Button variant="primary" type="submit" className="w-100 mt-3" disabled={loading}>
+                                    <Button variant="primary" type="submit" className="w-100 mt-3">
                                     {"Registrar"}
                                     </Button>
                                 </Form>
@@ -62,4 +62,4 @@ const UserForm = () => {
     );
 };
 
-export default UserForm;
+export default Register;
