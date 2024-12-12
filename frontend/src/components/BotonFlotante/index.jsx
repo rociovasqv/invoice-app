@@ -3,9 +3,9 @@ import '../../styles/botonflotante.css'
 
 const BotonFlotante = () => {
     const handleWhatsappClick = () => {
-      const whatsappNumber = 'tu_numero_de_telefono'; // Reemplaza con tu número de teléfono
-      const whatsappMessage = 'Hola, ¿en qué puedo ayudarte?'; // Reemplaza con el mensaje que desees
-      const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+      const whatsappNumber = '5493813468940'; // Reemplaza con tu número de teléfono
+    //   const whatsappMessage = 'Hola, ¿en qué puedo ayudarte?'; Reemplaza con el mensaje que desees
+      const url = `https://wa.me/${whatsappNumber}`;
       window.open(url, '_blank');
     };
   
