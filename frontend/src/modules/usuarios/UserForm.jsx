@@ -6,8 +6,8 @@ const UserForm = () => {
     const { 
         loading, 
         error, 
-        handleSubmitUser,
-        actualizarUsuario
+        handleSubmit,
+        handleChange
     } = useUsuario();
   
     return (
@@ -18,13 +18,14 @@ const UserForm = () => {
                         <Row className="justify-content-center">
                             <Col md={8} lg={6} xs={12}>
                                 {/* {error.error && <Alert variant="danger">{error.message}</Alert>} */}
-                                <Form onSubmit={handleSubmitUser}>
+                                <Form onSubmit={handleSubmit}>
                                     <Form.Group className='md-3 text-start'>
                                         <Form.Label className='text-secondary'>Nombre Usuario</Form.Label>
                                         <Form.Control
                                             type="email"
                                             name='nombre'
                                             placeholder="Ingrese su nombre de usuario"
+                                            onChange={handleChange}
                                             required/>
                                             <br/>
                                     </Form.Group>
@@ -35,13 +36,13 @@ const UserForm = () => {
                                             type="password"
                                             name='password'
                                             placeholder="Ingresa la contraseña"
-                                            onChange={actualizarUsuario}
+                                            onChange={handleChange}
                                             required/>
                                             <br/>
                                     </Form.Group>                    
                                     <Form.Group className='md-3 text-start' >
                                         <Form.Label className='text-secondary'>Rol</Form.Label>
-                                        <Form.Select name='rol_id' onChange={actualizarUsuario} required>
+                                        <Form.Select name='rol_id' onChange={handleChange} required>
                                         <option value="">Seleccione un Rol</option>
                                         <option value="1">Contador</option>
                                         <option value="2">Empleado</option>

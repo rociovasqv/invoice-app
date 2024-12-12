@@ -15,12 +15,12 @@ const [loading, setLoading] = useState(false);
 const [error, setError] = useState(null);
 const navigate = useNavigate();
 
-const actualizarUsuario = (e) => {
+const handleChange = (e) => {
     const { name, value } = e.target;
     setUsuario((prev) => ({ ...prev, [name]: value }));
 };
 
-const handleSubmitUser = async (e) => {
+const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
@@ -30,7 +30,6 @@ const handleSubmitUser = async (e) => {
             password: usuario.password,
             rol_id: usuario.rol_id,
         })
-        console.log(response.data)
         navigate("/usuarios");
     }
     catch(err){
@@ -41,7 +40,7 @@ const handleSubmitUser = async (e) => {
           setLoading(false);
     }
 };
-return{ usuario, setUsuario, loading, setLoading, error, setError, handleSubmitUser, actualizarUsuario}
+return{ usuario, setUsuario, loading, setLoading, error, setError, handleSubmit, handleChange}
 }
 
 export default useUsuario;
