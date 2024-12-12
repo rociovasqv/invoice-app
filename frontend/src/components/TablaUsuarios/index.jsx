@@ -51,11 +51,9 @@ const UserTable = () => {
                 <Table striped bordered hover responsive>
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Nombre</th>
-                            <th>Apellido</th>
-                            <th>Email</th>
-                            <th>DNI</th>
+                            <th>ID</th>
+                            <th>Nombre Usuario</th>
+                            <th>Contraseña</th>
                             <th>Rol</th>
                             <th>Acciones</th>
                         </tr>
@@ -64,12 +62,10 @@ const UserTable = () => {
                         {usuarios.length > 0 ? (
                             usuarios.map((usuario, index) => (
                                 <tr key={usuario.id}>
-                                    <td>{index + 1}</td>
+                                    <td>{usuario.id}</td>
                                     <td>{usuario.nombre}</td>
-                                    <td>{usuario.apellido}</td>
-                                    <td>{usuario.email}</td>
-                                    <td>{usuario.dni}</td>
-                                    <td>{usuario.rol}</td>
+                                    <td>{usuario.password}</td>
+                                    <td>{usuario.rol_id}</td>
                                     <td>
                                         <Button
                                             variant="warning"
@@ -102,7 +98,7 @@ const UserTable = () => {
             <Button
                 variant="primary"
                 className="mt-3"
-                onClick={() => navigate("/usuarios/crear")}
+                onClick={() => navigate("/usuarios/registro")}
             >
                 Crear Nuevo Usuario
             </Button>

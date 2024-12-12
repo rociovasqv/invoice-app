@@ -2,14 +2,12 @@ import { Container, Form, Button, Row, Col, Card, Alert } from 'react-bootstrap'
 import useUsuario from '../../hooks/useUsuario';
 import '../../styles/userForm.css'
 
-const UserForm = () => {
-    const {
-        usuario, 
+const Register = () => {
+    const { 
         loading, 
         error, 
-        isEdit,
-        handleSubmitUser,
-        actualizarUsuario
+        handleSubmit,
+        handleChange
     } = useUsuario();
   
     return (
@@ -19,65 +17,39 @@ const UserForm = () => {
                     <Card.Body>
                         <Row className="justify-content-center">
                             <Col md={8} lg={6} xs={12}>
-                                <h2 className="mb-4">Editar usuario</h2>
-                                {isEdit ? "Editar" : "Crear"} usuario
-                                <p className=" mb-3 text-primary">¡Por favor, {isEdit ? "actualice" : "rellene"} los datos del usuario!</p>
-                                {error.error && <Alert variant="danger">{error.message}</Alert>}
-                                <Form onSubmit={handleSubmitUser}>
-                                    <Form.Group className='md-3 text-start' controlId="formName">
-                                        <Form.Label className='text-secondary'>Nombres</Form.Label>
-                                        <Form.Control
-                                            type="text"
-                                            placeholder="Ingresa el/los nombre/s"
-                                            value={usuario.nombre}
-                                            onChange={actualizarUsuario}
-                                            required/>
-                                            <br/>
-                                    </Form.Group>
-
-                                    <Form.Group className='md-3 text-start' controlId="formLastName">
-                                        <Form.Label className='text-secondary'>Apellidos</Form.Label>
-                                        <Form.Control
-                                            type="text"
-                                            placeholder="Ingresa el/los apellido/s"
-                                            value={usuario.apellido}
-                                            onChange={actualizarUsuario}
-                                            required/>
-                                            <br/>
-                                    </Form.Group>
-
-                                    <Form.Group className='md-3 text-start' controlId="formEmail">
-                                        <Form.Label className='text-secondary'>Correo electrónico</Form.Label>
+                                {/* {error.error && <Alert variant="danger">{error.message}</Alert>} */}
+                                <Form onSubmit={handleSubmit}>
+                                    <Form.Group className='md-3 text-start'>
+                                        <Form.Label className='text-secondary'>Nombre Usuario</Form.Label>
                                         <Form.Control
                                             type="email"
-                                            placeholder="Ingresa el correo electrónico"
-                                            value={usuario.email}
-                                            onChange={actualizarUsuario}
+                                            name='nombre'
+                                            placeholder="Ingrese su nombre de usuario"
+                                            onChange={handleChange}
                                             required/>
                                             <br/>
                                     </Form.Group>
 
-                                    <Form.Group className='md-3 text-start' controlId="formDni">
-                                        <Form.Label className='text-secondary'>DNI</Form.Label>
+                                    <Form.Group className='md-3 text-start'>
+                                        <Form.Label className='text-secondary'>Contraseña</Form.Label>
                                         <Form.Control
-                                            placeholder="Ingresa el DNI"
-                                            value={usuario.dni}
-                                            onChange={actualizarUsuario}
+                                            type="password"
+                                            name='password'
+                                            placeholder="Ingresa la contraseña"
+                                            onChange={handleChange}
                                             required/>
                                             <br/>
+                                    </Form.Group>                    
+                                    <Form.Group className='md-3 text-start' >
+                                        <Form.Label className='text-secondary'>Rol</Form.Label>
+                                        <Form.Select name='rol' onChange={handleChange} required>
+                                        <option value="">Seleccione un Rol</option>
+                                        <option value="1">Contador</option>
+                                        <option value="2">Empleado</option>
+                                        </Form.Select>
                                     </Form.Group>
-                                    
-                                    <Form.Group className='md-3 text-start' controlId="formRol">
-                                        <Form.Select className='text-secondary'>Rol</Form.Select>
-                                        <Form.Control
-                                            placeholder="Ingresa el rol"
-                                            value={usuario.rol}
-                                            onChange={actualizarUsuario}
-                                            required/>
-                                            <br/>
-                                    </Form.Group>
-                                    <Button variant="primary" type="submit" className="w-100 mt-3" disabled={loading}>
-                                    {isEdit ? "Actualizar" : "Crear"}
+                                    <Button variant="primary" type="submit" className="w-100 mt-3">
+                                    {"Registrar"}
                                     </Button>
                                 </Form>
                             </Col>
@@ -90,4 +62,4 @@ const UserForm = () => {
     );
 };
 
-export default UserForm;
+export default Register;

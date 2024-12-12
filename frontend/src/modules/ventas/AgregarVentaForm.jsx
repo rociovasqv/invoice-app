@@ -102,6 +102,7 @@ const AgregarVentaForm = () => {
                 name="cuit_cliente"
                 onChange={handleChange}
                 placeholder="CUIT del cliente"
+                required
               />
             </Form.Group>
           </Col>
@@ -112,6 +113,7 @@ const AgregarVentaForm = () => {
             <Form.Group>
               <Form.Label>Importe Neto</Form.Label>
               <Form.Control
+                min={1}
                 type="number"
                 name="importe_neto"
                 onChange={handleChange}

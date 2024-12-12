@@ -15,7 +15,7 @@ import ServicePage from "./pages/ServicePage";
 import InicioSesion from "./pages/login";
 
 import Usuarios from "./modules/usuarios/UsersPage";
-import UserForm from "./modules/usuarios/UserForm";
+import Register from "./modules/usuarios/UserForm";
 
 import ComprasPage from "./modules/compras/ComprasPage";
 import AgregarCompraForm from "./modules/compras/AgregarCompraForm";
@@ -65,7 +65,7 @@ const App = () => {
               <Route path="/dashboard" element={<Dashboard/>}/>
 
               <Route path="/usuarios" element={<Usuarios/>}/>
-              <Route path="/usuarios/crear" element={<UserForm/>}/>
+              <Route path="/usuarios/registro" element={<Register/>}/>
               {/* <Route path="/usuarios/crear" element={<UserForm isEdit={false} />} />
               <Route path="/usuarios/editar/:id" element={<UserForm isEdit={true} />}/> */}
 
