@@ -12,13 +12,13 @@ import logoAmpuero from '../../logos/logoAmpNav.png';
 
 
 // import Totales from '../Totales';
-import { URL_FACTURAS_VENTA } from '../../constants/constantes';
+import { URL_FACTURAS_VENTA, URL_FACTURAS_VENTA_INFORME } from '../../constants/constantes';
 import { URL_CLIENTES } from '../../constants/constantes';
 import '../../styles/informeTabla.css'
 
 const TablaFacturasCliente = () => {
 
-    const { clienteId } = useParams(); // Obtienes el ID del cliente de la URL
+    const { id } = useParams(); // Obtienes el ID del cliente de la URL
 
     const [facturas, setFacturas] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -143,7 +143,7 @@ const TablaFacturasCliente = () => {
     //Para obtener y mostrar los datos del cliente
     const fetchCliente = useCallback(async () => {
       try {
-          const res = await axios.get(`${URL_CLIENTES}/${clienteId}`);
+          const res = await axios.get(`${URL_CLIENTES}/${id}`);
           const clienteData = res.data[0];
           if (clienteData) {
               setCliente(clienteData);
@@ -154,7 +154,7 @@ const TablaFacturasCliente = () => {
           console.error("Error al obtener los datos del cliente:", error);
           setError("No se pudieron cargar los datos del cliente.");
       }
-  }, [clienteId]);
+  }, [id]);
 
   //Para filtrar facturas según rango de fechas
   const [filteredFacturas, setFilteredFacturas] = useState(facturas);
@@ -184,7 +184,7 @@ const TablaFacturasCliente = () => {
   //Para obtener y mostrar las facturas del cliente específico
   const fetchFacturas = useCallback(async () => {
       try {
-          const res = await axios.get(`${URL_FACTURAS_VENTA}?clienteId=${clienteId}`);
+          const res = await axios.get(`${URL_FACTURAS_VENTA_INFORME}/${id}`);
           const todasFacturas = res.data;
           setFacturas(todasFacturas);
           console.log(todasFacturas);
@@ -200,14 +200,14 @@ const TablaFacturasCliente = () => {
       } finally {
           setLoading(false);
       }
-  }, [clienteId]);
+  }, [id]);
 
   useEffect(() => {
-      if (clienteId) {
+      if (id) {
           fetchCliente();
           fetchFacturas();
       }
-  }, [clienteId, fetchCliente, fetchFacturas]);
+  }, [id, fetchCliente, fetchFacturas]);
 
     if (loading) {
       return (
