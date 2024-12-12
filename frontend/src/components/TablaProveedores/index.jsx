@@ -1,5 +1,5 @@
 import { Table, Button, Container, Spinner, Alert, Row, Col } from "react-bootstrap";
-import { FaEdit, FaTrash } from "react-icons/fa";
+import { FaEdit, FaTrash, FaEye } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -41,6 +41,12 @@ const TablaProveedorComp = () => {
         alert("Error al eliminar el proveedor.");
       }
     }
+  };
+
+  
+  //Para navegar y ver las facturas del cliente
+  const verFacturasProveedor = (proveedorId) => {
+    navigate(`/informe-compra/${proveedorId}`); // Asegúrate de tener esta ruta configurada en tu router
   };
 
   return (
@@ -97,6 +103,12 @@ const TablaProveedorComp = () => {
                         onClick={() => handleEliminar(proveedor.id_proveedor)} // Pasar ID del proveedor
                       >
                         <FaTrash />
+                      </Button>
+                      <Button
+                      variant="link"
+                      size="sm"
+                      onClick={() => verFacturasProveedor(proveedor.id_proveedor)}>
+                      <FaEye />
                       </Button>
                     </td>
                   </tr>
