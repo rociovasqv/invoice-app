@@ -31,7 +31,7 @@ const handleSubmit = async (e) => {
             rol: usuario.rol,
         })
         alert("Registro Exitoso")
-        navigate("/usuarios");
+        navigate("/inicio-sesion");
     }
     catch(err){
         setError(
