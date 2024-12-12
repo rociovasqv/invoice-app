@@ -3,7 +3,7 @@ import UserTable from "../../components/TablaUsuarios";
 
 const Usuarios = () => {
     return(
-        <Container>
+        <Container fluid>
             <UserTable/>
         </Container>
     )

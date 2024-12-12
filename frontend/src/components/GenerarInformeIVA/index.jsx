@@ -66,18 +66,13 @@ const InformeIvaComp = () => {
     }
   };
 
-  // Función para calcular totales
-  const Totals = (data) => {
-    const totalNeto = data.reduce((sum, item) => sum + item.neto, 0);
-    const totalIVA = data.reduce((sum, item) => sum + item.iva, 0);
-    const total = data.reduce((sum, item) => sum + item.total, 0);
 
     return (
       <tr>
         <td colSpan="3" className="fw-bold text-end">Totales</td>
-        <td>{totalNeto.toFixed(2)}</td>
-        <td>{totalIVA.toFixed(2)}</td>
-        <td>{total.toFixed(2)}</td>
+        <td>{item.monto_neto}</td>
+        <td>{item.monto_iva}</td>
+        <td>{item.monto_total}</td>
       </tr>
     );
   };

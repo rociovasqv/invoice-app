@@ -1,18 +1,18 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
 import NavbarComp from "./components/Navbar";
 import NavLateral from "./components/NavbarLateral";
 // import RutaPrivada from "./components/privateRoute/privateRoute";
-import Swal from 'sweetalert2';
 import Footer from './components/Footer';
 
 import Inicio from "./pages/Inicio";
 import QuienesSomos from "./pages/somos";
 import ContactoPage from "./pages/Contacto";
-import InicioSesion from "./pages/login";
 import ServicePage from "./pages/ServicePage";
+import InicioSesion from "./pages/login";
 
 import Usuarios from "./modules/usuarios/UsersPage";
 import UserForm from "./modules/usuarios/UserForm";
@@ -36,14 +36,10 @@ import ProveedoresPage from "./modules/proveedores/proveedoresPage";
 import AgregarProveedorForm from "./modules/proveedores/AgregarproveedorForm";
 import EditarProveedorForm from "./modules/proveedores/EditarProveedor";
 
+import Dashboard from "./pages/Dashboard";
 // import InformesPage from "./modules/informes-iva/InformesPage";
 
-
-import Dashboard from "./pages/Dashboard";
-import { useState } from "react";
-
 const App = () => {
-
   const usuario = (() => {
     try {
       return JSON.parse(sessionStorage.getItem("usuario"));
@@ -51,43 +47,20 @@ const App = () => {
       return null;
     }
   })();
-  
   const [usuarioLogeado,setUsuarioLogeado] = useState(usuario);
-  const [isLogin, setIsLogin] = useState(!!usuarioLogeado)
-  const cerrarSesion = () => {
-    Swal.fire({
-      title: '¿Estás seguro que desear cerrar sesión?',
-      text: "Se cerrará tu sesión",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Sí, cerrar sesión',
-      cancelButtonText: 'No, cancelar'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire({
-          title: '¡Sesión cerrada!',
-          text: 'Has cerrado sesión exitosamente.',
-          icon: 'success',
-          confirmButtonText: 'Aceptar'
-        })
-        setUsuarioLogeado({});
-        sessionStorage.removeItem("usuario");
-        setIsLogin(false);
-      }
-    });
-  };
+  const [isLogin, setIsLogin] = useState(!!usuarioLogeado);
 
   return (
     <Router>
           <header id="navbar">
-          {isLogin ? <NavLateral cerrarSesion={cerrarSesion} /> : <NavbarComp />}
+          {isLogin ? <NavLateral setUsuarioLogeado={setUsuarioLogeado} setIsLogin={setIsLogin} /> : <NavbarComp />}
           </header>
           <Routes>
               <Route path="/" element={<Inicio />} />
               <Route path="/quienes-somos" element={<QuienesSomos/>}/>
               <Route path="/servicios" element={<ServicePage/>}/>
               <Route path="/Contacto" element={<ContactoPage/>}/>
-              <Route path="/inicio-sesion" element={<InicioSesion setUsuarioLogeado={setUsuarioLogeado}/>}/>
+              <Route path="/inicio-sesion" element={<InicioSesion setUsuarioLogeado={setUsuarioLogeado} setIsLogin={setIsLogin}/>}/>
               
               <Route path="/dashboard" element={<Dashboard/>}/>
 

@@ -1,11 +1,12 @@
 import { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
-import { Table, Spinner, Container, Row, Col, Alert, Button } from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
-
+import { Table, Spinner, Container, Row, Col, Alert, Button} from 'react-bootstrap';
+import {useParams } from 'react-router-dom';
 import {jsPDF} from 'jspdf';
+import autotable from 'jspdf-autotable';
 import * as XLSX from 'xlsx';
-import {format} from '@formkit/tempo'
+import {format} from '@formkit/tempo';
+import DateFilter from '../FechasFiltro';
 
 import logoAmpuero from '../../logos/logoAmpNav.png';
 
@@ -17,16 +18,17 @@ import '../../styles/informeTabla.css'
 
 const TablaFacturasCliente = () => {
 
-    const { clienteId } = useParams(); // Obtienes el clienteId de la URL
+    const { clienteId } = useParams(); // Obtienes el ID del cliente de la URL
+
     const [facturas, setFacturas] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [cliente, setCliente] = useState(null);
-    
+
     //Para calcular montos
-    const totalNeto = facturas.reduce((acc, factura) => acc + (parseFloat(factura.neto ?? 0)), 0);
-    const totalIVA = facturas.reduce((acc, factura) => acc + (parseFloat(factura.iva ?? 0)), 0);
-    const total = facturas.reduce((acc, factura) => acc + (parseFloat(factura.total ?? 0)), 0);
+    // const totalNeto = facturas.reduce((acc, factura) => acc + (parseFloat(factura.neto ?? 0)), 0);
+    // const totalIVA = facturas.reduce((acc, factura) => acc + (parseFloat(factura.iva ?? 0)), 0);
+    // const total = facturas.reduce((acc, factura) => acc + (parseFloat(factura.total ?? 0)), 0);
 
     //Para exportar como PDF
     const ExportPDF = () => {
@@ -78,15 +80,15 @@ const TablaFacturasCliente = () => {
       }
         //Tabla principal (facturas)
         const headers = [['N° Factura', 'Fecha', 'Monto Neto', 'IVA', 'Total']];
-        const data = facturas.map(factura => [
+        const data = filteredFacturas.map(factura => [
             factura.nro_factura,
             format(factura.fecha_factura,'DD/MM/YYYY'),
-            factura.neto?.toFixed(2) ?? '0.00', 
-            factura.iva?.toFixed(2) ?? '0.00', 
-            factura.total?.toFixed(2) ?? '0.00'
-            // factura.neto.toFixed(2),
-            // factura.iva.toFixed(2),
-            // factura.total.toFixed(2)
+            factura.importe_neto,
+            factura.importe_iva,
+            factura.importe_total
+            // factura.neto?.toFixed(2) ?? '0.00', 
+            // factura.iva?.toFixed(2) ?? '0.00', 
+            // factura.total?.toFixed(2) ?? '0.00'
         ]);
         data.push([
           {
@@ -94,9 +96,9 @@ const TablaFacturasCliente = () => {
             colSpan: 2,
             styles: { halign: 'right', fontStyle: 'bold' },
           },
-          totalNeto,
-          totalIVA,
-          total,
+          // totalNeto,
+          // totalIVA,
+          // total,
       ]);
         doc.autoTable({
             head: headers,
@@ -104,25 +106,33 @@ const TablaFacturasCliente = () => {
             startY: doc.previousAutoTable.finalY + 10,
             styles: { fontSize: 10, cellPadding: 2 },
             headStyles: { fillColor: [217, 217, 217], textColor: [33, 33, 33] }, 
+            didDrawCell: (data) => 
+              {
+              if (data.row.raw && data.row.raw.content === 'Totales') {
+                  doc.setFontStyle('bold');
+              }}
         });
         doc.save('facturas_cliente.pdf');
     };
       
     //Para exportar como Excel
     const ExportExcel = () => {
-      const data = facturas.map(factura => ({
+      const data = filteredFacturas.map(factura => ({
         "N° Factura": factura.nro_factura,
         "Fecha": new Date(format(factura.fecha_factura,'DD/MM/YYYY')).toLocaleDateString('es-AR'),
-        "Monto Neto": factura.neto?.toFixed(2) ?? '0.00',
-        "IVA": factura.iva?.toFixed(2) ?? '0.00',
-        "Total": factura.total?.toFixed(2) ?? '0.00'
+        "Importe Neto": factura.importe_neto ,
+        "Importe IVA": factura.importe_iva,
+        "Total": factura.importe_total
+        // "Monto Neto": factura.neto?.toFixed(2) ?? '0.00',
+        // "IVA": factura.iva?.toFixed(2) ?? '0.00',
+        // "Total": factura.total?.toFixed(2) ?? '0.00'
     }));
     data.push({
       "N° Factura": "Totales",
       "Fecha": "", // Columna vacía
-      "Monto Neto": totalNeto,
-      "IVA": totalIVA,
-      "Total": total,
+      // "Monto Neto": totalNeto,
+      // "IVA": totalIVA,
+      // "Total": total,
   });
         const worksheet = XLSX.utils.json_to_sheet(data);
         const workbook = XLSX.utils.book_new();
@@ -146,6 +156,31 @@ const TablaFacturasCliente = () => {
       }
   }, [clienteId]);
 
+  //Para filtrar facturas según rango de fechas
+  const [filteredFacturas, setFilteredFacturas] = useState(facturas);
+
+  const handleDateFilter = ({ startDate, endDate }) => {
+    const filtered = facturas.filter((factura) => {
+      const facturaDate = new Date(factura.fecha_factura);
+      const start = startDate ? new Date(startDate) : null;
+      const end = endDate ? new Date(endDate) : null;
+
+      return (!start || facturaDate >= start) && (!end || facturaDate <= end);
+    });
+
+    setFilteredFacturas(filtered);
+  };
+
+  useEffect(() => {
+    setFilteredFacturas(facturas);
+  }, [facturas]);
+
+  //Para limpiar el filtro de fechas
+  const handlelimpiarFiltro = () => {
+    setFilteredFacturas(facturas); // Restaura todas las facturas al estado filtrado
+};
+
+
   //Para obtener y mostrar las facturas del cliente específico
   const fetchFacturas = useCallback(async () => {
       try {
@@ -154,8 +189,8 @@ const TablaFacturasCliente = () => {
           setFacturas(todasFacturas);
           console.log(todasFacturas);
 
-        // Filtrar las facturas correspondientes al cliente actual
-        // const facturasCliente = todasFacturas.filter((factura) => factura.cliente_id === parseInt(clienteId));
+        // // Filtrar las facturas correspondientes al cliente actual
+        // const facturasCliente = todasFacturas.filter((factura) => factura.cuit_cliente === cliente.cuit_cliente);
         // setFacturas(facturasCliente);
         // console.log(facturasCliente)
 
@@ -183,6 +218,7 @@ const TablaFacturasCliente = () => {
       );
     };
     console.log('Cliente state:', cliente);
+
     return (
       <Container className="pad py-5">
         <Row className="mb-4">
@@ -217,13 +253,23 @@ const TablaFacturasCliente = () => {
                 </tr>
               </tbody>
             </Table>
+            <Row>
+                    <Col md={6}>
+                        <DateFilter onFilter={handleDateFilter} />
+                    </Col>
+                    <Col md={6} className="text-end">
+                        <Button variant="secondary" onClick={handlelimpiarFiltro}>
+                            Limpiar Filtro
+                        </Button>
+                    </Col>
+                </Row>
           </div>
     ): (<Alert variant="warning" className="text-center">Cargando datos del cliente...</Alert>)}
-        {error && (<Alert variant="danger" className="text-center">{error}</Alert>)}
-        {facturas.length === 0 ? (
+        {/* {error && (<Alert variant="danger" className="text-center">{error}</Alert>)} */}
+        {filteredFacturas.length === 0 ? (
           <Alert variant="info" className="text-center">
-            No hay facturas para este cliente.
-          </Alert>
+          No se encontraron facturas del cliente.
+        </Alert>
         ) : (
           <Table striped bordered hover responsive>
             <thead>
@@ -236,17 +282,20 @@ const TablaFacturasCliente = () => {
               </tr>
             </thead>
             <tbody>
-              {facturas.map((factura) => (
+              {filteredFacturas.map((factura) => (
                 <tr key={factura.id_factura}>
                   <td>{factura.nro_factura}</td>
                   <td>{format(factura.fecha_factura,'DD/MM/YYYY')}</td>
+                  <td>{factura.importe_neto}</td>
+                <td>{factura.importe_iva}</td>
+                <td>{factura.importe_total}</td>
                 </tr>
               ))}
                <tr>
                 <td colSpan="2" className="text-end fw-bold">Totales:</td>
-                <td>{totalNeto.toFixed(2)}</td>
-                <td>{totalIVA.toFixed(2)}</td>
-                <td>{total.toFixed(2)}</td>
+                <td>{facturas.importe_neto}</td>
+                <td>{facturas.importe_iva}</td>
+                <td>{facturas.importe_total}</td>
                 {/* <Totales data={facturas} /> */}
                 </tr>
             </tbody>

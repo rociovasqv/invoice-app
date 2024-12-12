@@ -2,10 +2,12 @@ import { Container, Form, Button, Row, Col, Card, Alert, Spinner } from 'react-b
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from "axios";
+import Swal from 'sweetalert2';
+import PropTypes from 'prop-types';
 import '../styles/login.css';
 import { URL_LOGIN } from "../constants/constantes";
 
-const InicioSesion = () => {
+const InicioSesion = ({setUsuarioLogeado, setIsLogin}) => {
   const [user, setUser] = useState({ nombre: "", password: "" });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState({ error: false, message: "" });
@@ -19,18 +21,30 @@ const InicioSesion = () => {
 
     try {
       const response = await axios.post(URL_LOGIN, user);
-      alert(response.data.message);
-      sessionStorage.setItem("usuario", JSON.stringify(response.data.usuario));
+      Swal.fire({
+        icon: 'success',
+        title: '¡Bienvenido!',
+        text: response.data.message,
+      });
+
+      const usuario = response.data.usuario;
+      sessionStorage.setItem("usuario", JSON.stringify(usuario));
+      setUsuarioLogeado(usuario);
+      setIsLogin(true); //Cambiar navbar
       navigate("/dashboard");
     } catch (err) {
       setError({
         error: true,
         message: err.response?.data?.message || "Error al iniciar sesión. Inténtalo de nuevo.",
       });
+      Swal.fire({
+        icon: 'error',
+        title: '¡Error!',
+        text: err.response?.data?.message || "Error al iniciar sesión. Inténtalo de nuevo.",
+      });
     } finally {
       setLoading(false);
     }
-
     e.target.reset();
   };
 
@@ -93,3 +107,8 @@ const InicioSesion = () => {
 };
 
 export default InicioSesion;
+
+InicioSesion.propTypes = {
+  setUsuarioLogeado: PropTypes.func.isRequired,
+  setIsLogin: PropTypes.func.isRequired
+};

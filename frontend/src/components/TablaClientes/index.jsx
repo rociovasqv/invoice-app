@@ -10,7 +10,7 @@ import { URL_CLIENTES,URL_CLIENTES_ELIMINAR } from "../../constants/constantes";
 const TablaClientesComp = () => {
   const [clientes, setClientes] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  // const [error, setError] = useState(null);
 
   const navigate = useNavigate();
 
@@ -50,7 +50,7 @@ const TablaClientesComp = () => {
 
 
   return (
-    <Container className="pad my-5">
+    <Container className="my-5">
       <h2 className="mb-4 text-center">Gestión de Clientes</h2>
       {/* {error && <Alert variant="danger">{error}</Alert>} */}
       {loading ? (

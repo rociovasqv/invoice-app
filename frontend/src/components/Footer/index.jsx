@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Container, Row, Col, Image, Stack } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInstagram, faWhatsapp, faFacebookF } from '@fortawesome/free-brands-svg-icons';
+import { Link } from "react-router-dom";
 import logo from '../../logos/logoAmpuero.png';
 
 import '../../styles/footer.css'
@@ -45,8 +46,9 @@ const Footer = () => {
                         <div className='linksFooter'>
                             <li>
                             <h5>Nuestros enlaces</h5>
-                                <ul> <a href="#quienes-somos">¿Quiénes somos?</a></ul>
-                                <ul><a href="#servicios">Servicios</a></ul>
+                                <ul> <Link to="/quienes-somos">¿Quiénes somos?</Link></ul>
+                                <ul><Link to="/servicios">Servicios</Link></ul>
+                                <ul><Link to="/contacto">Contacto</Link></ul>
                             </li>
                             <li>
                             <h5>Enlaces Externos</h5>

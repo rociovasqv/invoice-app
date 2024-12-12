@@ -9,6 +9,7 @@ const Dashboard = () => {
     // { title: "Carga de Comprobantes", icon: "🛒📄", description: "Simplifica la carga de comprobantes.", path: "/comprobantes" },
     // { title: "Informes Impositivos", icon: "📊", description: "Genera informes y reportes.", path: "/informes" },
     { title: "Clientes", icon: "👤", description: "Administra clientes.", path: "/clientes" },
+    {title: "Proveedores", icon: "📦", description: "Administrar proveedores", path: "/proveedores"},
     { title: "Usuarios y Seguridad", icon: "🔒", description: "Administra roles y permisos.", path: "/usuarios" },
   ];
   return (
