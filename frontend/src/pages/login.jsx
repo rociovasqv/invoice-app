@@ -1,5 +1,5 @@
 import { Container, Form, Button, Row, Col, Card, Alert, Spinner } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,Link } from 'react-router-dom';
 import { useState } from 'react';
 import axios from "axios";
 import Swal from 'sweetalert2';
@@ -92,6 +92,11 @@ const InicioSesion = ({setUsuarioLogeado, setIsLogin}) => {
                         ¿Te olvidaste tu contraseña?
                       </a>
                     </p>
+                  </div>
+                  <div>
+                    <Link className='small' to={"/usuarios/registro"}>
+                    Registrarse
+                    </Link>
                   </div>
                   <Button variant="primary" type="submit" className="w-100 mt-3" disabled={loading}>
                     {loading ? <Spinner animation="border" size="sm" /> : "Ingresar"}
