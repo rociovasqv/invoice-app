@@ -1,5 +1,5 @@
-import { Table, Button, Container, Spinner, Alert, Row, Col } from "react-bootstrap";
-import { FaEye,FaEdit, FaTrash } from "react-icons/fa";
+import { Table, Button, Container, Spinner, Row, Col } from "react-bootstrap";
+import { FaEdit, FaTrash, FaEye} from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -10,7 +10,7 @@ import { URL_CLIENTES,URL_CLIENTES_ELIMINAR } from "../../constants/constantes";
 const TablaClientesComp = () => {
   const [clientes, setClientes] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  // const [error, setError] = useState(null);
 
   const navigate = useNavigate();
 

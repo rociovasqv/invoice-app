@@ -22,14 +22,64 @@ const useCompraForm = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData((prevData) => {
+      const updatedData = { ...prevData, [name]: value };
+
+      // Recalcula el IVA y total si cambia el tipo o importe_neto
+      if (name === "tipo" || name === "importe_neto") {
+          const neto = parseFloat(updatedData.importe_neto) || 0;
+
+          let iva = 0;
+          if (updatedData.tipo !== "C") {
+              iva = parseFloat(neto * 0.21) || 0;
+          }
+
+          updatedData.importe_iva = iva.toFixed(2);
+          updatedData.importe_total = (neto + iva).toFixed(2);
+      }
+
+      return updatedData;
+    });
   };
 
   const calcularTotal = () => {
     const neto = parseFloat(formData.importe_neto) || 0;
-    const iva = parseFloat(formData.importe_iva) || 0;
-    setFormData({ ...formData, importe_total: (neto + iva).toFixed(2)});
+
+    let iva=0;
+    if(formData.tipo !=="C"){
+      iva = parseFloat(neto * 0.21) || 0;
+    }
+    
+    setFormData({ ...formData,
+      importe_iva:iva.toFixed(2),
+      importe_total: (neto + iva).toFixed(2)});
   };
+
+  // const handleEditar =async (e)=> {
+  //   e.preventDefault();
+  //   setIsSubmit(true);
+  //   setSuccessMessage("");
+  //   setError("");
+
+  //   try {
+  //     let response = await axios.put(URL_FACTURAS_COMPRA_CARGAR,{
+  //       cuit_proveedor:formData.cuit_proveedor,
+  //       tipo:formData.tipo,
+  //       nro_factura:formData.nro_factura,
+  //       fecha_factura:formData.fecha_factura,
+  //       tipo_factura:"Compra",
+  //       importe_neto:formData.importe_neto,
+  //       importe_iva:formData.importe_iva,
+  //       importe_total:formData.importe_total
+  //     })
+  //       alert("Se cargo Factura de Compra")
+  //       navigate("/compras")
+  //   } catch (error) {
+  //     setError(error.response?.data?.error || "Error al registrar la factura.");
+  //   } finally {
+  //     setIsSubmit(false);
+  //   }
+  // }
 
   const handleSubmit = async (e) => {
     e.preventDefault();

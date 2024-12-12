@@ -18,17 +18,17 @@ import '../../styles/informeTabla.css'
 
 const TablaFacturasCliente = () => {
 
-    const { clienteId } = useParams(); // Obtienes el clienteId de la URL
-    const {cuitCliente} = useParams();
+    const { clienteId } = useParams(); // Obtienes el ID del cliente de la URL
+
     const [facturas, setFacturas] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [cliente, setCliente] = useState(null);
 
     //Para calcular montos
-    const totalNeto = facturas.reduce((acc, factura) => acc + (parseFloat(factura.neto ?? 0)), 0);
-    const totalIVA = facturas.reduce((acc, factura) => acc + (parseFloat(factura.iva ?? 0)), 0);
-    const total = facturas.reduce((acc, factura) => acc + (parseFloat(factura.total ?? 0)), 0);
+    // const totalNeto = facturas.reduce((acc, factura) => acc + (parseFloat(factura.neto ?? 0)), 0);
+    // const totalIVA = facturas.reduce((acc, factura) => acc + (parseFloat(factura.iva ?? 0)), 0);
+    // const total = facturas.reduce((acc, factura) => acc + (parseFloat(factura.total ?? 0)), 0);
 
     //Para exportar como PDF
     const ExportPDF = () => {
@@ -83,9 +83,12 @@ const TablaFacturasCliente = () => {
         const data = filteredFacturas.map(factura => [
             factura.nro_factura,
             format(factura.fecha_factura,'DD/MM/YYYY'),
-            factura.neto?.toFixed(2) ?? '0.00', 
-            factura.iva?.toFixed(2) ?? '0.00', 
-            factura.total?.toFixed(2) ?? '0.00'
+            factura.importe_neto,
+            factura.importe_iva,
+            factura.importe_total
+            // factura.neto?.toFixed(2) ?? '0.00', 
+            // factura.iva?.toFixed(2) ?? '0.00', 
+            // factura.total?.toFixed(2) ?? '0.00'
         ]);
         data.push([
           {
@@ -93,9 +96,9 @@ const TablaFacturasCliente = () => {
             colSpan: 2,
             styles: { halign: 'right', fontStyle: 'bold' },
           },
-          totalNeto,
-          totalIVA,
-          total,
+          // totalNeto,
+          // totalIVA,
+          // total,
       ]);
         doc.autoTable({
             head: headers,
@@ -114,19 +117,22 @@ const TablaFacturasCliente = () => {
       
     //Para exportar como Excel
     const ExportExcel = () => {
-      const data = facturas.map(factura => ({
+      const data = filteredFacturas.map(factura => ({
         "N° Factura": factura.nro_factura,
         "Fecha": new Date(format(factura.fecha_factura,'DD/MM/YYYY')).toLocaleDateString('es-AR'),
-        "Monto Neto": factura.neto?.toFixed(2) ?? '0.00',
-        "IVA": factura.iva?.toFixed(2) ?? '0.00',
-        "Total": factura.total?.toFixed(2) ?? '0.00'
+        "Importe Neto": factura.importe_neto ,
+        "Importe IVA": factura.importe_iva,
+        "Total": factura.importe_total
+        // "Monto Neto": factura.neto?.toFixed(2) ?? '0.00',
+        // "IVA": factura.iva?.toFixed(2) ?? '0.00',
+        // "Total": factura.total?.toFixed(2) ?? '0.00'
     }));
     data.push({
       "N° Factura": "Totales",
       "Fecha": "", // Columna vacía
-      "Monto Neto": totalNeto,
-      "IVA": totalIVA,
-      "Total": total,
+      // "Monto Neto": totalNeto,
+      // "IVA": totalIVA,
+      // "Total": total,
   });
         const worksheet = XLSX.utils.json_to_sheet(data);
         const workbook = XLSX.utils.book_new();
@@ -178,12 +184,12 @@ const TablaFacturasCliente = () => {
   //Para obtener y mostrar las facturas del cliente específico
   const fetchFacturas = useCallback(async () => {
       try {
-          const res = await axios.get(`${URL_FACTURAS_VENTA}?cuitCliente=${cuitCliente}`);
+          const res = await axios.get(`${URL_FACTURAS_VENTA}?clienteId=${clienteId}`);
           const todasFacturas = res.data;
           setFacturas(todasFacturas);
           console.log(todasFacturas);
 
-        // Filtrar las facturas correspondientes al cliente actual
+        // // Filtrar las facturas correspondientes al cliente actual
         // const facturasCliente = todasFacturas.filter((factura) => factura.cuit_cliente === cliente.cuit_cliente);
         // setFacturas(facturasCliente);
         // console.log(facturasCliente)
@@ -194,14 +200,14 @@ const TablaFacturasCliente = () => {
       } finally {
           setLoading(false);
       }
-  }, [cuitCliente]);
+  }, [clienteId]);
 
   useEffect(() => {
       if (clienteId) {
           fetchCliente();
           fetchFacturas();
       }
-  }, [clienteId, cuitCliente, fetchCliente, fetchFacturas]);
+  }, [clienteId, fetchCliente, fetchFacturas]);
 
     if (loading) {
       return (
@@ -259,7 +265,7 @@ const TablaFacturasCliente = () => {
                 </Row>
           </div>
     ): (<Alert variant="warning" className="text-center">Cargando datos del cliente...</Alert>)}
-        {error && (<Alert variant="danger" className="text-center">{error}</Alert>)}
+        {/* {error && (<Alert variant="danger" className="text-center">{error}</Alert>)} */}
         {filteredFacturas.length === 0 ? (
           <Alert variant="info" className="text-center">
           No se encontraron facturas del cliente.
@@ -280,13 +286,16 @@ const TablaFacturasCliente = () => {
                 <tr key={factura.id_factura}>
                   <td>{factura.nro_factura}</td>
                   <td>{format(factura.fecha_factura,'DD/MM/YYYY')}</td>
+                  <td>{factura.importe_neto}</td>
+                <td>{factura.importe_iva}</td>
+                <td>{factura.importe_total}</td>
                 </tr>
               ))}
                <tr>
                 <td colSpan="2" className="text-end fw-bold">Totales:</td>
-                <td>{totalNeto.toFixed(2)}</td>
-                <td>{totalIVA.toFixed(2)}</td>
-                <td>{total.toFixed(2)}</td>
+                <td>{facturas.importe_neto}</td>
+                <td>{facturas.importe_iva}</td>
+                <td>{facturas.importe_total}</td>
                 {/* <Totales data={facturas} /> */}
                 </tr>
             </tbody>

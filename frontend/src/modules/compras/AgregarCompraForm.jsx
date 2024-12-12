@@ -89,10 +89,8 @@ const AgregarCompraForm = () => {
               <Form.Control
                 type="number"
                 name="importe_iva"
-                onChange={handleChange}
-                onBlur={calcularTotal}
-                step="0.01"
-                required
+                value={formData.importe_iva}
+                readOnly
               />
             </Form.Group>
           </Col>
