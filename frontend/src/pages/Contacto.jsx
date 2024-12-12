@@ -67,7 +67,7 @@ const ContactoPage = () => {
                             </li>
                             <li className="list-inline-item">
                                 <a
-                                    href="https://api.whatsapp.com/send?phone=%2B543815280077&context=ARCWGN6FECvwAALwH_e1iGsv_H-U03wDq7RZdcTeu7Df_LewZthZiitf9fi_G4yCYO0YIs8FIWaLB9tNewsMSMOGincsL_vpxeILdMhtES6rbGBaVVCjhRZeVJwr1Y8pvCrrNCCjxpRKu6iDo9wCuSmYJA&source=FB_Page&app=facebook&entry_point=page_cta&fbclid=IwZXh0bgNhZW0CMTAAAR2HH1ytHTTpmfYM6TaACkfgZKl0PH0bpGM2o3SyMNAs0psiJMMw1xHncJE_aem_njRRJtdx6dveaIaIZrGYtw"
+                                    href="https://wa.me/5493813468940"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="text-decoration-none"
