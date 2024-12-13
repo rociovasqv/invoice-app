@@ -19,6 +19,7 @@ import Register from "./modules/usuarios/UserForm";
 
 import ComprasPage from "./modules/compras/ComprasPage";
 import AgregarCompraForm from "./modules/compras/AgregarCompraForm";
+import EditarCompraForm from "./modules/compras/EditarCompraForm";
 
 import VentaPage from "./modules/ventas/VentasPage";
 import AgregarVentaForm from "./modules/ventas/AgregarVentaForm";
@@ -75,6 +76,7 @@ const App = () => {
             
               <Route path="/compras" element={<ComprasPage/>}/>
               <Route path="/registrar-compra" element={<AgregarCompraForm />} />
+              <Route path="/editar-compra/:id" element={<EditarCompraForm />} />
 
               <Route path="/ventas" element={<VentaPage/>}/>
               <Route path="/registrar-venta" element={<AgregarVentaForm/>} />

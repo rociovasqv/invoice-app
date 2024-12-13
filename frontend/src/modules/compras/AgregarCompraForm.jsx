@@ -50,6 +50,11 @@ const AgregarCompraForm = () => {
                 <option value="B">B</option>
                 <option value="C">C</option>
                 <option value="Nota de Débito A">Nota de Débito A</option>
+                <option value="Nota de Débito B">Nota de Débito B</option>
+                <option value="Nota de Débito C">Nota de Débito C</option>
+                <option value="Nota de Crédito A">Nota de Crédito A</option>
+                <option value="Nota de Crédito B">Nota de Crédito B</option>
+                <option value="Nota de Crédito C">Nota de Crédito C</option>
               </Form.Select>
             </Form.Group>
           </Col>
