@@ -14,7 +14,7 @@ CREATE TABLE usuarios (
     nombre VARCHAR(100) NOT NULL,
     password VARCHAR(255) NOT NULL,
     rol_id INT,
-    FOREIGN KEY (rol_id) REFERENCES roles(id),
+    FOREIGN KEY (rol_id) REFERENCES roles(id_rol),
     disponibleU bool default 1
 );
 
