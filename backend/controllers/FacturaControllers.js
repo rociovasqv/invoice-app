@@ -122,7 +122,7 @@ const editarFacturaVenta = async (req, res) => {
             importe_iva = ${importe_iva},
             importe_total = ${importe_total},
             tipo_factura = '${tipo_factura}'
-        WHERE id_factura = ${id};
+            WHERE id_factura = ${id};
     `;
 
     conection.query(query, (err, results) => {
