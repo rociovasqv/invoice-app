@@ -53,19 +53,17 @@ const UserTable = () => {
                         <tr>
                             <th>ID</th>
                             <th>Nombre Usuario</th>
-                            <th>Contraseña</th>
                             <th>Rol</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         {usuarios.length > 0 ? (
-                            usuarios.map((usuario, index) => (
-                                <tr key={usuario.id}>
-                                    <td>{usuario.id}</td>
+                            usuarios.map((usuario) => (
+                                <tr key={usuario.id_usuario}>
+                                    <td>{usuario.id_usuario}</td>
                                     <td>{usuario.nombre}</td>
-                                    <td>{usuario.password}</td>
-                                    <td>{usuario.rol_id}</td>
+                                    <td>{usuario.nombre_rol}</td>
                                     <td>
                                         <Button
                                             variant="warning"

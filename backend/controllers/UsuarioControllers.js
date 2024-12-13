@@ -2,7 +2,11 @@ const {conection} = require("../config/DB")
 const bcrypt = require ('bcrypt')
 
 const AllUsers = async (req,res) => {
-    const query = `Select * from Usuarios where disponibleU = 1`
+    const query = `
+     Select u.id,u.nombre,r.nombre_rol
+     from Usuarios u 
+     join roles r on u.rol_id = r.id_rol
+     where disponibleU = 1`
     conection.query(query,(err,results)=> {
         if (err) throw err;
         res.json(results)

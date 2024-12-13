@@ -19,9 +19,11 @@ import Register from "./modules/usuarios/UserForm";
 
 import ComprasPage from "./modules/compras/ComprasPage";
 import AgregarCompraForm from "./modules/compras/AgregarCompraForm";
+import EditarCompraForm from "./modules/compras/EditarCompraForm";
 
 import VentaPage from "./modules/ventas/VentasPage";
 import AgregarVentaForm from "./modules/ventas/AgregarVentaForm";
+import EditarVentaForm from "./modules/ventas/EditarVentaForm";
 
 import ClientesPage from "./modules/clientes/Clientes";
 import AgregarClienteForm from "./modules/clientes/AgregarClienteForm";
@@ -75,9 +77,11 @@ const App = () => {
             
               <Route path="/compras" element={<ComprasPage/>}/>
               <Route path="/registrar-compra" element={<AgregarCompraForm />} />
+              <Route path="/editar-compra/:id" element={<EditarCompraForm />} />
 
               <Route path="/ventas" element={<VentaPage/>}/>
               <Route path="/registrar-venta" element={<AgregarVentaForm/>} />
+              <Route path="/editar-venta/:id" element={<EditarVentaForm/>} />
 
               {/* <Route path="/informes" element={<InformesPage/>}/> */}
 

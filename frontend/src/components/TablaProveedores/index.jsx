@@ -31,10 +31,10 @@ const TablaProveedorComp = () => {
   }, []);
 
   // Manejar eliminación de proveedor
-  const handleEliminar = async (id) => {
+  const handleEliminar = async (id_proveedor) => {
     if (window.confirm("¿Estás seguro de que deseas eliminar este proveedor?")) {
       try {
-        await axios.put(`${URL_PROVEEDORES_ELIMINAR}/${id}`); // URL con el ID del proveedor
+        await axios.delete(`${URL_PROVEEDORES_ELIMINAR}/${id_proveedor}`); // URL con el ID del proveedor
         alert("Proveedor eliminado exitosamente.");
         getproveedores(); // Actualizar la lista después de eliminar
       } catch (error) {

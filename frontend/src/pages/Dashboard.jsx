@@ -10,7 +10,7 @@ const Dashboard = () => {
     // { title: "Informes Impositivos", icon: "📊", description: "Genera informes y reportes.", path: "/informes" },
     { title: "Informes de venta", icon: "👤", description: "Generar informes para clientes", path: "/clientes" },
     {title: "Informes de compra", icon: "📦", description: "Generar informes para proveedores", path: "/proveedores"},
-    { title: "Usuarios y Seguridad", icon: "🔒", description: "Administra roles y permisos", path: "/usuarios" },
+    // { title: "Usuarios y Seguridad", icon: "🔒", description: "Administra roles y permisos", path: "/usuarios" },
   ];
   return (
     <Container fluid className="pad dashboard-container">
