@@ -122,8 +122,8 @@ VALUES
 -- Facturas de venta (tipo C) - Solo se llena importe_total
 INSERT INTO facturas (id_cliente, id_subcliente, tipo, nro_factura, fecha_factura, importe_neto, importe_iva, importe_total, tipo_factura)
 VALUES 
-    (1, 1, 'C', '0003-00000001', '2024-11-01', 1000.00, NULL, 1000.00, 'Venta'),
-    (1, 2, 'C', '0003-00000002', '2024-11-02', 1500.00, NULL, 1500.00, 'Venta');
+    (1, 1, 'C', '0003-00000001', '2024-11-01', 1000.00, 0, 1000.00, 'Venta'),
+    (1, 2, 'C', '0003-00000002', '2024-11-02', 1500.00, 0, 1500.00, 'Venta');
 
 -- Facturas de compra (tipo B) - Solo se llena importe_total
 INSERT INTO facturas (id_cliente, id_proveedor, tipo, nro_factura, fecha_factura, importe_neto, importe_iva, importe_total, tipo_factura)
