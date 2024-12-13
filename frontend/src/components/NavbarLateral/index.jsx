@@ -19,11 +19,11 @@ const NavLateral = ({ setUsuarioLogeado, setIsLogin }) => {
 
     const navLinks = [
         { path: "/dashboard", label: "Panel Principal" },
-        { path: "/usuarios", label: "Usuarios" },
+        // { path: "/usuarios", label: "Usuarios" },
         { path: "/compras", label: "Compras" },
         { path: "/ventas", label: "Ventas" },
-        { path: "/clientes", label: "Clientes" },
-        { path: "/proveedores", label: "Proveedores" },
+        { path: "/clientes", label: "Informes de Venta" },
+        { path: "/proveedores", label: "Informes de Compra" },
     ];
 
    // Efecto para cerrar la barra al hacer clic fuera de él
