@@ -3,8 +3,8 @@ USE Ampuero;
 
 -- Tabla de Roles
 CREATE TABLE roles (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(20) NOT NULL UNIQUE,
+    id_rol INT AUTO_INCREMENT PRIMARY KEY,
+    nombre_rol VARCHAR(20) NOT NULL UNIQUE,
     disponibleR bool default 1
 );
 

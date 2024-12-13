@@ -3,7 +3,7 @@ const bcrypt = require ('bcrypt')
 
 const AllUsers = async (req,res) => {
     const query = `
-     Select u.id_usuario,u.nombre,r.nombre_rol
+     Select u.id,u.nombre,r.nombre_rol
      from Usuarios u 
      join roles r on u.rol_id = r.id_rol
      where disponibleU = 1`
