@@ -86,13 +86,13 @@ const InicioSesion = ({setUsuarioLogeado, setIsLogin}) => {
                     />
                   </Form.Group>
 
-                  <div className="mb-3">
+                  {/* <div className="mb-3">
                     <p className="small">
                       <a className="text-primary" href="#!">
                         ¿Te olvidaste tu contraseña?
                       </a>
                     </p>
-                  </div>
+                  </div> */}
                   <div>
                     <Link className='small' to={"/usuarios/registro"}>
                     Registrarse
