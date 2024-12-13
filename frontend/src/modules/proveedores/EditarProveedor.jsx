@@ -52,7 +52,7 @@ const EditarProveedorForm = () => {
 
   return (
     <Container className="my-5">
-      <h2 className="text-center mb-4">Registrar Proveedor</h2>
+      <h2 className="text-center mb-4">Editar Proveedor</h2>
       <Form onSubmit={handleSubmit}>
         <Row>
         <Col md={6}>

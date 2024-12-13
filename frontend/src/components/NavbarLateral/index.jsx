@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Nav, Offcanvas, Button, Navbar, Container } from 'react-bootstrap';
+import { Nav, Offcanvas, Button, Navbar, Container, Dropdown, DropdownDivider } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import CerrarSesion from '../CerrarSesion';
 import PropTypes from 'prop-types';
@@ -22,8 +22,8 @@ const NavLateral = ({ setUsuarioLogeado, setIsLogin }) => {
         { path: "/usuarios", label: "Usuarios" },
         { path: "/compras", label: "Compras" },
         { path: "/ventas", label: "Ventas" },
-        { path: "/clientes", label: "Clientes" },
-        { path: "/proveedores", label: "Proveedores" },
+        { path: "/clientes", label: "Informes de venta" },
+        { path: "/proveedores", label: "Informes de compra" },
     ];
 
    // Efecto para cerrar la barra al hacer clic fuera de él
@@ -64,6 +64,7 @@ const NavLateral = ({ setUsuarioLogeado, setIsLogin }) => {
                     <Nav className="flex-column">
                         {navLinks.map(({ path, label }) => (
                             <Nav.Link key={path} as={Link} to={path}>{label}</Nav.Link>))}
+                            <hr id='divider'/>
                             <CerrarSesion setUsuarioLogeado={setUsuarioLogeado} setIsLogin={setIsLogin} />
                             </Nav>
                 </Offcanvas.Body>
