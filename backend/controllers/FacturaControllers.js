@@ -52,9 +52,59 @@ const obtenerFacturasVentas = async (req, res) => {
         res.json(results)
     })
 };
-// const editarFacturaCompra = async(req,res) => {
+const editarFacturaCompra = async (req, res) => {
+    const { id_facturas, cuit_proveedor, tipo, nro_factura, fecha_factura, importe_neto, importe_iva, importe_total, tipo_factura } = req.body;
 
-// }
+    const query = `
+        UPDATE facturas
+        SET 
+            id_proveedor = (SELECT id_proveedor FROM proveedores WHERE cuit_proveedor = '${cuit_proveedor}'),
+            tipo = '${tipo}',
+            nro_factura = ${nro_factura},
+            fecha_factura = '${fecha_factura}',
+            importe_neto = ${importe_neto},
+            importe_iva = ${importe_iva},
+            importe_total = ${importe_total},
+            tipo_factura = '${tipo_factura}'
+        WHERE id_facturas = ${id_facturas};
+    `;
+
+    conection.query(query, (err, results) => {
+        if (err) {
+            console.error("Error al actualizar la factura:", err);
+            res.status(500).send({ error: "Error al actualizar la factura" });
+            return;
+        }
+        res.send({ message: "Factura actualizada correctamente", results });
+    });
+};
+const editarFacturaVenta = async (req, res) => {
+    const { id_facturas, cuit_cliente, tipo, nro_factura, fecha_factura, importe_neto, importe_iva, importe_total, tipo_factura } = req.body;
+
+    const query = `
+        UPDATE facturas
+        SET 
+            id_cliente = (SELECT id_cliente FROM clientes WHERE cuit_cliente = '${cuit_cliente}'),
+            tipo = '${tipo}',
+            nro_factura = ${nro_factura},
+            fecha_factura = '${fecha_factura}',
+            importe_neto = ${importe_neto},
+            importe_iva = ${importe_iva},
+            importe_total = ${importe_total},
+            tipo_factura = '${tipo_factura}'
+        WHERE id_facturas = ${id_facturas};
+    `;
+
+    conection.query(query, (err, results) => {
+        if (err) {
+            console.error("Error al actualizar la factura:", err);
+            res.status(500).send({ error: "Error al actualizar la factura" });
+            return;
+        }
+        res.send({ message: "Factura actualizada correctamente", results });
+    });
+};
+
 
 // 
 const informeFacturasCompras = async (req, res) => {
@@ -92,5 +142,5 @@ const eliminarFactura = (req,res) => {
     })
 }
 
-module.exports = { registrarFacturaCompra,registrarFacturaVenta, obtenerFacturasCompras,obtenerFacturasVentas,eliminarFactura,informeFacturasCompras,informeFacturasVentas};
+module.exports = { registrarFacturaCompra,registrarFacturaVenta, obtenerFacturasCompras,obtenerFacturasVentas,editarFacturaCompra,editarFacturaVenta,eliminarFactura,informeFacturasCompras,informeFacturasVentas};
 
