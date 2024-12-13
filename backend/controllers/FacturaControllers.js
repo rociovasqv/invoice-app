@@ -7,7 +7,7 @@ const registrarFacturaCompra = async (req, res) => {
         const query = `
         INSERT INTO facturas (id_proveedor, tipo, nro_factura, fecha_factura, importe_neto, importe_iva, importe_total, tipo_factura)
         VALUES (
-        (SELECT id_proveedor FROM proveedores WHERE cuit_proveedor ='${cuit_proveedor}'),'${tipo}',${nro_factura},'${fecha_factura}',${importe_neto},${importe_iva},${importe_total},'${tipo_factura}');`;
+        (SELECT id_proveedor FROM proveedores WHERE cuit_proveedor ='${cuit_proveedor}'),'${tipo}','${nro_factura}','${fecha_factura}',${importe_neto},${importe_iva},${importe_total},'${tipo_factura}');`;
         conection.query(query,(err,results)=>{
             if(err) throw err;
             res.send(results)
@@ -19,7 +19,7 @@ const registrarFacturaVenta = async (req, res) => {
 
         const query = `
         INSERT INTO facturas (id_cliente, tipo, nro_factura, fecha_factura, importe_neto, importe_iva, importe_total, tipo_factura)
-        VALUES ((SELECT id_cliente FROM clientes WHERE cuit_cliente ='${cuit_cliente}'),'${tipo}',${nro_factura},'${fecha_factura}',${importe_neto},${importe_iva},${importe_total},'${tipo_factura}');`;
+        VALUES ((SELECT id_cliente FROM clientes WHERE cuit_cliente ='${cuit_cliente}'),'${tipo}','${nro_factura}','${fecha_factura}',${importe_neto},${importe_iva},${importe_total},'${tipo_factura}');`;
         conection.query(query,(err,results)=>{
             if(err) throw err;
             res.send(results)
@@ -28,7 +28,7 @@ const registrarFacturaVenta = async (req, res) => {
 
 const obtenerFacturasCompras = async (req, res) => {
     const query = `
-            SELECT f.id_factura, f.nro_factura, f.fecha_factura, f.importe_neto, f.importe_iva, f.importe_total,f.tipo, 
+            SELECT f.id_factura, f.nro_factura,  DATE_FORMAT(f.fecha_factura, '%Y-%m-%d') AS fecha_factura, f.importe_neto, f.importe_iva, f.importe_total,f.tipo, 
                    p.razon_social_proveedor,p.cuit_proveedor
             FROM facturas f
             JOIN proveedores p ON f.id_proveedor = p.id_proveedor
@@ -40,7 +40,7 @@ const obtenerFacturasCompras = async (req, res) => {
 };
 const obtenerFacturasVentas = async (req, res) => {
     const query = `
-            SELECT f.id_factura, f.nro_factura, f.fecha_factura, f.importe_neto, f.importe_iva, f.importe_total,f.tipo, 
+            SELECT f.id_factura, f.nro_factura,  DATE_FORMAT(f.fecha_factura, '%Y-%m-%d') AS fecha_factura, f.importe_neto, f.importe_iva, f.importe_total,f.tipo, 
                    c.razon_social_cliente,c.cuit_cliente
             FROM facturas f
             LEFT JOIN clientes c ON f.id_cliente = c.id_cliente
@@ -52,9 +52,89 @@ const obtenerFacturasVentas = async (req, res) => {
         res.json(results)
     })
 };
-// const editarFacturaCompra = async(req,res) => {
+const filtrarFacturasCompras = async (req, res) => {
+    const id = req.params.id
+    const query = `
+            SELECT f.id_factura, f.nro_factura,  DATE_FORMAT(f.fecha_factura, '%Y-%m-%d') AS fecha_factura, f.importe_neto, f.importe_iva, f.importe_total,f.tipo, 
+                   p.razon_social_proveedor,p.cuit_proveedor
+            FROM facturas f
+            JOIN proveedores p ON f.id_proveedor = p.id_proveedor
+            WHERE f.tipo_factura = 'compra' and disponibleF=1 and f.id_factura = ${id}`;
+    conection.query(query,(err,results)=>{
+        if (err) throw err;
+        res.json(results)
+    })
+};
+const filtrarFacturasVentas = async (req, res) => {
+    const id =req.params.id
+    const query = `
+            SELECT f.id_factura, f.nro_factura,  DATE_FORMAT(f.fecha_factura, '%Y-%m-%d') AS fecha_factura, f.importe_neto, f.importe_iva, f.importe_total,f.tipo, 
+                   c.razon_social_cliente,c.cuit_cliente
+            FROM facturas f
+            LEFT JOIN clientes c ON f.id_cliente = c.id_cliente
+            LEFT JOIN subclientes s ON f.id_subcliente = s.id_subcliente
+            LEFT JOIN proveedores p ON f.id_proveedor = p.id_proveedor
+            WHERE f.tipo_factura = 'venta' and disponibleF=1 and f.id_factura = ${id}`;
+    conection.query(query,(err,results)=>{
+        if (err) throw err;
+        res.json(results)
+    })
+};
+const editarFacturaCompra = async (req, res) => {
+    const id = req.params.id
+    const {cuit_proveedor, tipo, nro_factura, fecha_factura, importe_neto, importe_iva, importe_total, tipo_factura } = req.body;
 
-// }
+    const query = `
+        UPDATE facturas
+        SET 
+            id_proveedor = (SELECT id_proveedor FROM proveedores WHERE cuit_proveedor = '${cuit_proveedor}'),
+            tipo = '${tipo}',
+            nro_factura = '${nro_factura}',
+            fecha_factura = '${fecha_factura}',
+            importe_neto = ${importe_neto},
+            importe_iva = ${importe_iva},
+            importe_total = ${importe_total},
+            tipo_factura = '${tipo_factura}'
+        WHERE id_factura = ${id};
+    `;
+
+    conection.query(query, (err, results) => {
+        if (err) {
+            console.error("Error al actualizar la factura:", err);
+            res.status(500).send({ error: "Error al actualizar la factura" });
+            return;
+        }
+        res.send({ message: "Factura actualizada correctamente", results });
+    });
+};
+const editarFacturaVenta = async (req, res) => {
+    const id = req.params.id
+    const { cuit_cliente, tipo, nro_factura, fecha_factura, importe_neto, importe_iva, importe_total, tipo_factura } = req.body;
+
+    const query = `
+        UPDATE facturas
+        SET 
+            id_cliente = (SELECT id_cliente FROM clientes WHERE cuit_cliente = '${cuit_cliente}'),
+            tipo = '${tipo}',
+            nro_factura = '${nro_factura}',
+            fecha_factura = '${fecha_factura}',
+            importe_neto = ${importe_neto},
+            importe_iva = ${importe_iva},
+            importe_total = ${importe_total},
+            tipo_factura = '${tipo_factura}'
+            WHERE id_factura = ${id};
+    `;
+
+    conection.query(query, (err, results) => {
+        if (err) {
+            console.error("Error al actualizar la factura:", err);
+            res.status(500).send({ error: "Error al actualizar la factura" });
+            return;
+        }
+        res.send({ message: "Factura actualizada correctamente", results });
+    });
+};
+
 
 // 
 const informeFacturasCompras = async (req, res) => {
@@ -92,5 +172,5 @@ const eliminarFactura = (req,res) => {
     })
 }
 
-module.exports = { registrarFacturaCompra,registrarFacturaVenta, obtenerFacturasCompras,obtenerFacturasVentas,eliminarFactura,informeFacturasCompras,informeFacturasVentas};
+module.exports = { registrarFacturaCompra,registrarFacturaVenta, obtenerFacturasCompras,obtenerFacturasVentas,filtrarFacturasCompras,filtrarFacturasVentas,editarFacturaCompra,editarFacturaVenta,eliminarFactura,informeFacturasCompras,informeFacturasVentas};
 

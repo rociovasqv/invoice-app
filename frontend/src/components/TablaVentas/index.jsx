@@ -2,7 +2,6 @@ import { Table, Button, Container, Spinner, Alert, Row, Col } from "react-bootst
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import useFacturasVenta from "../../hooks/useFacturasVenta"; // Hook para facturas de venta
-import {format} from "@formkit/tempo";
 import "../../styles/facturaTabla.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -83,7 +82,7 @@ const TablaVentasComp = () => {
                   <tr key={facturasVenta.id_factura}>
                     <td>{facturasVenta.id_factura}</td>
                     <td>{facturasVenta.nro_factura}</td>
-                    <td>{format(facturasVenta.fecha_factura, 'DD/MM/YYYY')}</td>
+                    <td>{facturasVenta.fecha_factura}</td>
                     <td>{facturasVenta.razon_social_cliente}</td>
                     <td>{facturasVenta.cuit_cliente}</td>
                     <td>{facturasVenta.tipo}</td>
