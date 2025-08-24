@@ -74,7 +74,7 @@ CREATE TABLE facturas (
     disponibleF bool default 1
 );
 
-INSERT INTO roles(nombre)
+INSERT INTO roles(nombre_rol)
 values('contador'),
 ('empleado');
 
