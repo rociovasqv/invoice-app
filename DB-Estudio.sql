@@ -1,3 +1,4 @@
+DROP DATABASE IF EXISTS Ampuero;
 CREATE DATABASE Ampuero;
 USE Ampuero;
 
@@ -44,12 +45,21 @@ CREATE TABLE proveedores (
     FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente),
     disponibleP bool default 1
 );
+CREATE TABLE subproveedores (
+    id_subproveedor INT PRIMARY KEY AUTO_INCREMENT,
+    id_proveedor INT,
+    razon_social_subproveedor VARCHAR(255) NOT NULL,
+    cuit_subproveedor VARCHAR(20) NOT NULL UNIQUE,
+    FOREIGN KEY (id_proveedor) REFERENCES proveedores(id_proveedor),
+    disponibleSP bool default 1
+);
 
-CREATE TABLE facturas (
+CREATE TABLE facturas ( 
     id_factura INT PRIMARY KEY AUTO_INCREMENT,
     id_cliente INT NULL,
     id_subcliente INT NULL,
     id_proveedor INT NULL,
+    id_subproveedor INT NULL,
     tipo ENUM('A', 'B', 'C', 'Nota de Débito A', 'Nota de Débito B', 'Nota de Débito C', 
               'Nota de Crédito A', 'Nota de Crédito B', 'Nota de Crédito C') NOT NULL,
     nro_factura VARCHAR(50) NOT NULL,

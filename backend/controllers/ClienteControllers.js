@@ -3,7 +3,7 @@ const {conection} = require("../config/DB")
 const listarClientes = async (req,res) => {
     const query = `select * from clientes where disponibleC = 1`
      conection.query(query,(err,results)=>{
-        if (err) throw err;
+        if (err) throw err; 
         res.json(results)
      })
 }
