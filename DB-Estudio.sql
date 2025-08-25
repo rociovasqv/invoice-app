@@ -114,7 +114,7 @@ VALUES
     (3, 'Subcliente El Sol 1', '20-00112233-4'),
     (3, 'Subcliente El Sol 2', '20-11223344-5');
 
-INSERT INTO subproveedores (id_cliente, razon_social_subproveedor, cuit_subsubproveedor)
+INSERT INTO subproveedores (id_cliente, razon_social_subproveedor, cuit_subproveedor)
 VALUES 
     (3, 'Subproveedor El Sol 1', '20-00452233-4'),
     (3, 'Subproveedor El Sol 2', '20-11229544-5');
