@@ -47,10 +47,10 @@ CREATE TABLE proveedores (
 );
 CREATE TABLE subproveedores (
     id_subproveedor INT PRIMARY KEY AUTO_INCREMENT,
-    id_proveedor INT,
+    id_cliente INT,
     razon_social_subproveedor VARCHAR(255) NOT NULL,
     cuit_subproveedor VARCHAR(20) NOT NULL UNIQUE,
-    FOREIGN KEY (id_proveedor) REFERENCES proveedores(id_proveedor),
+    FOREIGN KEY (id_cliente) REFERENCES proveedores(id_cliente),
     disponibleSP bool default 1
 );
 
@@ -71,6 +71,7 @@ CREATE TABLE facturas (
     FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente),
     FOREIGN KEY (id_subcliente) REFERENCES subclientes(id_subcliente),
     FOREIGN KEY (id_proveedor) REFERENCES proveedores(id_proveedor),
+    FOREIGN KEY (id_subproveedor) REFERENCES subproveedores(id_subproveedor),
     disponibleF bool default 1
 );
 
@@ -95,21 +96,6 @@ VALUES ('Ferretería López', '30-87654321-0', 'Responsable Inscripto', 'Av. Pri
 INSERT INTO clientes (razon_social_cliente, cuit_cliente, condicion_iva, domicilio_fiscal) 
 VALUES ('Tienda El Sol', '30-11223344-5', 'Responsable Inscripto', 'Ruta Nacional 12, Ciudad C');
 
-INSERT INTO proveedores (id_cliente, razon_social_proveedor, cuit_proveedor)
-VALUES 
-    (1, 'Proveedor La Esquina 1', '30-44556677-8'),
-    (1, 'Proveedor La Esquina 2', '30-55667788-9');
-
-INSERT INTO proveedores (id_cliente, razon_social_proveedor, cuit_proveedor)
-VALUES 
-    (3, 'Proveedor El Sol 1', '30-22334455-6'),
-    (3, 'Proveedor El Sol 2', '30-33445566-7');
-
-INSERT INTO proveedores (id_cliente, razon_social_proveedor, cuit_proveedor)
-VALUES 
-    (2, 'Proveedor López 1', '30-88990011-2'),
-    (2, 'Proveedor López 2', '30-99001122-3');
-
 -- Agregar subclientes y proveedores para el cliente 'Ferretería López'
 INSERT INTO subclientes (id_cliente, razon_social_subcliente, cuit_subcliente)
 VALUES 
@@ -127,6 +113,36 @@ INSERT INTO subclientes (id_cliente, razon_social_subcliente, cuit_subcliente)
 VALUES 
     (3, 'Subcliente El Sol 1', '20-00112233-4'),
     (3, 'Subcliente El Sol 2', '20-11223344-5');
+
+INSERT INTO subproveedores (id_cliente, razon_social_subcliente, cuit_subcliente)
+VALUES 
+    (3, 'Subproveedor El Sol 1', '20-00452233-4'),
+    (3, 'Subproveedor El Sol 2', '20-11229544-5');
+
+INSERT INTO subproveedores (id_cliente, razon_social_proveedor, cuit_proveedor)
+VALUES 
+    (2, 'SubProveedor López 1', '30-11223366-5'),
+    (2, 'SubProveedor López 2', '30-22254455-6');
+
+INSERT INTO subproveedores (id_cliente, razon_social_subcliente, cuit_subcliente)
+VALUES 
+    (1, 'Subproveedor La esquina 1', '20-35485566-7'),
+    (1, 'Subproveedor La esquina 2', '20-44556677-8');
+
+INSERT INTO proveedores (id_cliente, razon_social_proveedor, cuit_proveedor)
+VALUES 
+    (1, 'Proveedor La Esquina 1', '30-44556677-8'),
+    (1, 'Proveedor La Esquina 2', '30-55667788-9');
+
+INSERT INTO proveedores (id_cliente, razon_social_proveedor, cuit_proveedor)
+VALUES 
+    (3, 'Proveedor El Sol 1', '30-22334455-6'),
+    (3, 'Proveedor El Sol 2', '30-33445566-7');
+
+INSERT INTO proveedores (id_cliente, razon_social_proveedor, cuit_proveedor)
+VALUES 
+    (2, 'Proveedor López 1', '30-88990011-2'),
+    (2, 'Proveedor López 2', '30-99001122-3');
 
 -- Facturas para el cliente 'Almacén La Esquina'
 -- Facturas de venta (tipo C) - Solo se llena importe_total
