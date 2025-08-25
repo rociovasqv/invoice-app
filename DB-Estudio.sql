@@ -114,17 +114,17 @@ VALUES
     (3, 'Subcliente El Sol 1', '20-00112233-4'),
     (3, 'Subcliente El Sol 2', '20-11223344-5');
 
-INSERT INTO subproveedores (id_cliente, razon_social_subcliente, cuit_subcliente)
+INSERT INTO subproveedores (id_cliente, razon_social_subproveedor, cuit_subsubproveedor)
 VALUES 
     (3, 'Subproveedor El Sol 1', '20-00452233-4'),
     (3, 'Subproveedor El Sol 2', '20-11229544-5');
 
-INSERT INTO subproveedores (id_cliente, razon_social_proveedor, cuit_proveedor)
+INSERT INTO subproveedores (id_cliente, razon_social_subproveedor, cuit_subproveedor)
 VALUES 
     (2, 'SubProveedor López 1', '30-11223366-5'),
     (2, 'SubProveedor López 2', '30-22254455-6');
 
-INSERT INTO subproveedores (id_cliente, razon_social_subcliente, cuit_subcliente)
+INSERT INTO subproveedores (id_cliente, razon_social_subproveedor, cuit_subproveedor)
 VALUES 
     (1, 'Subproveedor La esquina 1', '20-35485566-7'),
     (1, 'Subproveedor La esquina 2', '20-44556677-8');
