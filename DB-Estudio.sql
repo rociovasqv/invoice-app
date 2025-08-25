@@ -50,7 +50,7 @@ CREATE TABLE subproveedores (
     id_cliente INT,
     razon_social_subproveedor VARCHAR(255) NOT NULL,
     cuit_subproveedor VARCHAR(20) NOT NULL UNIQUE,
-    FOREIGN KEY (id_cliente) REFERENCES proveedores(id_cliente),
+    FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente),
     disponibleSP bool default 1
 );
 
