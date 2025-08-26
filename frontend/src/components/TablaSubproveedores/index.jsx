@@ -28,17 +28,17 @@ const TablaSubproveedores = () => {
         getSubproveedores();
     }, []);
 
-    const handleEliminar = async (id_subproveedor) => {
-        if (window.confirm("¿Estás seguro de que deseas eliminar este proveedor?")) {
-            try {
-                await axios.delete(`${URL_SUBPROVEEDORES_ELIMINAR}/${id_subproveedor}`);
-                alert("Proveedor eliminado exitosamente.");
-                getSubproveedores();
-            } catch (error) {
-                alert("Error al eliminar el subproveedor.");
-            }
-        }
-    };
+    // const handleEliminar = async (id_subproveedor) => {
+    //     if (window.confirm("¿Estás seguro de que deseas eliminar este proveedor?")) {
+    //         try {
+    //             await axios.delete(`${URL_SUBPROVEEDORES_ELIMINAR}/${id_subproveedor}`);
+    //             alert("Proveedor eliminado exitosamente.");
+    //             getSubproveedores();
+    //         } catch (error) {
+    //             alert("Error al eliminar el subproveedor.");
+    //         }
+    //     }
+    // };
 
   return (
     <Container className="pad my-5">
@@ -55,7 +55,7 @@ const TablaSubproveedores = () => {
               <Button
                 variant="primary"
                 className="mt-3"
-                onClick={() => navigate("/registrar-subproveedor")}
+                // onClick={() => navigate("/registrar-subproveedor")}
               >
                 Registrar subproveedor
               </Button>
@@ -84,14 +84,14 @@ const TablaSubproveedores = () => {
                         variant="warning"
                         size="sm"
                         className="me-2"
-                        onClick={() => navigate(`/editar-subcliente/${subproveedor.id_subproveedor}`)} // Navegar a la edición
+                        // onClick={() => navigate(`/editar-subcliente/${subproveedor.id_subproveedor}`)} // Navegar a la edición
                       >
                         <FaEdit />
                       </Button>
                       <Button
                         variant="danger"
                         size="sm"
-                        onClick={() => handleEliminar(subproveedor.id_subproveedor)} // Pasar ID del cliente
+                        // onClick={() => handleEliminar(subproveedor.id_subproveedor)} // Pasar ID del cliente
                       >
                         <FaTrash />
                       </Button>

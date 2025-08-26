@@ -1,11 +1,11 @@
 import { Container } from "react-bootstrap";
-import TablaSubproveedores from "../subproveedores/SubproveedoresPage";
+import TablaSubproveedores from "../../components/TablaSubproveedores/index.jsx";
 
 
 const SubproveedoresPage = () => {
   return (
     <Container fluid>
-        <TablaSubproveedores/>
+      <TablaSubproveedores />
     </Container>
   )
 }
