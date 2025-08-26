@@ -6,8 +6,8 @@ const { listarSubProveedores, buscarSubProveedor, agregarSubProveedor, actualiza
 
 router.get('/SubProveedores', listarSubProveedores);
 router.get('/SubProveedores/:id', buscarSubProveedor);
-router.post('/SubProveedores', agregarSubProveedor);
-router.put('/SubProveedores/:id', actualizarSubProveedor);
-router.delete('/SubProveedores/:id', eliminarSubProveedor);
+router.post('/SubProveedores/AgregarSubProveedor', agregarSubProveedor);
+router.put('/SubProveedores/EditarSubProveedor/:id', actualizarSubProveedor);
+router.delete('/SubProveedores/BorrarSubProveedor/:id', eliminarSubProveedor);
 
 module.exports = router;
