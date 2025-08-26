@@ -1,5 +1,5 @@
 import { Container } from "react-bootstrap";
-import TablaSubproveedores from "../components/TablaSubproveedores";
+import TablaSubproveedores from "../subproveedores/SubproveedoresPage";
 
 
 const SubproveedoresPage = () => {
