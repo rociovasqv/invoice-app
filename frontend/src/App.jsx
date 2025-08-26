@@ -35,6 +35,8 @@ import AgregarSubclienteForm from "./modules/subclientes/AgregarsubclienteForm";
 import EditarSubclienteForm from "./modules/subclientes/EditarSubcliente";
 
 import SubproveedoresPage from "./modules/subproveedores/SubproveedoresPage";
+import AgregarSubproveedorForm from "./modules/subproveedores/Agregarsubproveedores";
+import EditarSubproveedorForm from "./modules/subproveedores/Editarsubproveedores";
 
 import ProveedoresPage from "./modules/proveedores/proveedoresPage";
 import AgregarProveedorForm from "./modules/proveedores/AgregarproveedorForm";
@@ -97,6 +99,8 @@ const App = () => {
               <Route path="/editar-subcliente/:id" element={<EditarSubclienteForm/>}/>
 
               <Route path="/subproveedores" element={<SubproveedoresPage/>}/>
+              <Route path="/registrar-subproveedor" element={<AgregarSubproveedorForm/>}/>
+              <Route path="/editar-subproveedor/:id" element={<EditarSubproveedorForm/>}/>
 
               <Route path="/proveedores" element={<ProveedoresPage/>}/>
               <Route path="/registrar-proveedor" element={<AgregarProveedorForm/>}/>

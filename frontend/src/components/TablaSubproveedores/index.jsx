@@ -29,10 +29,10 @@ const TablaSubproveedores = () => {
     }, []);
 
     const handleEliminar = async (id_subproveedor) => {
-        if (window.confirm("¿Estás seguro de que deseas eliminar este subproveedor?")) {
+        if (window.confirm("¿Estás seguro de que deseas eliminar este proveedor?")) {
             try {
                 await axios.delete(`${URL_SUBPROVEEDORES_ELIMINAR}/${id_subproveedor}`);
-                alert("Subproveedor eliminado exitosamente.");
+                alert("Proveedor eliminado exitosamente.");
                 getSubproveedores();
             } catch (error) {
                 alert("Error al eliminar el subproveedor.");
@@ -113,4 +113,4 @@ const TablaSubproveedores = () => {
   );
 }
 
-export default TablaSubproveedores
+export default TablaSubproveedores;
