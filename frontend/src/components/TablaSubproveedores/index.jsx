@@ -28,17 +28,17 @@ const TablaSubproveedores = () => {
         getSubproveedores();
     }, []);
 
-    // const handleEliminar = async (id_subproveedor) => {
-    //     if (window.confirm("¿Estás seguro de que deseas eliminar este proveedor?")) {
-    //         try {
-    //             await axios.delete(`${URL_SUBPROVEEDORES_ELIMINAR}/${id_subproveedor}`);
-    //             alert("Proveedor eliminado exitosamente.");
-    //             getSubproveedores();
-    //         } catch (error) {
-    //             alert("Error al eliminar el subproveedor.");
-    //         }
-    //     }
-    // };
+    const handleEliminar = async (id_subproveedor) => {
+        if (window.confirm("¿Estás seguro de que deseas eliminar este proveedor?")) {
+            try {
+                await axios.delete(`${URL_SUBPROVEEDORES_ELIMINAR}/${id_subproveedor}`);
+                alert("Proveedor eliminado exitosamente.");
+                getSubproveedores();
+            } catch (error) {
+                alert("Error al eliminar el subproveedor.");
+            }
+        }
+    };
 
   return (
     <Container className="pad my-5">
@@ -91,7 +91,7 @@ const TablaSubproveedores = () => {
                       <Button
                         variant="danger"
                         size="sm"
-                        // onClick={() => handleEliminar(subproveedor.id_subproveedor)} // Pasar ID del cliente
+                        onClick={() => handleEliminar(subproveedor.id_subproveedor)} // Pasar ID del cliente
                       >
                         <FaTrash />
                       </Button>
