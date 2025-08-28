@@ -55,7 +55,7 @@ const TablaSubproveedores = () => {
               <Button
                 variant="primary"
                 className="mt-3"
-                // onClick={() => navigate("/registrar-subproveedor")}
+                onClick={() => navigate("/registrar-subproveedor")}
               >
                 Registrar subproveedor
               </Button>
@@ -84,7 +84,7 @@ const TablaSubproveedores = () => {
                         variant="warning"
                         size="sm"
                         className="me-2"
-                        // onClick={() => navigate(`/editar-subcliente/${subproveedor.id_subproveedor}`)} // Navegar a la edición
+                        onClick={() => navigate(`/editar-subproveedor/${subproveedor.id_subproveedor}`)} // Navegar a la edición
                       >
                         <FaEdit />
                       </Button>
