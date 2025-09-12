@@ -159,7 +159,7 @@ VALUES
     
     -- Facturas para el cliente 'Ferretería López'
 -- Facturas de venta (tipo A)
-INSERT INTO facturas (id_cliente, id_subcliente, tipo, nro_factura, fecha_factura, importe_neto, importe_iva, importe_total, tipo_factura)
+INSERT INTO facturas (id_subcliente, id_subproveedor, tipo, nro_factura, fecha_factura, importe_neto, importe_iva, importe_total, tipo_factura)
 VALUES 
     (2, 3, 'A', '0001-00000003', '2024-11-05', 2000.00, 420.00, 2420.00, 'Venta'),
     (2, 4, 'A', '0001-00000004', '2024-11-06', 2500.00, 525.00, 3025.00, 'Venta');
@@ -172,7 +172,7 @@ VALUES
 
 -- Facturas para el cliente 'Tienda El Sol'
 -- Facturas de venta (tipo A)
-INSERT INTO facturas (id_cliente, id_subcliente, tipo, nro_factura, fecha_factura, importe_neto, importe_iva, importe_total, tipo_factura)
+INSERT INTO facturas (id_subcliente, id_subproveedor, tipo, nro_factura, fecha_factura, importe_neto, importe_iva, importe_total, tipo_factura)
 VALUES 
     (3, 5, 'A', '0001-00000005', '2024-11-09', 3000.00, 630.00, 3630.00, 'Venta'),
     (3, 6, 'A', '0001-00000006', '2024-11-10', 3500.00, 735.00, 4235.00, 'Venta');
@@ -183,12 +183,12 @@ VALUES
     (3, 5, 'A', '0002-00000005', '2024-11-11', 2800.00, 588.00, 3388.00, 'Compra'),
     (3, 6, 'A', '0002-00000006', '2024-11-12', 3200.00, 672.00, 3872.00, 'Compra');
 
-INSERT INTO facturas (id_cliente, id_subproveedor, tipo, nro_factura, fecha_factura, importe_neto, importe_iva, importe_total, tipo_factura)
+INSERT INTO facturas (id_subcliente, id_subproveedor, tipo, nro_factura, fecha_factura, importe_neto, importe_iva, importe_total, tipo_factura)
 VALUES
   (3, 1, 'B', '0005-00000001', '2024-11-13', 500.00, 105.00, 605.00, 'Compra'),
   (3, 2, 'B', '0005-00000002', '2024-11-14', 750.00, 157.50, 907.50, 'Compra');
 
-INSERT INTO facturas (id_cliente, id_subproveedor, tipo, nro_factura, fecha_factura, importe_neto, importe_iva, importe_total, tipo_factura)
+INSERT INTO facturas (id_subcliente, id_subproveedor, tipo, nro_factura, fecha_factura, importe_neto, importe_iva, importe_total, tipo_factura)
 VALUES
   (2, 3, 'A', '0006-00000003', '2024-11-15', 900.00, 189.00, 1089.00, 'Venta'),
   (2, 4, 'A', '0006-00000004', '2024-11-16', 1100.00, 231.00, 1331.00, 'Venta');
