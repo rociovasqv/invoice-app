@@ -71,7 +71,7 @@ const obtenerFacturasVentaSubCliente = async (req, res) => {
             SELECT f.id_factura, f.nro_factura, DATE_FORMAT(f.fecha_factura, '%Y-%m-%d') AS fecha_factura, f.importe_neto, f.importe_iva, f.importe_total,f.tipo, 
                    sc.razon_social_subcliente,sc.cuit_subcliente
             FROM facturas f
-            JOIN sub sc ON f.id_subcliente = sp.id_subcliente
+            JOIN sub sc ON f.id_subcliente = sc.id_subcliente
             WHERE f.tipo_factura = 'venta' and disponibleF=1`;
     conection.query(query,(err,results)=>{
         if (err) throw err;
