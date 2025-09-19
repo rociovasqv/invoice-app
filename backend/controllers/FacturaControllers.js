@@ -65,6 +65,19 @@ const obtenerFacturasComprasSubProveedor = async (req, res) => {
         res.json(results)
     })
 };
+const obtenerFacturasVentaSubCliente = async (req, res) => {
+    const id = req.params.id
+    const query = `
+            SELECT f.id_factura, f.nro_factura, DATE_FORMAT(f.fecha_factura, '%Y-%m-%d') AS fecha_factura, f.importe_neto, f.importe_iva, f.importe_total,f.tipo, 
+                   sc.razon_social_subcliente,sc.cuit_subcliente
+            FROM facturas f
+            JOIN sub sc ON f.id_subcliente = sp.id_subcliente
+            WHERE f.tipo_factura = 'venta' and disponibleF=1`;
+    conection.query(query,(err,results)=>{
+        if (err) throw err;
+        res.json(results)
+    })
+};
 const filtrarFacturasCompras = async (req, res) => {
     const id = req.params.id
     const query = `
@@ -185,5 +198,5 @@ const eliminarFactura = (req,res) => {
     })
 }
 
-module.exports = { registrarFacturaCompra,registrarFacturaVenta, obtenerFacturasCompras,obtenerFacturasVentas,filtrarFacturasCompras,filtrarFacturasVentas,editarFacturaCompra,editarFacturaVenta,eliminarFactura,informeFacturasCompras,informeFacturasVentas};
+module.exports = { registrarFacturaCompra,registrarFacturaVenta, obtenerFacturasCompras,obtenerFacturasVentas,obtenerFacturasVentaSubCliente,obtenerFacturasComprasSubProveedor,filtrarFacturasCompras,filtrarFacturasVentas,editarFacturaCompra,editarFacturaVenta,eliminarFactura,informeFacturasCompras,informeFacturasVentas};
 
