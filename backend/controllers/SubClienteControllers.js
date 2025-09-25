@@ -1,15 +1,17 @@
 const {conection} = require("../config/DB")
 
 const listarSubClientes = async (req,res) => {
-    const query = `select * from subclientes where disponibleS = 1`
+    const id = req.params.id
+    const query = `select * from subclientes where disponibleS = 1 and id_cliente='${id}'`
      conection.query(query,(err,results)=>{
         if (err) throw err;
         res.json(results)
      })
 }
 const buscarSubCliente = (req,res)=>{
+    const idCliente =  req.params.idCliente
     const id = req.params.id
-    const query = `select * from subclientes where id_subcliente='${id}'`
+    const query = `select * from subclientes where id_subcliente='${id}' and id_cliente='${idCliente}' and disponibleS = 1`
     conection.query(query,(err,results)=>{
         if (err) throw err;
         res.json(results)
