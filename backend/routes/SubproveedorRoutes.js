@@ -4,10 +4,10 @@ const router = express.Router();
 
 const { listarSubProveedores, buscarSubProveedor, agregarSubProveedor, actualizarSubProveedor, eliminarSubProveedor } = require('../controllers/SubproveedorCrontollers');
 
-router.get('/SubProveedores', listarSubProveedores);
-router.get('/SubProveedores/:id', buscarSubProveedor);
-router.post('/SubProveedores/AgregarSubProveedor', agregarSubProveedor);
-router.put('/SubProveedores/EditarSubProveedor/:id', actualizarSubProveedor);
-router.delete('/SubProveedores/BorrarSubProveedor/:id', eliminarSubProveedor);
+router.get('/Clientes/:idCliente/SubProveedores', listarSubProveedores);
+router.get('/Clientes/:idCliente/SubProveedores/:id', buscarSubProveedor);
+router.post('/Clientes/:idCliente/SubProveedores/AgregarSubProveedor', agregarSubProveedor);
+router.put('/Clientes/:idCliente/SubProveedores/EditarSubProveedor/:id', actualizarSubProveedor);
+router.delete('/Clientes/:idCliente/SubProveedores/BorrarSubProveedor/:id', eliminarSubProveedor);
 
 module.exports = router;
