@@ -29,6 +29,8 @@ import ClientesPage from "./modules/clientes/Clientes";
 import AgregarClienteForm from "./modules/clientes/AgregarClienteForm";
 import EditarClienteForm from "./modules/clientes/EditarCliente";
 
+import GestionClientes from "./modules/GestionClientes/GestionClientes";
+
 
 import SubclientesPage from "./modules/subclientes/subclientesPage";
 import AgregarSubclienteForm from "./modules/subclientes/AgregarsubclienteForm";
@@ -92,6 +94,8 @@ const App = () => {
               <Route path="/clientes" element={<ClientesPage/>}/>
               <Route path="/registrar-cliente" element={<AgregarClienteForm />}/>
               <Route path="/editar-cliente/:id" element={<EditarClienteForm/>}/>
+
+              <Route path="/gestionar-cliente/:id" element={<GestionClientes/>}/>
               
 
               <Route path="/subclientes" element={<SubclientesPage/>}/>

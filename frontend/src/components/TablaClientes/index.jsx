@@ -48,6 +48,11 @@ const TablaClientesComp = () => {
   navigate(`/informe-venta/${clienteId}`); // Asegúrate de tener esta ruta configurada en tu router
 };
 
+// Para navegar y ver el panel de gestion del cliente
+const gestionarCliente = (clienteId) => {
+  navigate(`/gestionar-cliente/${clienteId}`); // Asegúrate de tener esta ruta configurada en tu router
+}
+
 
   return (
     <Container className="my-5">
@@ -110,6 +115,12 @@ const TablaClientesComp = () => {
                       variant="link"
                       size="sm"
                       onClick={() => verFacturasCliente(cliente.id_cliente)}>
+                      <FaEye />
+                      </Button>
+                      <Button
+                      variant="link"
+                      size="sm"
+                      onClick={() => gestionarCliente(cliente.id_cliente)}>
                       <FaEye />
                       </Button>
                     </td>
