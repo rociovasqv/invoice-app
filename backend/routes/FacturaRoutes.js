@@ -1,10 +1,11 @@
 const express = require('express');
-const {obtenerFacturasCompras,obtenerFacturasVentas,obtenerFacturasComprasSubProveedor,filtrarFacturasCompras,filtrarFacturasVentas,eliminarFactura, informeFacturasCompras,informeFacturasVentas, registrarFacturaCompra,registrarFacturaVenta,editarFacturaCompra,editarFacturaVenta } = require('../controllers/FacturaControllers');
+const {obtenerFacturasCompras,obtenerFacturasVentas,obtenerFacturasComprasSubProveedor,obtenerFacturasVentaSubCliente,filtrarFacturasCompras,filtrarFacturasVentas,eliminarFactura, informeFacturasCompras,informeFacturasVentas, registrarFacturaCompra,registrarFacturaVenta,editarFacturaCompra,editarFacturaVenta } = require('../controllers/FacturaControllers');
 const router = express.Router();
 
 router.get('/facturas/compras', obtenerFacturasCompras);   // Consultar facturas
 router.get('/facturas/ventas', obtenerFacturasVentas);   // Consultar facturas
-router.get('/facturas/compras/subproveedor', obtenerFacturasComprasSubProveedor); // Consultar facturas por subproveedor
+router.get('/facturas/compras/:id/subproveedor', obtenerFacturasComprasSubProveedor); // Consultar facturas por subproveedor
+router.get('/facturas/ventas/:id/subcliente', obtenerFacturasVentaSubCliente); // Consultar facturas por subcliente
 router.get('/facturas/compras/:id',filtrarFacturasCompras)
 router.get('/facturas/ventas/:id',filtrarFacturasVentas)
 router.post('/facturas/compras/agregar', registrarFacturaCompra); // Registrar compra/venta
