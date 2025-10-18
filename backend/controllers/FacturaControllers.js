@@ -55,11 +55,11 @@ const obtenerFacturasVentas = async (req, res) => {
 const obtenerFacturasComprasSubProveedor = async (req, res) => {
     const id = req.params.id
     const query = `
-            SELECT f.id_factura, f.nro_factura, DATE_FORMAT(f.fecha_factura, '%Y-%m-%d') AS fecha_factura, f.importe_neto, f.importe_iva, f.importe_total,f.tipo, 
+            SELECT f.id_factura, f.nro_factura, DATE_FORMAT(f.fecha_factura, '%Y-%m-%d') AS fecha_factura, f.importe_neto, f.importe_iva, f.importe_total,f.tipo,f.id_cliente, 
                    sp.razon_social_subproveedor,sp.cuit_subproveedor
             FROM facturas f
             JOIN subproveedores sp ON f.id_subproveedor = sp.id_subproveedor
-            WHERE f.tipo_factura = 'compra' and disponibleF=1`;
+            WHERE f.tipo_factura = 'compra' and disponibleF=1 and f.id_cliente=${id}`;
     conection.query(query,(err,results)=>{
         if (err) throw err;
         res.json(results)
@@ -68,11 +68,11 @@ const obtenerFacturasComprasSubProveedor = async (req, res) => {
 const obtenerFacturasVentaSubCliente = async (req, res) => {
     const id = req.params.id
     const query = `
-            SELECT f.id_factura, f.nro_factura, DATE_FORMAT(f.fecha_factura, '%Y-%m-%d') AS fecha_factura, f.importe_neto, f.importe_iva, f.importe_total,f.tipo, 
+            SELECT f.id_factura, f.nro_factura, DATE_FORMAT(f.fecha_factura, '%Y-%m-%d') AS fecha_factura, f.importe_neto, f.importe_iva, f.importe_total,f.tipo,f.id_cliente, 
                    sc.razon_social_subcliente,sc.cuit_subcliente
             FROM facturas f
             JOIN sub sc ON f.id_subcliente = sc.id_subcliente
-            WHERE f.tipo_factura = 'venta' and disponibleF=1`;
+            WHERE f.tipo_factura = 'venta' and disponibleF=1 and f.id_cliente=${id}`;
     conection.query(query,(err,results)=>{
         if (err) throw err;
         res.json(results)
