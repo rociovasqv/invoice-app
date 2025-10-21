@@ -192,6 +192,21 @@ INSERT INTO facturas (id_cliente, id_subcliente, tipo, nro_factura, fecha_factur
 VALUES
   (2, 3, 'A', '0006-00000003', '2024-11-15', 900.00, 189.00, 1089.00, 'Venta'),
   (2, 4, 'A', '0006-00000004', '2024-11-16', 1100.00, 231.00, 1331.00, 'Venta');
+
+-- Facturas de compra para los subproveedores restantes
+
+-- Subproveedores del cliente 'Ferretería López'
+INSERT INTO facturas (id_cliente, id_subproveedor, tipo, nro_factura, fecha_factura, importe_neto, importe_iva, importe_total, tipo_factura)
+VALUES
+  (2, 3, 'A', '0007-00000001', '2024-11-17', 1300.00, 273.00, 1573.00, 'Compra'),
+  (2, 4, 'A', '0007-00000002', '2024-11-18', 1600.00, 336.00, 1936.00, 'Compra');
+
+-- Subproveedores del cliente 'Almacén La Esquina'
+INSERT INTO facturas (id_cliente, id_subproveedor, tipo, nro_factura, fecha_factura, importe_neto, importe_iva, importe_total, tipo_factura)
+VALUES
+  (1, 5, 'B', '0008-00000001', '2024-11-19', 700.00, 147.00, 847.00, 'Compra'),
+  (1, 6, 'B', '0008-00000002', '2024-11-20', 950.00, 199.50, 1149.50, 'Compra');
+
     
     SELECT * FROM clientes;
     
