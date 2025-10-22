@@ -4,8 +4,8 @@ const router = express.Router();
 
 router.get('/facturas/compras', obtenerFacturasCompras);   // Consultar facturas
 router.get('/facturas/ventas', obtenerFacturasVentas);   // Consultar facturas
-router.get('/facturas/compras/:id/subproveedor', obtenerFacturasComprasSubProveedor); // Consultar facturas por subproveedor
-router.get('/facturas/ventas/:id/subcliente', obtenerFacturasVentaSubCliente); // Consultar facturas por subcliente
+router.get('/facturas/compras/:idCp/subproveedor', obtenerFacturasComprasSubProveedor); // Consultar facturas por subproveedor
+router.get('/facturas/ventas/:idCs/subcliente', obtenerFacturasVentaSubCliente); // Consultar facturas por subcliente
 router.get('/facturas/compras/:id',filtrarFacturasCompras)
 router.get('/facturas/ventas/:id',filtrarFacturasVentas)
 router.post('/facturas/compras/agregar', registrarFacturaCompra); // Registrar compra/venta

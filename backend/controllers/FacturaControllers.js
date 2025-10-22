@@ -51,33 +51,6 @@ const obtenerFacturasVentas = async (req, res) => {
         res.json(results)
     })
 };
-
-const obtenerFacturasComprasSubProveedor = async (req, res) => {
-    const id = req.params.id
-    const query = `
-            SELECT f.id_factura, f.nro_factura, DATE_FORMAT(f.fecha_factura, '%Y-%m-%d') AS fecha_factura, f.importe_neto, f.importe_iva, f.importe_total,f.tipo,f.id_cliente, 
-                   sp.razon_social_subproveedor,sp.cuit_subproveedor
-            FROM facturas f
-            JOIN subproveedores sp ON f.id_subproveedor = sp.id_subproveedor
-            WHERE f.tipo_factura = 'compra' and disponibleF=1 and f.id_cliente=${id}`;
-    conection.query(query,(err,results)=>{
-        if (err) throw err;
-        res.json(results)
-    })
-};
-const obtenerFacturasVentaSubCliente = async (req, res) => {
-    const id = req.params.id
-    const query = `
-            SELECT f.id_factura, f.nro_factura, DATE_FORMAT(f.fecha_factura, '%Y-%m-%d') AS fecha_factura, f.importe_neto, f.importe_iva, f.importe_total,f.tipo,f.id_cliente, 
-                   sc.razon_social_subcliente,sc.cuit_subcliente
-            FROM facturas f
-            JOIN subclientes sc ON f.id_subcliente = sc.id_subcliente
-            WHERE f.tipo_factura = 'venta' and disponibleF=1 and f.id_cliente=${id}`;
-    conection.query(query,(err,results)=>{
-        if (err) throw err;
-        res.json(results)
-    })
-};
 const filtrarFacturasCompras = async (req, res) => {
     const id = req.params.id
     const query = `
@@ -189,6 +162,45 @@ const informeFacturasVentas = async (req, res) => {
         res.json(results)
     })
 };
+// Consultar facturas por subproveedor se toma como id el id del cliente al que pertenece el subproveedor
+const obtenerFacturasComprasSubProveedor = async (req, res) => {
+    const idCp = req.params.idCp
+    const query = `
+            SELECT f.id_factura, f.nro_factura, DATE_FORMAT(f.fecha_factura, '%Y-%m-%d') AS fecha_factura, f.importe_neto, f.importe_iva, f.importe_total,f.tipo,f.id_cliente, 
+                   sp.razon_social_subproveedor,sp.cuit_subproveedor
+            FROM facturas f
+            JOIN subproveedores sp ON f.id_subproveedor = sp.id_subproveedor
+            WHERE f.tipo_factura = 'compra' and disponibleF=1 and f.id_cliente=${idCp}`;
+    conection.query(query,(err,results)=>{
+        if (err) throw err;
+        res.json(results)
+    })
+};
+
+const agregarFacturasComprasSubProveedor = async (req, res) => {
+    const idCp = req.params.idCp
+    const {cuit_subproveedor, tipo, nro_factura, fecha_factura, importe_neto, importe_iva, importe_total, tipo_factura} = req.body;
+    const query = ``
+    conection.query(query,(err,results)=>{
+        if (err) throw err;
+        res.json(results)
+    })
+}
+
+const obtenerFacturasVentaSubCliente = async (req, res) => {
+    const idSubcliente = req.params.idSubcliente
+    const query = `
+            SELECT f.id_factura, f.nro_factura, DATE_FORMAT(f.fecha_factura, '%Y-%m-%d') AS fecha_factura, f.importe_neto, f.importe_iva, f.importe_total,f.tipo,f.id_cliente, 
+                   sc.razon_social_subcliente,sc.cuit_subcliente
+            FROM facturas f
+            JOIN subclientes sc ON f.id_subcliente = sc.id_subcliente
+            WHERE f.tipo_factura = 'venta' and disponibleF=1 and f.id_cliente=${idSubcliente}`;
+    conection.query(query,(err,results)=>{
+        if (err) throw err;
+        res.json(results)
+    })
+};
+
 const eliminarFactura = (req,res) => {
     const id= req.params.id
     const query= `update facturas set disponibleF= 0 where id_factura='${id}'`
