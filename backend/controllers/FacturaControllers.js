@@ -2,12 +2,12 @@ const {conection} = require("../config/DB")
 
 // Registrar una nuevas facturas
 const registrarFacturaCompra = async (req, res) => {
-    const { cuit_proveedor,tipo, nro_factura, fecha_factura, importe_neto, importe_iva, importe_total, tipo_factura} = req.body;
+    const { cuit_proveedor,tipo, nro_factura, fecha_factura, importe_neto, importe_iva, importe_total} = req.body;
 
         const query = `
         INSERT INTO facturas (id_proveedor, tipo, nro_factura, fecha_factura, importe_neto, importe_iva, importe_total, tipo_factura)
         VALUES (
-        (SELECT id_proveedor FROM proveedores WHERE cuit_proveedor ='${cuit_proveedor}'),'${tipo}','${nro_factura}','${fecha_factura}',${importe_neto},${importe_iva},${importe_total},'${tipo_factura}');`;
+        (SELECT id_proveedor FROM proveedores WHERE cuit_proveedor ='${cuit_proveedor}'),'${tipo}','${nro_factura}','${fecha_factura}',${importe_neto},${importe_iva},${importe_total},'Compra');`;
         conection.query(query,(err,results)=>{
             if(err) throw err;
             res.send(results)
@@ -15,11 +15,11 @@ const registrarFacturaCompra = async (req, res) => {
 };
 
 const registrarFacturaVenta = async (req, res) => {
-    const { cuit_cliente, tipo, nro_factura, fecha_factura, importe_neto, importe_iva, importe_total,tipo_factura } = req.body;
+    const { cuit_cliente, tipo, nro_factura, fecha_factura, importe_neto, importe_iva, importe_total } = req.body;
 
         const query = `
         INSERT INTO facturas (id_cliente, tipo, nro_factura, fecha_factura, importe_neto, importe_iva, importe_total, tipo_factura)
-        VALUES ((SELECT id_cliente FROM clientes WHERE cuit_cliente ='${cuit_cliente}'),'${tipo}','${nro_factura}','${fecha_factura}',${importe_neto},${importe_iva},${importe_total},'${tipo_factura}');`;
+        VALUES ((SELECT id_cliente FROM clientes WHERE cuit_cliente ='${cuit_cliente}'),'${tipo}','${nro_factura}','${fecha_factura}',${importe_neto},${importe_iva},${importe_total},'Venta');`;
         conection.query(query,(err,results)=>{
             if(err) throw err;
             res.send(results)
@@ -179,8 +179,11 @@ const obtenerFacturasComprasSubProveedor = async (req, res) => {
 
 const agregarFacturasComprasSubProveedor = async (req, res) => {
     const idCp = req.params.idCp
-    const {cuit_subproveedor, tipo, nro_factura, fecha_factura, importe_neto, importe_iva, importe_total, tipo_factura} = req.body;
-    const query = ``
+    const {cuit_subproveedor, tipo, nro_factura, fecha_factura, importe_neto, importe_iva, importe_total} = req.body;
+    const query = `
+        INSERT INTO facturas (id_subproveedor, tipo, nro_factura, fecha_factura, importe_neto, importe_iva, importe_total, tipo_factura)
+        VALUES (
+        (SELECT id_subproveedor FROM subproveedores WHERE cuit_subproveedor ='${cuit_subproveedor}'),'${tipo}','${nro_factura}','${fecha_factura}',${importe_neto},${importe_iva},${importe_total},'compra');`;
     conection.query(query,(err,results)=>{
         if (err) throw err;
         res.json(results)
