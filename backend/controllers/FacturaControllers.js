@@ -188,7 +188,26 @@ const agregarFacturasComprasSubProveedor = async (req, res) => {
         res.json(results)
     })
 }
-
+const editarFacturaComprasSubProveedor = async (req, res) => {
+    const idCp = req.params.idCp
+    const { cuit_subproveedor, tipo, nro_factura, fecha_factura, importe_neto, importe_iva, importe_total, tipo_factura } = req.body;
+    const query = `
+        UPDATE facturas
+        SET 
+            id_subproveedor = (SELECT id_subproveedor FROM subproveedores WHERE cuit_subproveedor = '${cuit_subproveedor}'),
+            tipo = '${tipo}',
+            nro_factura = '${nro_factura}',
+            fecha_factura = '${fecha_factura}',
+            importe_neto = ${importe_neto},
+            importe_iva = ${importe_iva},
+            importe_total = ${importe_total},
+            tipo_factura = '${tipo_factura}'
+        WHERE id_cliente = ${idCp};`;
+    conection.query(query, (err, results) => {
+        if (err) throw err;
+        res.json(results)
+    });
+}
 const obtenerFacturasVentaSubCliente = async (req, res) => {
     const idSubcliente = req.params.idSubcliente
     const query = `
@@ -202,6 +221,37 @@ const obtenerFacturasVentaSubCliente = async (req, res) => {
         res.json(results)
     })
 };
+const agregarFacturasVentaSubCliente = async (req, res) => {
+    const idCs = req.params.idCs
+    const query = `
+        INSERT INTO facturas (id_cliente,id_subcliente, tipo, nro_factura, fecha_factura, importe_neto, importe_iva, importe_total, tipo_factura)
+        VALUES (${idCs},(SELECT id_subcliente FROM subclientes WHERE cuit_subcliente ='${cuit_subcliente}'),'${tipo}','${nro_factura}','${fecha_factura}',${importe_neto},${importe_iva},${importe_total},'venta');`;
+    conection.query(query,(err,results)=>{
+        if (err) throw err;
+        res.json(results)
+    })
+}
+
+const editarFacturaVentaSubCliente = async (req, res) => {
+    const idCs = req.params.idCs
+    const { cuit_subcliente, tipo, nro_factura, fecha_factura, importe_neto, importe_iva, importe_total, tipo_factura } = req.body;
+    const query = `
+        UPDATE facturas
+        SET
+            id_subcliente = (SELECT id_subcliente FROM subclientes WHERE cuit_subcliente = '${cuit_subcliente}'),
+            tipo = '${tipo}',
+            nro_factura = '${nro_factura}',
+            fecha_factura = '${fecha_factura}',
+            importe_neto = ${importe_neto},
+            importe_iva = ${importe_iva},
+            importe_total = ${importe_total},
+            tipo_factura = '${tipo_factura}'
+        WHERE id_cliente = ${idCs};`;
+    conection.query(query, (err, results) => {
+        if (err) throw err;
+        res.json(results)
+    });
+}
 
 const eliminarFactura = (req,res) => {
     const id= req.params.id
@@ -212,5 +262,12 @@ const eliminarFactura = (req,res) => {
     })
 }
 
-module.exports = { registrarFacturaCompra,registrarFacturaVenta, obtenerFacturasCompras,obtenerFacturasVentas,obtenerFacturasVentaSubCliente,obtenerFacturasComprasSubProveedor,filtrarFacturasCompras,filtrarFacturasVentas,editarFacturaCompra,editarFacturaVenta,eliminarFactura,informeFacturasCompras,informeFacturasVentas};
+module.exports = { registrarFacturaCompra,registrarFacturaVenta, 
+obtenerFacturasCompras,obtenerFacturasVentas,
+obtenerFacturasVentaSubCliente,obtenerFacturasComprasSubProveedor,
+agregarFacturasComprasSubProveedor,agregarFacturasVentaSubCliente,
+editarFacturaComprasSubProveedor,editarFacturaVentaSubCliente,
+filtrarFacturasCompras,filtrarFacturasVentas,
+editarFacturaCompra,editarFacturaVenta,
+eliminarFactura,informeFacturasCompras,informeFacturasVentas};
 
