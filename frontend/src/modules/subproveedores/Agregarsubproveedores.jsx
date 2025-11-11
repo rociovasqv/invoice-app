@@ -3,35 +3,35 @@ import { Form, Button, Container, Row, Col, Alert } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-import { URL_SUBCLIENTES_AGREGAR } from "../../constants/constantes";
+import { URL_SUBPROVEEDORES_AGREGAR } from "../../constants/constantes";
 
-const AgregarSubclienteForm = () => {
- const [subcliente,setSubliente] = useState()
+const Agregarsubproveedores = () => {
+  const [subproveedor, setSubproveedor] = useState()
 
- const estadoInicial = {
-  id_cliente: "",
-  razon_social_subcliente: "",
-  cuit_subcliente: "",
-}
-
-const navigate = useNavigate();
-
-const handleSubmit = async (e)=>{
-  e.preventDefault()
-  let response = await axios.post(URL_SUBCLIENTES_AGREGAR,{
-    id_cliente : subcliente.id_cliente,
-    razon_social_subcliente : subcliente.razon_social_subcliente,
-    cuit_subcliente : subcliente.cuit_subcliente
-  })
-  if(response){
-    alert("Se agrego Proveedor")
-    navigate("/subclientes")
+  const estadoInicial = {
+    id_cliente: "",
+    razon_social_subproveedor: "",
+    cuit_subproveedor: "",
   }
-}
 
-const handleChange = (e) => {
-  setSubliente({...subcliente,[e.target.name]:e.target.value})
-};
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    let response = await axios.post(URL_SUBPROVEEDORES_AGREGAR, {
+      id_cliente: subproveedor.id_cliente,
+      razon_social_subproveedor: subproveedor.razon_social_subproveedor,
+      cuit_subproveedor: subproveedor.cuit_subproveedor,
+    })
+    if (response) {
+      alert("Se agrego Subproveedor")
+      navigate("/subproveedores")
+    }
+  }
+
+  const handleChange = (e) => {
+    setSubproveedor({ ...subproveedor, [e.target.name]: e.target.value })
+  };
 
   return (
     <Container className="my-5">
@@ -55,7 +55,7 @@ const handleChange = (e) => {
               <Form.Label>Razón Social</Form.Label>
               <Form.Control
                 type="text"
-                name="razon_social_subcliente"
+                name="razon_social_subproveedor"
                 onChange={handleChange}
                 placeholder="Ej: Empresa XYZ"
                 required
@@ -67,7 +67,7 @@ const handleChange = (e) => {
               <Form.Label>CUIT</Form.Label>
               <Form.Control
                 type="text"
-                name="cuit_subcliente"
+                name="cuit_subproveedor"
                 onChange={handleChange}
                 placeholder="Ej: 20-12345678-9"
                 required
@@ -82,15 +82,13 @@ const handleChange = (e) => {
           <Button
             variant="secondary"
             className="ms-3"
-            onClick={() => navigate("/subclientes")}
+            onClick={() => navigate("/subproveedores")}
           >Cancelar
           </Button>
         </div>
       </Form>
     </Container>
-  );
-};
+  )
+}
 
-export default AgregarSubclienteForm;
-
-
+export default Agregarsubproveedores;
