@@ -11,17 +11,20 @@ const NavbarComp = () => {
             <Nav.Link as={Link} to="/" className='' aria-current="page">Inicio</Nav.Link>
             <Nav.Link as={Link} to="/quienes-somos" className="">¿Quiénes somos?</Nav.Link>
             <Nav.Link as={Link} to="/servicios" className="">Servicios</Nav.Link>
-            <Nav.Link as={Link} to="/contact" className="">Contacto</Nav.Link>
+            <Nav.Link as={Link} to="/contacto" className="">Contacto</Nav.Link>
+            <Nav.Link as={Link} to="/inicio-sesion" className="ms-3">
+                <Button variant="outline-primary" className='me-4'>Iniciar Sesión</Button>
+            </Nav.Link>
+
         </>
     );
-
     return (
         <header>
             <Navbar
                 bg="light" data-bs-theme="light"
                 expand="md p-3"
                 fixed="top">
-                <Container fluid>
+                <Container fluid id='navbar'>
                     {/* Logo */}
                     <Navbar.Brand as={Link} to="/">
                         <Image className='logonav' src={logoAmp}></Image>
@@ -34,10 +37,7 @@ const NavbarComp = () => {
                     {/* Menú colapsable */}
                     <Navbar.Collapse id="menu">
                         <Nav className="ms-auto">
-                            <NavList />
-                            <Nav.Link as={Link} to="/inicio-sesion" className="ms-3">
-                                <Button variant="outline-primary">Iniciar Sesión</Button>
-                            </Nav.Link>
+                        <NavList/>
                         </Nav>
                     </Navbar.Collapse>
                 </Container>

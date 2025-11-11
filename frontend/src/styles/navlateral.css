@@ -1,0 +1,38 @@
+#tituloPanel{
+  font-size: smaller;
+}
+.pinned {
+  position: fixed;
+  width: 250px; /* Ajusta según tus necesidades */
+  height: 100vh;
+  z-index: 1045; /* Mayor que el nivel del contenido */
+}
+
+.nav-link {
+  padding: 0.5rem;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.nav-link:hover {
+  background-color: #f8f9fa; /* Fondo claro al pasar el mouse */
+  color: #0056b3; /* Texto azul */
+}
+
+.pinfij{
+  background: none;
+  border: none;
+  color: #0056b3;
+}
+#logotitle{
+  font-family: 'Times New Roman', Times, serif;
+}
+
+#divider{
+  height: 3px;
+  width: 50%;
+  margin-top: 50px;
+  margin-left: 25%;
+  background-color:#0056b3;
+  color: #0056b3;
+  border: solid #0e6ace;
+}
