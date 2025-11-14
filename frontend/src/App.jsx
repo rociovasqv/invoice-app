@@ -90,8 +90,9 @@ const App = () => {
               <Route path="/editar-cliente/:id" element={<EditarClienteForm/>}/>
               <Route path="/cliente-dashboard/:id" element={<ClientDashboard/>}/>
 
-              <Route path="/subclientes" element={<SubclientesPage/>}/>
-              <Route path="/registrar-subcliente" element={<AgregarSubclienteForm/>}/>
+              {/* <Route path="/subclientes" element={<SubclientesPage/>}/> */}
+              <Route path="/cliente/:id/subclientes" element={<SubclientesPage/>}/>
+              <Route path="/cliente/:id/registrar-subcliente" element={<AgregarSubclienteForm/>}/>
               <Route path="/editar-subcliente/:id" element={<EditarSubclienteForm/>}/>
 
               <Route path="/proveedores" element={<ProveedoresPage/>}/>

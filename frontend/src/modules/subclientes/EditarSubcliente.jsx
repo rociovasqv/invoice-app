@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
-import { Form, Button, Container, Row, Col, Alert } from "react-bootstrap";
+import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
 import { URL_SUBCLIENTES,URL_SUBCLIENTES_EDITAR } from "../../constants/constantes";
 
 const EditarSubclienteForm = () => {
- const [subcliente,setSubliente] = useState({})
+ const [subcliente,setSubliente] = useState({estadoInicial})
 
  const estadoInicial = {
   id_cliente: "",
@@ -26,7 +26,7 @@ const handleSubmit = async (e)=>{
   })
   if(response){
     alert("Subcliente Editado")
-    navigate("/subclientes")
+    navigate(`/cliente/${subcliente.id_cliente}/subclientes`)
   }
 }
 const getData = async() => {
@@ -50,7 +50,7 @@ useEffect(()=>{
 
   return (
     <Container className="my-5">
-      <h2 className="text-center mb-4">Agregar Subcliente</h2>
+      <h2 className="text-center mb-4">Editar Subcliente</h2>
       <Form onSubmit={handleSubmit}>
         <Row>
             <Col md={6}>
@@ -100,7 +100,7 @@ useEffect(()=>{
           <Button
             variant="secondary"
             className="ms-3"
-            onClick={() => navigate("/subclientes")}
+            onClick={() => navigate(`/cliente/${subcliente.id_cliente}/subclientes`)}
           >Cancelar
           </Button>
         </div>

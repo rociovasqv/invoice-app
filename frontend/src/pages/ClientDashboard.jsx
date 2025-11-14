@@ -44,7 +44,7 @@ const ClientDashboard = () => {
   const modules = [
     { title: "Gestión de Ventas", icon: "💰", description: "Registra y gestiona las ventas", path: "/ventas" },
     { title: "Gestión de Compras", icon: "📄", description: "Administra las compras realizadas", path: "/compras" },
-    { title: "Informes de venta", icon: "👤", description: "Generar informes para subclientes", path: "/subclientes" },
+    { title: "Informes de venta", icon: "👤", description: "Generar informes para subclientes", path: `/cliente/${id}/subclientes`},
     {title: "Informes de compra", icon: "📦", description: "Generar informes para proveedores", path: "/proveedores"},
   ];
   return (

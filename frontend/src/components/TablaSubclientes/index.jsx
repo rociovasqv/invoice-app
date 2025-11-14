@@ -1,6 +1,6 @@
 import { Table, Button, Container, Spinner, Alert, Row, Col } from "react-bootstrap";
 import { FaEdit, FaTrash } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import "../../styles/facturaTabla.css";
@@ -14,13 +14,17 @@ const TablaSublientesComp = () => {
 
   const navigate = useNavigate();
 
-  // Obtener subclientes desde la API
+  const {id} = useParams()
+
+  // Obtener subclientes desde la API (Filtrado)
   const getSubclientes = async () => {
     try {
       const response = await axios.get(URL_SUBCLIENTES);
       setSubclientes(response.data);
+      const filteredSC = response.data.filter(subcliente => subcliente.id_cliente == parseInt(id));
+      setSubclientes(filteredSC);
     } catch (error) {
-      setError("Error al cargar los subclientes.");
+      setError("Error al cargar los subclientes.", error);
     } finally {
       setLoading(false);
     }
@@ -58,9 +62,9 @@ const TablaSublientesComp = () => {
               <Button
                 variant="primary"
                 className="mt-3"
-                onClick={() => navigate("/registrar-subcliente")}
+                onClick={() => navigate(`/cliente/${id}/registrar-subcliente`)}
               >
-                Registrar subliente
+                Registrar subcliente
               </Button>
             </Col>
           </Row>
@@ -104,7 +108,7 @@ const TablaSublientesComp = () => {
               ) : (
                 <tr>
                   <td colSpan="6" className="text-center">
-                    No hay subclientes registrados.
+                    No hay subclientes registrados para este cliente. 
                   </td>
                 </tr>
               )}
