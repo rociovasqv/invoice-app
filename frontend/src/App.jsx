@@ -41,6 +41,7 @@ import EditarProveedorForm from "./modules/proveedores/EditarProveedor";
 import Dashboard from "./pages/Dashboard";
 import InformesCompra from "./modules/informesCompra/informeCompra";
 import InformesVenta from "./modules/informesVenta/FacturasCliente";
+import ClientDashboard from "./pages/ClientDashboard";
 
 // import InformesPage from "./modules/informes-iva/InformesPage";
 
@@ -68,7 +69,6 @@ const App = () => {
               <Route path="/inicio-sesion" element={<InicioSesion setUsuarioLogeado={setUsuarioLogeado} setIsLogin={setIsLogin}/>}/>
               
               <Route path="/dashboard" element={<Dashboard/>}/>
-
               <Route path="/usuarios" element={<Usuarios/>}/>
               <Route path="/usuarios/registro" element={<Register/>}/>
               {/* <Route path="/usuarios/crear" element={<UserForm isEdit={false} />} />
@@ -88,7 +88,7 @@ const App = () => {
               <Route path="/clientes" element={<ClientesPage/>}/>
               <Route path="/registrar-cliente" element={<AgregarClienteForm />}/>
               <Route path="/editar-cliente/:id" element={<EditarClienteForm/>}/>
-              
+              <Route path="/cliente-dashboard/:id" element={<ClientDashboard/>}/>
 
               <Route path="/subclientes" element={<SubclientesPage/>}/>
               <Route path="/registrar-subcliente" element={<AgregarSubclienteForm/>}/>
