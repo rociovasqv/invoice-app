@@ -1,18 +1,26 @@
-import { useState } from "react";
-import { Form, Button, Container, Row, Col, Alert } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Form, Button, Container, Row, Col } from "react-bootstrap";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
 import { URL_SUBCLIENTES_AGREGAR } from "../../constants/constantes";
 
 const AgregarSubclienteForm = () => {
- const [subcliente,setSubliente] = useState()
+  const [subcliente, setSubliente] = useState({
+    id_cliente: "",
+    razon_social_subcliente: "",
+    cuit_subcliente: "",
+  });
 
- const estadoInicial = {
-  id_cliente: "",
-  razon_social_subcliente: "",
-  cuit_subcliente: "",
-}
+
+const {id} = useParams();
+
+ useEffect(() => {
+    if (id) {
+      setSubliente((prev) => ({ ...prev, id_cliente: id }));
+    }
+  }, [id]);
+
 
 const navigate = useNavigate();
 
@@ -24,8 +32,8 @@ const handleSubmit = async (e)=>{
     cuit_subcliente : subcliente.cuit_subcliente
   })
   if(response){
-    alert("Se agrego Proveedor")
-    navigate("/subclientes")
+    alert("Subcliente agregado con éxitos")
+    navigate(`/cliente/${subcliente.id_cliente}/subclientes`)
   }
 }
 
@@ -44,6 +52,7 @@ const handleChange = (e) => {
               <Form.Control
                 type="number"
                 name="id_cliente"
+                value={subcliente.id_cliente}
                 onChange={handleChange}
                 placeholder="Ej:1,2,3"
                 required
@@ -56,6 +65,7 @@ const handleChange = (e) => {
               <Form.Control
                 type="text"
                 name="razon_social_subcliente"
+                value={subcliente.razon_social_subcliente}
                 onChange={handleChange}
                 placeholder="Ej: Empresa XYZ"
                 required
@@ -68,6 +78,7 @@ const handleChange = (e) => {
               <Form.Control
                 type="text"
                 name="cuit_subcliente"
+                value={subcliente.cuit_subcliente}
                 onChange={handleChange}
                 placeholder="Ej: 20-12345678-9"
                 required
@@ -82,7 +93,8 @@ const handleChange = (e) => {
           <Button
             variant="secondary"
             className="ms-3"
-            onClick={() => navigate("/subclientes")}
+            onClick={() => navigate(`/cliente/${subcliente.id_cliente}/subclientes`)}
+            // disabled={isSubmit}
           >Cancelar
           </Button>
         </div>
@@ -94,3 +106,44 @@ const handleChange = (e) => {
 export default AgregarSubclienteForm;
 
 
+ // const [subcliente, setSubliente] = useState({
+  //   razon_social: "",
+  //   cuit: "",
+  // });
+
+  // const [error, setError] = useState(null);
+  // const [isSubmit, setIsSubmit] = useState(false);
+  // const navigate = useNavigate();
+
+  // // Manejar los cambios en los campos del formulario
+  // const handleChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setSubliente((prev) => ({
+  //     ...prev,
+  //     [name]: value,
+  //   }));
+  // };
+
+  // // Manejar la acción de envío (crear o editar)
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   setError(null);
+  //   setIsSubmit(true);
+
+  //   try {
+  //     if (subcliente) {
+  //       // Editar cliente
+  //       await axios.put(`${URL_SUBCLIENTES_EDITAR}/${subcliente.id_subcliente}`, subcliente);
+  //       alert("Subcliente editado exitosamente.");
+  //     } else {
+  //       // Crear cliente
+  //       await axios.post(URL_SUBCLIENTES_AGREGAR, subcliente);
+  //       alert("Subcliente registrado exitosamente.");
+  //     }
+  //     navigate("/subclientes"); // Redirigir a la lista de clientes
+  //   } catch (err) {
+  //     setError("Error al guardar los datos del cliente.");
+  //   } finally {
+  //     setIsSubmit(false);
+  //   }
+  // };

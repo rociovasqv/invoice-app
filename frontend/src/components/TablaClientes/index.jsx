@@ -1,5 +1,5 @@
 import { Table, Button, Container, Spinner, Row, Col } from "react-bootstrap";
-import { FaEdit, FaTrash, FaEye} from "react-icons/fa";
+import { FaEdit, FaTrash, FaEye, FaFileAlt} from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -115,7 +115,13 @@ const gestionarCliente = (clienteId) => {
                       variant="link"
                       size="sm"
                       onClick={() => verFacturasCliente(cliente.id_cliente)}>
-                      <FaEye />
+                      <FaFileAlt />
+                      </Button>
+                      <Button
+                      variant="link"
+                      size="sm"
+                      onClick={()=> navigate(`/cliente-dashboard/${cliente.id_cliente}`)}>
+                      <FaEye/>
                       </Button>
                       <Button
                       variant="link"

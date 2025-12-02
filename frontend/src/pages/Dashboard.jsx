@@ -8,8 +8,9 @@ const Dashboard = () => {
     { title: "Gestión de Compras", icon: "📄", description: "Administra las compras realizadas", path: "/compras" },
     // { title: "Carga de Comprobantes", icon: "🛒📄", description: "Simplifica la carga de comprobantes.", path: "/comprobantes" },
     // { title: "Informes Impositivos", icon: "📊", description: "Genera informes y reportes.", path: "/informes" },
-    { title: "Informes de venta", icon: "👤", description: "Generar informes para clientes", path: "/clientes" },
+    //{ title: "Informes de venta", icon: "👤", description: "Generar informes para clientes", path: "/clientes" },
     {title: "Informes de compra", icon: "📦", description: "Generar informes para proveedores", path: "/proveedores"},
+    { title: "Clientes", icon: "👤", description: "Visualizar la lista de clientes", path: "/clientes" },
     // { title: "Usuarios y Seguridad", icon: "🔒", description: "Administra roles y permisos", path: "/usuarios" },
   ];
   return (
