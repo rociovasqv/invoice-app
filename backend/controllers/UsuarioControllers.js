@@ -4,7 +4,7 @@ const bcrypt = require ('bcrypt')
 const AllUsers = async (req,res) => {
     const query = `
      Select u.id,u.nombre,r.nombre_rol
-     from Usuarios u 
+     from usuarios u 
      join roles r on u.rol_id = r.id_rol
      where disponibleU = 1`
     conection.query(query,(err,results)=> {
@@ -14,19 +14,26 @@ const AllUsers = async (req,res) => {
 }
 const register = async (req,res)=>{
     const {nombre,password,rol} = req.body;
+    const rolId = parseInt(rol, 10);
+
+    if (!nombre || !password || isNaN(rolId)) {
+        return res.status(400).json({ error: 'Todos los campos son obligatorios y el rol debe ser un número válido' });
+    }
 
     try {
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        const query = `insert into Usuarios(nombre,password,rol_id) values ('${nombre}','${hashedPassword}','${rol}')`;
+        const query = `insert into usuarios(nombre,password,rol_id) values ('${nombre}','${hashedPassword}','${rol}')`;
         conection.query(query, (err,result)=> {
             if (err) {
-                return res.status(500).json ({error: err})
+                console.error('❌ Error al registrar usuario:', err);
+                return res.status(500).json({ error: 'Error al registrar usuario' });
             }
             res.status(201).json({message: 'Usuario registrado'})
         })
     } catch (err) {
-        res.status(500).json({error:'Error al registrar usuario'})
+        console.error('💥 Error en hashing o registro:', err);
+        res.status(500).json({ error: 'Error interno del servidor' });
     }
 }
 
@@ -34,7 +41,7 @@ const login = async (req,res) => {
     const nombre = req.body.nombre;
     const password = req.body.password;
 
-    const query = `SELECT * FROM Usuarios WHERE nombre = '${nombre}'`
+    const query = `SELECT * FROM usuarios WHERE nombre = '${nombre}'`
     conection.query (query , async (err, results)=>{
         if (err) {
             return res.status(500).json({ error: err });

@@ -15,7 +15,10 @@ const app = express();
 const port = 8000;
 
 app.use(express.json())
-app.use(cors())
+app.use(cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+}))
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true })); 
@@ -32,9 +35,13 @@ app.get("/",(req,res)=>{
     res.send({message:"Welcome to my API"})
 })
 
-conection.connect(()=>{
-    console.log("conectado a mi DB");
-})
+conection.connect((err) => {
+    if (err) {
+        console.error('❌ Error al conectar a la DB:', err);
+        return;
+    }
+    console.log('✅ Conectado a la base de datos MySQL en Railway');
+});
 
 app.listen(port,()=>{
     console.log("Escuchando en el puerto"+port);

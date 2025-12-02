@@ -18,7 +18,7 @@ const buscarClientes = (req,res)=>{
 const agregarClientes = (req,res) => {
     const {razon_social_cliente,cuit_cliente,condicion_iva,domicilio_fiscal} =req.body 
 
-    const query = `insert into Clientes (razon_social_cliente,cuit_cliente,condicion_iva,domicilio_fiscal) values ('${razon_social_cliente}','${cuit_cliente}','${condicion_iva}','${domicilio_fiscal}')`
+    const query = `insert into clientes (razon_social_cliente,cuit_cliente,condicion_iva,domicilio_fiscal) values ('${razon_social_cliente}','${cuit_cliente}','${condicion_iva}','${domicilio_fiscal}')`
 
     conection.query(query,(err,results)=> {
         if (err) throw err
