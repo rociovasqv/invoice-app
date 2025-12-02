@@ -47,6 +47,7 @@ import EditarProveedorForm from "./modules/proveedores/EditarProveedor";
 import Dashboard from "./pages/Dashboard";
 import InformesCompra from "./modules/informesCompra/informeCompra";
 import InformesVenta from "./modules/informesVenta/FacturasCliente";
+import ClientDashboard from "./pages/ClientDashboard";
 
 // import InformesPage from "./modules/informes-iva/InformesPage";
 
@@ -74,7 +75,6 @@ const App = () => {
               <Route path="/inicio-sesion" element={<InicioSesion setUsuarioLogeado={setUsuarioLogeado} setIsLogin={setIsLogin}/>}/>
               
               <Route path="/dashboard" element={<Dashboard/>}/>
-
               <Route path="/usuarios" element={<Usuarios/>}/>
               <Route path="/usuarios/registro" element={<Register/>}/>
               {/* <Route path="/usuarios/crear" element={<UserForm isEdit={false} />} />
@@ -98,8 +98,9 @@ const App = () => {
               <Route path="/gestionar-cliente/:id" element={<GestionClientes/>}/>
               
 
-              <Route path="/subclientes" element={<SubclientesPage/>}/>
-              <Route path="/registrar-subcliente" element={<AgregarSubclienteForm/>}/>
+              {/* <Route path="/subclientes" element={<SubclientesPage/>}/> */}
+              <Route path="/cliente/:id/subclientes" element={<SubclientesPage/>}/>
+              <Route path="/cliente/:id/registrar-subcliente" element={<AgregarSubclienteForm/>}/>
               <Route path="/editar-subcliente/:id" element={<EditarSubclienteForm/>}/>
 
               <Route path="/subproveedores" element={<SubproveedoresPage/>}/>
