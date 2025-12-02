@@ -44,22 +44,9 @@ const handleChange = (e) => {
   return (
     <Container className="my-5">
       <h2 className="text-center mb-4">Agregar Subcliente</h2>
-      {/* {error && <Alert variant="danger">{error}</Alert>} */}
       <Form onSubmit={handleSubmit}>
         <Row>
-        {/* <Col md={6}>
-            <Form.Group className="mb-3">
-              <Form.Label>ID del cliente</Form.Label>
-              <Form.Control
-                type="number"
-                name="id"
-                value={cliente.id_cliente}
-                onChange={handleChange}
-                required
-              />
-            </Form.Group>
-          </Col> */}
-                    <Col md={6}>
+            <Col md={6}>
             <Form.Group className="mb-3">
               <Form.Label>Cliente</Form.Label>
               <Form.Control
@@ -102,7 +89,6 @@ const handleChange = (e) => {
         <div className="text-center">
           <Button variant="primary" type="submit">
             Agregar
-            {/* {isSubmit ? "Guardando..." : subcliente ? "Guardar Cambios" : "Registrar Subcliente"} */}
           </Button>
           <Button
             variant="secondary"

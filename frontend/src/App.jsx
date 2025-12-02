@@ -29,10 +29,16 @@ import ClientesPage from "./modules/clientes/Clientes";
 import AgregarClienteForm from "./modules/clientes/AgregarClienteForm";
 import EditarClienteForm from "./modules/clientes/EditarCliente";
 
+import GestionClientes from "./modules/GestionClientes/GestionClientes";
+
 
 import SubclientesPage from "./modules/subclientes/subclientesPage";
 import AgregarSubclienteForm from "./modules/subclientes/AgregarsubclienteForm";
 import EditarSubclienteForm from "./modules/subclientes/EditarSubcliente";
+
+import SubproveedoresPage from "./modules/subproveedores/SubproveedoresPage";
+import AgregarSubproveedorForm from "./modules/subproveedores/Agregarsubproveedores";
+import EditarSubproveedorForm from "./modules/subproveedores/Editarsubproveedores";
 
 import ProveedoresPage from "./modules/proveedores/proveedoresPage";
 import AgregarProveedorForm from "./modules/proveedores/AgregarproveedorForm";
@@ -88,12 +94,18 @@ const App = () => {
               <Route path="/clientes" element={<ClientesPage/>}/>
               <Route path="/registrar-cliente" element={<AgregarClienteForm />}/>
               <Route path="/editar-cliente/:id" element={<EditarClienteForm/>}/>
-              <Route path="/cliente-dashboard/:id" element={<ClientDashboard/>}/>
+
+              <Route path="/gestionar-cliente/:id" element={<GestionClientes/>}/>
+              
 
               {/* <Route path="/subclientes" element={<SubclientesPage/>}/> */}
               <Route path="/cliente/:id/subclientes" element={<SubclientesPage/>}/>
               <Route path="/cliente/:id/registrar-subcliente" element={<AgregarSubclienteForm/>}/>
               <Route path="/editar-subcliente/:id" element={<EditarSubclienteForm/>}/>
+
+              <Route path="/subproveedores" element={<SubproveedoresPage/>}/>
+              <Route path="/registrar-subproveedor" element={<AgregarSubproveedorForm/>}/>
+              <Route path="/editar-subproveedor/:id" element={<EditarSubproveedorForm/>}/>
 
               <Route path="/proveedores" element={<ProveedoresPage/>}/>
               <Route path="/registrar-proveedor" element={<AgregarProveedorForm/>}/>

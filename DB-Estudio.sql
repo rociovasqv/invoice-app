@@ -1,3 +1,4 @@
+DROP DATABASE IF EXISTS Ampuero;
 CREATE DATABASE Ampuero;
 USE Ampuero;
 
@@ -44,12 +45,21 @@ CREATE TABLE proveedores (
     FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente),
     disponibleP bool default 1
 );
+CREATE TABLE subproveedores (
+    id_subproveedor INT PRIMARY KEY AUTO_INCREMENT,
+    id_cliente INT,
+    razon_social_subproveedor VARCHAR(255) NOT NULL,
+    cuit_subproveedor VARCHAR(20) NOT NULL UNIQUE,
+    FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente),
+    disponibleSP bool default 1
+);
 
-CREATE TABLE facturas (
+CREATE TABLE facturas ( 
     id_factura INT PRIMARY KEY AUTO_INCREMENT,
     id_cliente INT NULL,
     id_subcliente INT NULL,
     id_proveedor INT NULL,
+    id_subproveedor INT NULL,
     tipo ENUM('A', 'B', 'C', 'Nota de Débito A', 'Nota de Débito B', 'Nota de Débito C', 
               'Nota de Crédito A', 'Nota de Crédito B', 'Nota de Crédito C') NOT NULL,
     nro_factura VARCHAR(50) NOT NULL,
@@ -61,10 +71,11 @@ CREATE TABLE facturas (
     FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente),
     FOREIGN KEY (id_subcliente) REFERENCES subclientes(id_subcliente),
     FOREIGN KEY (id_proveedor) REFERENCES proveedores(id_proveedor),
+    FOREIGN KEY (id_subproveedor) REFERENCES subproveedores(id_subproveedor),
     disponibleF bool default 1
 );
 
-INSERT INTO roles(nombre)
+INSERT INTO roles(nombre_rol)
 values('contador'),
 ('empleado');
 
@@ -85,27 +96,17 @@ VALUES ('Ferretería López', '30-87654321-0', 'Responsable Inscripto', 'Av. Pri
 INSERT INTO clientes (razon_social_cliente, cuit_cliente, condicion_iva, domicilio_fiscal) 
 VALUES ('Tienda El Sol', '30-11223344-5', 'Responsable Inscripto', 'Ruta Nacional 12, Ciudad C');
 
--- Agregar subclientes y proveedores para el cliente 'Almacén La Esquina'
-INSERT INTO subclientes (id_cliente, razon_social_subcliente, cuit_subcliente)
-VALUES 
-    (1, 'Subcliente La Esquina 1', '20-22334455-6'),
-    (1, 'Subcliente La Esquina 2', '20-33445566-7');
-
-INSERT INTO proveedores (id_cliente, razon_social_proveedor, cuit_proveedor)
-VALUES 
-    (1, 'Proveedor La Esquina 1', '30-44556677-8'),
-    (1, 'Proveedor La Esquina 2', '30-55667788-9');
-
 -- Agregar subclientes y proveedores para el cliente 'Ferretería López'
 INSERT INTO subclientes (id_cliente, razon_social_subcliente, cuit_subcliente)
 VALUES 
     (2, 'Subcliente López 1', '20-66778899-0'),
     (2, 'Subcliente López 2', '20-77889900-1');
 
-INSERT INTO proveedores (id_cliente, razon_social_proveedor, cuit_proveedor)
+-- Agregar subclientes y proveedores para el cliente 'Almacén La Esquina'
+INSERT INTO subclientes (id_cliente, razon_social_subcliente, cuit_subcliente)
 VALUES 
-    (2, 'Proveedor López 1', '30-88990011-2'),
-    (2, 'Proveedor López 2', '30-99001122-3');
+    (1, 'Subcliente La Esquina 1', '20-22334455-6'),
+    (1, 'Subcliente La Esquina 2', '20-33445566-7');
 
 -- Agregar subclientes y proveedores para el cliente 'Tienda El Sol'
 INSERT INTO subclientes (id_cliente, razon_social_subcliente, cuit_subcliente)
@@ -113,10 +114,35 @@ VALUES
     (3, 'Subcliente El Sol 1', '20-00112233-4'),
     (3, 'Subcliente El Sol 2', '20-11223344-5');
 
+INSERT INTO subproveedores (id_cliente, razon_social_subproveedor, cuit_subproveedor)
+VALUES 
+    (3, 'Subproveedor El Sol 1', '20-00452233-4'),
+    (3, 'Subproveedor El Sol 2', '20-11229544-5');
+
+INSERT INTO subproveedores (id_cliente, razon_social_subproveedor, cuit_subproveedor)
+VALUES 
+    (2, 'SubProveedor López 1', '30-11223366-5'),
+    (2, 'SubProveedor López 2', '30-22254455-6');
+
+INSERT INTO subproveedores (id_cliente, razon_social_subproveedor, cuit_subproveedor)
+VALUES 
+    (1, 'Subproveedor La esquina 1', '20-35485566-7'),
+    (1, 'Subproveedor La esquina 2', '20-44556677-8');
+
+INSERT INTO proveedores (id_cliente, razon_social_proveedor, cuit_proveedor)
+VALUES 
+    (1, 'Proveedor La Esquina 1', '30-44556677-8'),
+    (1, 'Proveedor La Esquina 2', '30-55667788-9');
+
 INSERT INTO proveedores (id_cliente, razon_social_proveedor, cuit_proveedor)
 VALUES 
     (3, 'Proveedor El Sol 1', '30-22334455-6'),
     (3, 'Proveedor El Sol 2', '30-33445566-7');
+
+INSERT INTO proveedores (id_cliente, razon_social_proveedor, cuit_proveedor)
+VALUES 
+    (2, 'Proveedor López 1', '30-88990011-2'),
+    (2, 'Proveedor López 2', '30-99001122-3');
 
 -- Facturas para el cliente 'Almacén La Esquina'
 -- Facturas de venta (tipo C) - Solo se llena importe_total
@@ -156,6 +182,31 @@ INSERT INTO facturas (id_cliente, id_proveedor, tipo, nro_factura, fecha_factura
 VALUES 
     (3, 5, 'A', '0002-00000005', '2024-11-11', 2800.00, 588.00, 3388.00, 'Compra'),
     (3, 6, 'A', '0002-00000006', '2024-11-12', 3200.00, 672.00, 3872.00, 'Compra');
+
+INSERT INTO facturas (id_cliente, id_subproveedor, tipo, nro_factura, fecha_factura, importe_neto, importe_iva, importe_total, tipo_factura)
+VALUES
+  (3, 1, 'B', '0005-00000001', '2024-11-13', 500.00, 105.00, 605.00, 'Compra'),
+  (3, 2, 'B', '0005-00000002', '2024-11-14', 750.00, 157.50, 907.50, 'Compra');
+
+INSERT INTO facturas (id_cliente, id_subcliente, tipo, nro_factura, fecha_factura, importe_neto, importe_iva, importe_total, tipo_factura)
+VALUES
+  (2, 3, 'A', '0006-00000003', '2024-11-15', 900.00, 189.00, 1089.00, 'Venta'),
+  (2, 4, 'A', '0006-00000004', '2024-11-16', 1100.00, 231.00, 1331.00, 'Venta');
+
+-- Facturas de compra para los subproveedores restantes
+
+-- Subproveedores del cliente 'Ferretería López'
+INSERT INTO facturas (id_cliente, id_subproveedor, tipo, nro_factura, fecha_factura, importe_neto, importe_iva, importe_total, tipo_factura)
+VALUES
+  (2, 3, 'A', '0007-00000001', '2024-11-17', 1300.00, 273.00, 1573.00, 'Compra'),
+  (2, 4, 'A', '0007-00000002', '2024-11-18', 1600.00, 336.00, 1936.00, 'Compra');
+
+-- Subproveedores del cliente 'Almacén La Esquina'
+INSERT INTO facturas (id_cliente, id_subproveedor, tipo, nro_factura, fecha_factura, importe_neto, importe_iva, importe_total, tipo_factura)
+VALUES
+  (1, 5, 'B', '0008-00000001', '2024-11-19', 700.00, 147.00, 847.00, 'Compra'),
+  (1, 6, 'B', '0008-00000002', '2024-11-20', 950.00, 199.50, 1149.50, 'Compra');
+
     
     SELECT * FROM clientes;
     
