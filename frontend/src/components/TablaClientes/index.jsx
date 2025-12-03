@@ -117,12 +117,12 @@ const gestionarCliente = (clienteId) => {
                       onClick={() => verFacturasCliente(cliente.id_cliente)}>
                       <FaFileAlt />
                       </Button>
-                      <Button
+                      {/* <Button
                       variant="link"
                       size="sm"
                       onClick={()=> navigate(`/cliente-dashboard/${cliente.id_cliente}`)}>
                       <FaEye/>
-                      </Button>
+                      </Button> */}
                       <Button
                       variant="link"
                       size="sm"

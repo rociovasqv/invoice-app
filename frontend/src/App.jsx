@@ -95,13 +95,13 @@ const App = () => {
               <Route path="/registrar-cliente" element={<AgregarClienteForm />}/>
               <Route path="/editar-cliente/:id" element={<EditarClienteForm/>}/>
 
-              <Route path="/gestionar-cliente/:id" element={<GestionClientes/>}/>
+              <Route path="/gestionar-cliente/:id" element={<ClientDashboard/>}/>
               
 
               {/* <Route path="/subclientes" element={<SubclientesPage/>}/> */}
-              <Route path="/cliente/:id/subclientes" element={<SubclientesPage/>}/>
+              <Route path="/clientes/:id/subclientes" element={<SubclientesPage/>}/>
               <Route path="/cliente/:id/registrar-subcliente" element={<AgregarSubclienteForm/>}/>
-              <Route path="/editar-subcliente/:id" element={<EditarSubclienteForm/>}/>
+              <Route path="/editar-subcliente/:id" element={<EditarSubclienteForm/>}/>^
 
               <Route path="/subproveedores" element={<SubproveedoresPage/>}/>
               <Route path="/registrar-subproveedor" element={<AgregarSubproveedorForm/>}/>
